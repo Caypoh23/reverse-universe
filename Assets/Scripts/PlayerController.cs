@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        _isWalking = rb.velocity.x != 0;
+        _isWalking = Mathf.Abs(rb.velocity.x) >= 0.01f;
     }
 
     private void UpdateAnimations()
@@ -271,6 +271,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public int GetFacingDirection()
+    {
+        return _facingDirection;
+    }
+
     private void CheckDash()
     {
         if (_isDashing)
@@ -279,7 +284,7 @@ public class PlayerController : MonoBehaviour
             {
                 _canMove = false;
                 _canFlip = false;
-                rb.velocity = new Vector2(dashSpeed * _facingDirection, rb.velocity.y);
+                rb.velocity = new Vector2(dashSpeed * _facingDirection, 0);
                 _dashTimeLeft -= Time.deltaTime;
 
                 if (Mathf.Abs(transform.position.x - _lastImageXpos) > distanceBetweenImages)
@@ -407,6 +412,16 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
             }
         }
+    }
+
+    public void DisableFlip()
+    {
+        _canFlip = false;
+    }
+
+    public void EnableFlip()
+    {
+        _canFlip = true;
     }
 
     private void Flip()
