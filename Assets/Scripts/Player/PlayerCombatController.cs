@@ -19,7 +19,13 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private LayerMask whatIsDamageable;
     [SerializeField] private Animator anim;
 
+    [SerializeField] private PlayerController PC;
+
     private float _lastInputTime = Mathf.NegativeInfinity;
+
+    private float[] attackDetails = new float[2];
+
+    [SerializeField] private PlayerStats playerStats;
 
     private static readonly int CanAttack = Animator.StringToHash("canAttack");
     private static readonly int FirstAttack = Animator.StringToHash("firstAttack");
@@ -74,9 +80,13 @@ public class PlayerCombatController : MonoBehaviour
     {
         var detectedObjects = Physics2D.OverlapCircleAll(attack1HitBoxPos.position, attack1Radius,
             whatIsDamageable);
+
+        attackDetails[0] = attack1Damage;
+        attackDetails[1] = transform.position.x;
+
         foreach (var other in detectedObjects)
         {
-            other.transform.parent.SendMessage("Damage", attack1Damage);
+            other.transform.parent.SendMessage("Damage", attackDetails);
             // Instantiate hit particle
         }
     }
@@ -86,6 +96,27 @@ public class PlayerCombatController : MonoBehaviour
         _isAttacking = false;
         anim.SetBool(IsAttacking, _isAttacking);
         anim.SetBool(Attack1, false);
+    }
+
+    private void Damage(float[] attackDetails)
+    {
+        if (!PC.GetDashStatus())
+        {
+            int direction;
+            
+            playerStats.DecreaseHealth(attackDetails[0]);
+
+            if (attackDetails[1] < transform.position.x)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
+
+            PC.Knockback(direction);
+        }
     }
 
     private void OnDrawGizmos()
