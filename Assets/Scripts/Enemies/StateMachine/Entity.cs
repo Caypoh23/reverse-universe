@@ -8,6 +8,8 @@ public class Entity : MonoBehaviour
 {
     public FiniteStateMachine StateMachine;
 
+    public D_Entity entityData;
+
     public int FacingDirection { get; private set; }
 
     public Rigidbody2D Rb { get; private set; }
@@ -21,6 +23,8 @@ public class Entity : MonoBehaviour
 
     public virtual void Start()
     {
+        FacingDirection = 1;
+        
         AliveGO = transform.Find("Alive").gameObject;
         Rb = AliveGO.GetComponent<Rigidbody2D>();
         Anim = AliveGO.GetComponent<Animator>();
@@ -44,11 +48,29 @@ public class Entity : MonoBehaviour
         Rb.velocity = _velocityWorkspace;
     }
 
-    public virtual void CheckWall()
+    public virtual bool CheckWall()
     {
-        
+        return Physics2D.Raycast(wallCheck.position, AliveGO.transform.right, entityData.wallCheckDistance,
+            entityData.whatIsGround);
     }
-    
-    public virtual void CheckLedge(){}
-    
+
+    public virtual bool CheckLedge()
+    {
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, entityData.ledgeCheckDistance,
+            entityData.whatIsGround);
+    }
+
+    public virtual void Flip()
+    {
+        FacingDirection *= -1;
+        AliveGO.transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(wallCheck.position,
+            wallCheck.position + (Vector3) (Vector2.right * FacingDirection * entityData.wallCheckDistance));
+        Gizmos.DrawLine(ledgeCheck.position,
+            ledgeCheck.position + (Vector3) (Vector2.down * entityData.ledgeCheckDistance));
+    }
 }

@@ -95098,38 +95098,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 575389093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01845e195f5083418e673724667e56e, type: 3}
+  m_Script: {fileID: 11500000, guid: 183f31cbb7c10ec40b526c2b76437084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alive: {fileID: 1959552500}
-  aliveRb: {fileID: 1959552502}
-  aliveAnim: {fileID: 1959552505}
-  groundCheckDistance: 0.5
-  wallCheckDistance: 0.1
-  movementSpeed: 3
-  maxHealth: 30
-  knockbackDuration: 0.1
-  lastTouchDamageTime: 0
-  touchDamageCooldown: 0.2
-  touchDamage: 10
-  touchDamageWidth: 1.5
-  touchDamageHeight: 0.9
-  groundCheck: {fileID: 744441869}
+  entityData: {fileID: 11400000, guid: bc226022cb3f00046836d41ee7051243, type: 2}
   wallCheck: {fileID: 1290366262}
-  touchDamageCheck: {fileID: 1304330644}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  knockbackSpeed: {x: 10, y: 5}
-  hitParticle: {fileID: 7707011834283215466, guid: 83c3e2d7ef4f6bb428c0a7953cc382e0,
-    type: 3}
-  deathChunkParticle: {fileID: 5316661432368551799, guid: 5e8c0291d685e334fa855915ca3e9bed,
-    type: 3}
-  deathBloodParticle: {fileID: 6475779998934478914, guid: 6e9a459a64fb8d249b0e25ed0cf0dc49,
-    type: 3}
+  ledgeCheck: {fileID: 744441869}
+  idleStateData: {fileID: 11400000, guid: 6567711aaef5c6949be75f553ecb736b, type: 2}
+  moveStateData: {fileID: 11400000, guid: 5c29f3ee976283d4585a539f61df9520, type: 2}
 --- !u!1 &643887944
 GameObject:
   m_ObjectHideFlags: 0
@@ -95217,7 +95193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 744441869}
   m_Layer: 9
-  m_Name: GroundCheck
+  m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96386,7 +96362,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 8
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e383ee58fe0da42448dfd6687e0c2d53, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -96430,7 +96406,7 @@ SpriteRenderer:
   m_SortingLayerID: -246917095
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6369384564468328029, guid: c2d07e311710f2b4d81746106226fdbd,
+  m_Sprite: {fileID: 7942249098920568159, guid: 7f253f591e551d8409c49a17f2ad7aba,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -1,18 +1,65 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
-public class IdleState : MonoBehaviour
+public class IdleState : State
 {
-    // Start is called before the first frame update
-    void Start()
+    protected D_IdleState StateData;
+
+    protected bool FlipAfterIdle;
+    protected bool IsIdleTimeOver;
+
+    protected float IdleTime;
+
+    public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(
+        entity, stateMachine,
+        animBoolName)
     {
-        
+        StateData = stateData;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
+        base.Enter();
         
+        Entity.SetVelocity(0f);
+        IsIdleTimeOver = false;
+        SetRandomIdleTime();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        if (FlipAfterIdle)
+        {
+            Entity.Flip();
+        }
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        
+        if (Time.time >= StartTime + IdleTime)
+        {
+            IsIdleTimeOver = true;
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+    }
+
+    public void SetFlipAfterIdle(bool flip)
+    {
+        FlipAfterIdle = flip;
+    }
+
+    public void SetRandomIdleTime()
+    {
+        IdleTime = UnityEngine.Random.Range(StateData.minIdleTime, StateData.maxIdleTime);
     }
 }
