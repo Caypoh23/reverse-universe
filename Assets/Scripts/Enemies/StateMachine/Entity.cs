@@ -6,20 +6,36 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public FiniteStateMachine StateMachine;
-
-    public D_Entity entityData;
-
-    public int FacingDirection { get; private set; }
+    #region Components
 
     public Rigidbody2D Rb { get; private set; }
     public Animator Anim { get; private set; }
     public GameObject AliveGO { get; private set; }
 
+    #endregion
+
+    #region State Machine
+
+    
+    public FiniteStateMachine StateMachine;
+
+    [SerializeField] private D_Entity entityData;
+
+    #endregion
+
+    #region Variables and Check Transform
+
+    public int FacingDirection { get; private set; }
+    
+
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
 
     private Vector2 _velocityWorkspace;
+
+    #endregion
+
+    #region Unity Callback Functions
 
     public virtual void Start()
     {
@@ -42,11 +58,15 @@ public class Entity : MonoBehaviour
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
+    #endregion
+
     public virtual void SetVelocity(float velocity)
     {
         _velocityWorkspace.Set(FacingDirection * velocity, Rb.velocity.y);
         Rb.velocity = _velocityWorkspace;
     }
+
+    #region Check Functions
 
     public virtual bool CheckWall()
     {
@@ -59,6 +79,9 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, entityData.ledgeCheckDistance,
             entityData.whatIsGround);
     }
+
+    #endregion
+
 
     public virtual void Flip()
     {
