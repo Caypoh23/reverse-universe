@@ -95322,7 +95322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575389093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.19, y: 7.97, z: 0}
+  m_LocalPosition: {x: 0.28, y: 7.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1959552501}
@@ -95344,8 +95344,13 @@ MonoBehaviour:
   entityData: {fileID: 11400000, guid: bc226022cb3f00046836d41ee7051243, type: 2}
   wallCheck: {fileID: 1290366262}
   ledgeCheck: {fileID: 744441869}
+  playerCheck: {fileID: 1669108806}
   idleStateData: {fileID: 11400000, guid: 6567711aaef5c6949be75f553ecb736b, type: 2}
   moveStateData: {fileID: 11400000, guid: 5c29f3ee976283d4585a539f61df9520, type: 2}
+  playerDetectedData: {fileID: 11400000, guid: 038e517b0065b8d4184f5a9b7f8e951c, type: 2}
+  chargeStateData: {fileID: 11400000, guid: 283371190ed05e14c862a2868bae85b4, type: 2}
+  lookForPlayerStateData: {fileID: 11400000, guid: bd5a6e48a1b24a547acd47c366e4d9cb,
+    type: 2}
 --- !u!1 &643887944
 GameObject:
   m_ObjectHideFlags: 0
@@ -96006,6 +96011,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1669108805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1669108806}
+  m_Layer: 9
+  m_Name: PlayerCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1669108806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669108805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.185, y: -0.439, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1959552501}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1899959972
 GameObject:
   m_ObjectHideFlags: 0
@@ -96583,6 +96618,7 @@ Transform:
   - {fileID: 744441869}
   - {fileID: 1290366262}
   - {fileID: 1304330644}
+  - {fileID: 1669108806}
   m_Father: {fileID: 575389094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

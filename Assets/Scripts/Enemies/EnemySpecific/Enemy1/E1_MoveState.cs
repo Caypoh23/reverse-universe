@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class E1_MoveState : MoveState
@@ -27,7 +28,11 @@ public class E1_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (IsDetectingWall || !IsDetectingLedge)
+        if (IsPlayerInMinAgroRange)
+        {
+            StateMachine.ChangeState(_enemy.PlayerDetectedState);
+        }
+        else if (IsDetectingWall || !IsDetectingLedge)
         {
             _enemy.IdleState.SetFlipAfterIdle(true);
             StateMachine.ChangeState(_enemy.IdleState);

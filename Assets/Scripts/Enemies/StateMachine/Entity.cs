@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D Rb { get; private set; }
     public Animator Anim { get; private set; }
     public GameObject AliveGO { get; private set; }
+    public AnimationToStateMachine AnimationToState { get; private set; }
 
     #endregion
 
@@ -30,6 +31,7 @@ public class Entity : MonoBehaviour
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform playerCheck;
 
     private Vector2 _velocityWorkspace;
 
@@ -44,7 +46,8 @@ public class Entity : MonoBehaviour
         AliveGO = transform.Find("Alive").gameObject;
         Rb = AliveGO.GetComponent<Rigidbody2D>();
         Anim = AliveGO.GetComponent<Animator>();
-
+        AnimationToState = AliveGO.GetComponent<AnimationToStateMachine>();
+        
         StateMachine = new FiniteStateMachine();
     }
 
@@ -78,6 +81,21 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, entityData.ledgeCheckDistance,
             entityData.whatIsGround);
+    }
+
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+    }
+    
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
     }
 
     #endregion
