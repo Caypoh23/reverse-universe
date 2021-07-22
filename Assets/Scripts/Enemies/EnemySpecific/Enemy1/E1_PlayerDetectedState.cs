@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class E1_PlayerDetectedState : PlayerDetectedState
 {
     private Enemy1 _enemy1;
-    
-    public E1_PlayerDetectedState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, stateData)
+
+    public E1_PlayerDetectedState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+        D_PlayerDetected stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, stateData)
     {
         _enemy1 = enemy;
     }
@@ -15,7 +17,7 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.Enter();
     }
-    
+
     public override void Exit()
     {
         base.Exit();
@@ -25,16 +27,18 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (PerformLongRangeAction)
+        if (PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_enemy1.MeleeAttackState);
+        }
+        else if (PerformLongRangeAction)
         {
             StateMachine.ChangeState(_enemy1.ChargeState);
         }
-        else if(!IsPlayerInMaxAgroRange)
+        else if (!IsPlayerInMaxAgroRange)
         {
-             StateMachine.ChangeState(_enemy1.LookForPlayerState);
+            StateMachine.ChangeState(_enemy1.LookForPlayerState);
         }
-        
-        // TODO: Transition 
     }
 
     public override void PhysicsUpdate()

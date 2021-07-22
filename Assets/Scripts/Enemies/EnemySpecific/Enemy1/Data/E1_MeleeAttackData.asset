@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 766397d8c07398c4b8e4151e1ecc736d, type: 3}
-  m_Name: E1_BaseData
+  m_Script: {fileID: 11500000, guid: 41109c569565c174498332ec93907867, type: 3}
+  m_Name: E1_MeleeAttackData
   m_EditorClassIdentifier: 
-  wallCheckDistance: 0.2
-  ledgeCheckDistance: 0.5
-  minAgroDistance: 7
-  maxAgroDistance: 8
-  closeRangeActionDistance: 1.75
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
+  attackRadius: 0.75
+  attackDamage: 10
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 2048

@@ -17,7 +17,6 @@ public class Entity : MonoBehaviour
 
     #region State Machine
 
-    
     public FiniteStateMachine StateMachine;
 
     [SerializeField] private D_Entity entityData;
@@ -27,7 +26,7 @@ public class Entity : MonoBehaviour
     #region Variables and Check Transform
 
     public int FacingDirection { get; private set; }
-    
+
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
@@ -42,12 +41,12 @@ public class Entity : MonoBehaviour
     public virtual void Start()
     {
         FacingDirection = 1;
-        
+
         AliveGO = transform.Find("Alive").gameObject;
         Rb = AliveGO.GetComponent<Rigidbody2D>();
         Anim = AliveGO.GetComponent<Animator>();
         AnimationToState = AliveGO.GetComponent<AnimationToStateMachine>();
-        
+
         StateMachine = new FiniteStateMachine();
     }
 
@@ -85,17 +84,20 @@ public class Entity : MonoBehaviour
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.minAgroDistance,
+            entityData.whatIsPlayer);
     }
-    
+
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.maxAgroDistance,
+            entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.closeRangeActionDistance,
+            entityData.whatIsPlayer);
     }
 
     #endregion
@@ -113,5 +115,11 @@ public class Entity : MonoBehaviour
             wallCheck.position + (Vector3) (Vector2.right * FacingDirection * entityData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position,
             ledgeCheck.position + (Vector3) (Vector2.down * entityData.ledgeCheckDistance));
+        Gizmos.DrawWireSphere(
+            playerCheck.position + (Vector3) (Vector2.right * entityData.closeRangeActionDistance), 0.2f);
+        Gizmos.DrawWireSphere(
+            playerCheck.position + (Vector3) (Vector2.right * entityData.minAgroDistance), 0.2f);
+        Gizmos.DrawWireSphere(
+            playerCheck.position + (Vector3) (Vector2.right * entityData.maxAgroDistance), 0.2f);
     }
 }

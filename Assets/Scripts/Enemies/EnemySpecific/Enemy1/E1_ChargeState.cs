@@ -8,7 +8,8 @@ public class E1_ChargeState : ChargeState
 {
     private Enemy1 _enemy1;
 
-    public E1_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData, Enemy1 enemy)
+    public E1_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData,
+        Enemy1 enemy)
         : base(entity, stateMachine, animBoolName, stateData)
     {
         _enemy1 = enemy;
@@ -28,7 +29,12 @@ public class E1_ChargeState : ChargeState
     {
         base.LogicUpdate();
 
-        if (!IsDetectingLedge || IsDetectingWall)
+
+        if (PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_enemy1.MeleeAttackState);
+        }
+        else if (!IsDetectingLedge || IsDetectingWall)
         {
             StateMachine.ChangeState(_enemy1.LookForPlayerState);
         }
@@ -38,8 +44,11 @@ public class E1_ChargeState : ChargeState
             {
                 StateMachine.ChangeState(_enemy1.PlayerDetectedState);
             }
+            else
+            {
+                StateMachine.ChangeState(_enemy1.LookForPlayerState);
+            }
         }
-        
     }
 
     public override void PhysicsUpdate()
