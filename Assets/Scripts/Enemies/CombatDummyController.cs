@@ -49,11 +49,11 @@ public class CombatDummyController : MonoBehaviour
         CheckKnockBack();
     }
 
-    private void Damage(float[] details)
+    private void Damage(AttackDetails details)
     {
-        _currentHealth -= details[0];
+        _currentHealth -= details.damageAmount;
 
-        if (details[1] < aliveGO.transform.position.x)
+        if (details.position.x < aliveGO.transform.position.x)
         {
             _playerFacingDirection = 1;
         }
@@ -62,8 +62,8 @@ public class CombatDummyController : MonoBehaviour
             _playerFacingDirection = -1;
         }
 
-        ObjectPooler.Instance.SpawnFromPool(hitParticleTag, aliveGO.transform.position,
-            Quaternion.Euler(0.0f, 0.0f, UnityEngine.Random.Range(0.0f, 360.0f)));
+       // ObjectPooler.Instance.SpawnFromPool(hitParticleTag, aliveGO.transform.position,
+           // Quaternion.Euler(0.0f, 0.0f, UnityEngine.Random.Range(0.0f, 360.0f)));
 
         _playerOnLeft = _playerFacingDirection == 1;
 

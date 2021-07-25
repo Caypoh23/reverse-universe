@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(Player playerScript, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(playerScript, stateMachine, playerData, animBoolName)
+    public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
+        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
 
@@ -23,12 +23,12 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.LogicUpdate();
 
-        PlayerScript.CheckIfShouldFlip(XInput);
-        PlayerScript.SetVelocityX(PlayerData.movementVelocity * XInput);
+        Player.CheckIfShouldFlip(XInput);
+        Player.SetVelocityX(PlayerData.movementVelocity * XInput);
 
         if (XInput == 0)
         {
-            StateMachine.ChangeState(PlayerScript.IdleState);
+            StateMachine.ChangeState(Player.IdleState);
         }
     }
 

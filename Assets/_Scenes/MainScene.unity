@@ -8078,36 +8078,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!1 &105570368
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 105570369}
-  m_Layer: 9
-  m_Name: MeleeAttackPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &105570369
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105570368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.274, y: -0.265, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 459051293}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &107507427
 GameObject:
   m_ObjectHideFlags: 0
@@ -94927,7 +94897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226901162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.86, z: -10}
+  m_LocalPosition: {x: 0, y: 8.03, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1634496985}
@@ -94953,7 +94923,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 947288305}
+  m_Follow: {fileID: 459051293}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 8.4375
@@ -95003,7 +94973,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 8.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 105570369}
+  - {fileID: 1587867537}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95080,6 +95050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa0fab24eb9ae74587f1ef8abef444b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputHoldTime: 0.2
 --- !u!212 &459051296
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -95125,7 +95096,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95180,7 +95151,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 459051292}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e383ee58fe0da42448dfd6687e0c2d53, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -95189,7 +95160,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4, y: 4}
-    newSize: {x: 2, y: 2}
+    newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -95210,6 +95181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 0ce625870f25c1440b76fb52ed7c9747, type: 2}
+  groundCheck: {fileID: 1587867537}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -95322,7 +95294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.86, z: -10}
+  m_LocalPosition: {x: 0, y: 8.03, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107507428}
@@ -95353,7 +95325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575389093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: 7.97, z: 0}
+  m_LocalPosition: {x: -2.89, y: 7.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1959552501}
@@ -95376,6 +95348,7 @@ MonoBehaviour:
   wallCheck: {fileID: 1290366262}
   ledgeCheck: {fileID: 744441869}
   playerCheck: {fileID: 1669108806}
+  groundCheck: {fileID: 829268954}
   idleStateData: {fileID: 11400000, guid: 6567711aaef5c6949be75f553ecb736b, type: 2}
   moveStateData: {fileID: 11400000, guid: 5c29f3ee976283d4585a539f61df9520, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 038e517b0065b8d4184f5a9b7f8e951c, type: 2}
@@ -95384,7 +95357,9 @@ MonoBehaviour:
     type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: 576ca7427f731ce4b923d7d7708183cb,
     type: 2}
-  meleeAttackPosition: {fileID: 105570369}
+  stunStateData: {fileID: 11400000, guid: 7503164391b95fb44a4d9b9878c0e4cf, type: 2}
+  deadStateData: {fileID: 11400000, guid: 2d38dd192e2e5a141881a126ca8166d6, type: 2}
+  meleeAttackPosition: {fileID: 1644528625}
 --- !u!1 &643887944
 GameObject:
   m_ObjectHideFlags: 0
@@ -95492,12 +95467,36 @@ Transform:
   m_Father: {fileID: 1959552501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &947288305 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1381794694158428776, guid: 93eab7c5fcc9ae6488b264b35df53862,
-    type: 3}
-  m_PrefabInstance: {fileID: 1381794694826250905}
+--- !u!1 &829268953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 829268954}
+  m_Layer: 9
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &829268954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829268953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.945, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1959552501}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &947288308 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1381794694158428781, guid: 93eab7c5fcc9ae6488b264b35df53862,
@@ -95556,7 +95555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1085545682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95928,6 +95927,36 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1587867536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587867537}
+  m_Layer: 11
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587867537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587867536}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.941, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 459051293}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1634496984
 GameObject:
   m_ObjectHideFlags: 3
@@ -96015,6 +96044,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1644528624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644528625}
+  m_Layer: 9
+  m_Name: MeleeAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1644528625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644528624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.94, y: -0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1959552501}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1653375088
 GameObject:
   m_ObjectHideFlags: 0
@@ -96654,6 +96713,8 @@ Transform:
   - {fileID: 1290366262}
   - {fileID: 1304330644}
   - {fileID: 1669108806}
+  - {fileID: 829268954}
+  - {fileID: 1644528625}
   m_Father: {fileID: 575389094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

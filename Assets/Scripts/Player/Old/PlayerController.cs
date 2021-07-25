@@ -315,7 +315,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Mathf.Abs(transform.position.x - _lastImageXpos) > distanceBetweenImages)
                 {
-                    ObjectPooler.Instance.SpawnFromPool(afterImageTag, transform.position, transform.rotation);
+                   // ObjectPooler.Instance.SpawnFromPool(afterImageTag, transform.position, transform.rotation);
                     _lastImageXpos = transform.position.x;
                 }
             }
@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
         _isDashing = true;
         _dashTimeLeft = dashTime;
         _lastDash = Time.time;
-        ObjectPooler.Instance.SpawnFromPool(afterImageTag, transform.position, transform.rotation);
+        //ObjectPooler.Instance.SpawnFromPool(afterImageTag, transform.position, transform.rotation);
         _lastImageXpos = transform.position.x;
     }
 

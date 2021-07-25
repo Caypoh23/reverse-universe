@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Base class 
-public class PlayerState
+// make abstract
+public abstract class PlayerState
 {
     // Name should be changed
-    protected Player PlayerScript;
+    // _private
+    protected Player Player; // animator
     protected PlayerStateMachine StateMachine;
     protected PlayerData PlayerData;
+    protected bool IsAnimationFinished;
 
-    // How long we have been in specific state
     protected float StartTime;
 
     private string _animBoolName;
 
-    public PlayerState(Player playerScript, PlayerStateMachine stateMachine,
+    public PlayerState(Player player, PlayerStateMachine stateMachine,
         PlayerData playerData, string animBoolName)
     {
-        this.PlayerScript = playerScript;
+        Player = player;
         StateMachine = stateMachine;
         PlayerData = playerData;
         _animBoolName = animBoolName;
@@ -27,13 +28,14 @@ public class PlayerState
     public virtual void Enter()
     {
         DoChecks();
-        PlayerScript.Anim.SetBool(_animBoolName, true);
+        Player.Anim.SetBool(_animBoolName, true);
         StartTime = Time.time;
+        IsAnimationFinished = false;
     }
 
     public virtual void Exit()
     {
-        PlayerScript.Anim.SetBool(_animBoolName, false);
+        Player.Anim.SetBool(_animBoolName, false);
     }
 
     // Update
@@ -48,7 +50,16 @@ public class PlayerState
     }
 
     // Check for wall, ground, ledge etc.
+    // Tick
+    // OnUpdate
+    // Rename
     public virtual void DoChecks()
     {
     }
+
+    public virtual void AnimationTrigger()
+    {
+    }
+
+    public virtual void AnimationFinishedTrigger() => IsAnimationFinished = true;
 }

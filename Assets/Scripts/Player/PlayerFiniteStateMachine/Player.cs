@@ -10,10 +10,13 @@ public class Player : MonoBehaviour
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
-    
-    
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerInAirState InAirState { get; private set; }
+    public PlayerLandState LandState { get; private set; }
+
+
     [SerializeField] private PlayerData playerData;
-    
+
     #endregion
 
     #region Components
@@ -24,13 +27,19 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Check Transforms
+
+    [SerializeField] private Transform groundCheck;
+    
+
+    #endregion
+
     #region Other Variables
 
     public Vector2 CurrentVelocity { get; private set; }
     public int FacingDirection { get; private set; }
-    
-    private Vector2 _workspace;
 
+    private Vector2 _workspace;
 
     #endregion
 
@@ -42,6 +51,9 @@ public class Player : MonoBehaviour
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
+        JumpState = new PlayerJumpState(this, StateMachine, playerData, "inAir");
+        InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
+        LandState = new PlayerLandState(this, StateMachine, playerData, "land");
     }
 
     private void Start()
@@ -67,7 +79,7 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Set Functions
 
     public void SetVelocityX(float velocity)
@@ -77,10 +89,27 @@ public class Player : MonoBehaviour
         CurrentVelocity = _workspace;
     }
 
+    public void SetVelocityY(float velocity)
+    {
+        _workspace.Set(CurrentVelocity.x, velocity);
+        Rb.velocity = _workspace;
+        CurrentVelocity = _workspace;
+
+    }
+    
+
     #endregion
 
     #region Check Functions
 
+    // вывести логику в отдельный скрипт 
+    // player isGrounded state
+    public bool CheckIfGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
+    }
+    
+    // вынести логику в отдельный скрипт
     public void CheckIfShouldFlip(int xInput)
     {
         if (xInput != 0 && xInput != FacingDirection)
@@ -88,11 +117,16 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+    
 
     #endregion
 
     #region Other Functions
 
+    private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
+
+    private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
+    
     private void Flip()
     {
         FacingDirection *= -1;
@@ -100,5 +134,4 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-
 }

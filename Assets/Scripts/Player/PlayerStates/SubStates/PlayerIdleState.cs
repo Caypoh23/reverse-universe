@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player playerScript, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(playerScript, stateMachine, playerData, animBoolName)
+    public PlayerIdleState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
+        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
 
@@ -13,7 +13,7 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Enter();
 
-        PlayerScript.SetVelocityX(0.0f);
+        Player.SetVelocityX(0.0f);
     }
 
     public override void Exit()
@@ -27,7 +27,7 @@ public class PlayerIdleState : PlayerGroundedState
 
         if (XInput != 0)
         {
-            StateMachine.ChangeState(PlayerScript.MoveState);
+            StateMachine.ChangeState(Player.MoveState);
         }
     }
 
