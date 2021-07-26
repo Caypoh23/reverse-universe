@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public PlayerJumpState JumpState { get; private set; }
     public PlayerInAirState InAirState { get; private set; }
     public PlayerLandState LandState { get; private set; }
+    public PlayerWallSlideState WallSlideState { get; private set; }
+    public PlayerWallJumpState WallJumpState { get; private set; }
 
 
     [SerializeField] private PlayerData playerData;
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
     #region Check Transforms
 
     [SerializeField] private Transform groundCheck;
-    
+    [SerializeField] private Transform wallCheck;
 
     #endregion
 
@@ -54,6 +56,8 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, StateMachine, playerData, "inAir");
         InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
         LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+        WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
+        WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
     }
 
     private void Start()
@@ -82,6 +86,14 @@ public class Player : MonoBehaviour
 
     #region Set Functions
 
+    public void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        _workspace.Set(angle.x * velocity * direction, angle.y * velocity);
+        Rb.velocity = _workspace;
+        CurrentVelocity = _workspace;
+    }
+
     public void SetVelocityX(float velocity)
     {
         _workspace.Set(velocity, CurrentVelocity.y);
@@ -94,9 +106,7 @@ public class Player : MonoBehaviour
         _workspace.Set(CurrentVelocity.x, velocity);
         Rb.velocity = _workspace;
         CurrentVelocity = _workspace;
-
     }
-    
 
     #endregion
 
@@ -108,7 +118,7 @@ public class Player : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
     }
-    
+
     // вынести логику в отдельный скрипт
     public void CheckIfShouldFlip(int xInput)
     {
@@ -117,7 +127,13 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
-    
+
+    public bool CheckIfTouchingWall()
+    {
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance,
+            playerData.whatIsGround);
+    }
+
 
     #endregion
 
@@ -126,7 +142,7 @@ public class Player : MonoBehaviour
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
-    
+
     private void Flip()
     {
         FacingDirection *= -1;

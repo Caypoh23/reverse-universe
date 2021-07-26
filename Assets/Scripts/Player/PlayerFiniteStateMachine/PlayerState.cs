@@ -11,6 +11,7 @@ public abstract class PlayerState
     protected PlayerStateMachine StateMachine;
     protected PlayerData PlayerData;
     protected bool IsAnimationFinished;
+    protected bool IsExitingState;
 
     protected float StartTime;
 
@@ -31,11 +32,13 @@ public abstract class PlayerState
         Player.Anim.SetBool(_animBoolName, true);
         StartTime = Time.time;
         IsAnimationFinished = false;
+        IsExitingState = false;
     }
 
     public virtual void Exit()
     {
         Player.Anim.SetBool(_animBoolName, false);
+        IsExitingState = true;
     }
 
     // Update

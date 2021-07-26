@@ -6,10 +6,13 @@ public class PlayerInAirState : PlayerState
 {
     private int _xInput;
     private bool _isGrounded;
+    private bool _isTouchingWall;
     private bool _jumpInput;
     private bool _jumpInputStop;
     private bool _coyoteTime;
     private bool _isJumping;
+    private readonly int _yVelocity = Animator.StringToHash("yVelocity");
+    private readonly int _xVelocity = Animator.StringToHash("xVelocity");
 
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
         string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -29,7 +32,7 @@ public class PlayerInAirState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
+
         CheckCoyoteTime();
 
         _xInput = Player.InputHandler.NormalizedInputX;
@@ -37,21 +40,32 @@ public class PlayerInAirState : PlayerState
         _jumpInputStop = Player.InputHandler.JumpInputStop;
 
         CheckJumpMultiplier();
-        
+
         if (_isGrounded && Player.CurrentVelocity.y < 0.01f)
         {
             StateMachine.ChangeState(Player.LandState);
+        }
+        else if (_jumpInput && _isTouchingWall)
+        {
+            Player.InputHandler.UseJumpInput();
+            _isTouchingWall = Player.CheckIfTouchingWall();
+            Player.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
+            StateMachine.ChangeState(Player.WallJumpState);
         }
         else if (_jumpInput && Player.JumpState.CanJump())
         {
             StateMachine.ChangeState(Player.JumpState);
         }
+        else if (_isTouchingWall && _xInput == Player.FacingDirection)
+        {
+            StateMachine.ChangeState(Player.WallSlideState);
+        }
         else
         {
             Player.CheckIfShouldFlip(_xInput);
             Player.SetVelocityX(PlayerData.movementVelocity * _xInput);
-            Player.Anim.SetFloat("yVelocity", Player.CurrentVelocity.y);
-            Player.Anim.SetFloat("xVelocity", Mathf.Abs(Player.CurrentVelocity.x));
+            Player.Anim.SetFloat(_yVelocity, Player.CurrentVelocity.y);
+            Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Player.CurrentVelocity.x));
         }
     }
 
@@ -64,7 +78,7 @@ public class PlayerInAirState : PlayerState
                 Player.SetVelocityY(Player.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
                 _isJumping = false;
             }
-            else if(Player.CurrentVelocity.y <= 0f)
+            else if (Player.CurrentVelocity.y <= 0f)
             {
                 _isJumping = false;
             }
@@ -86,14 +100,15 @@ public class PlayerInAirState : PlayerState
     }
 
     public void StartCoyoteTime() => _coyoteTime = true;
-    
+
     public void SetIsJumping() => _isJumping = true;
-    
+
 
     public override void DoChecks()
     {
         base.DoChecks();
 
         _isGrounded = Player.CheckIfGrounded();
+        _isTouchingWall = Player.CheckIfTouchingWall();
     }
 }
