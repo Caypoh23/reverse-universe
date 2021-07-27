@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerWallSlideState : PlayerTouchingWallState
 {
+    public bool IsWallSliding;
+    
     public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine,
         PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -15,7 +17,15 @@ public class PlayerWallSlideState : PlayerTouchingWallState
 
         if (!IsExitingState)
         {
+            IsWallSliding = true;
             Player.SetVelocityY(-PlayerData.wallSlideVelocity);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        IsWallSliding = false;
     }
 }

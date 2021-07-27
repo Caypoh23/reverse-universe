@@ -134,8 +134,8 @@ public class Player : MonoBehaviour
             playerData.whatIsGround);
     }
 
-
     #endregion
+
 
     #region Other Functions
 

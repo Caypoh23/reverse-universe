@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   movementVelocity: 10
-  wallJumpVelocity: 25
-  wallJumpTime: 0.1
+  wallJumpVelocity: 21
+  wallJumpTime: 0.15
   wallJumpAngle: {x: 1, y: 2}
   jumpVelocity: 15
-  amountOfJumps: 2
+  amountOfJumps: 1
   wallSlideVelocity: 2
   coyoteTime: 0.2
   jumpHeightMultiplier: 0.5

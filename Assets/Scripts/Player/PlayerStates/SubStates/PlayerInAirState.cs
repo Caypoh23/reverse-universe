@@ -45,7 +45,7 @@ public class PlayerInAirState : PlayerState
         {
             StateMachine.ChangeState(Player.LandState);
         }
-        else if (_jumpInput && _isTouchingWall)
+        else if (_jumpInput && Player.WallSlideState.IsWallSliding)
         {
             Player.InputHandler.UseJumpInput();
             _isTouchingWall = Player.CheckIfTouchingWall();
@@ -54,9 +54,10 @@ public class PlayerInAirState : PlayerState
         }
         else if (_jumpInput && Player.JumpState.CanJump())
         {
+            Player.InputHandler.UseJumpInput();
             StateMachine.ChangeState(Player.JumpState);
         }
-        else if (_isTouchingWall && _xInput == Player.FacingDirection)
+        else if (_isTouchingWall && _xInput == Player.FacingDirection && Player.Rb.velocity.y < 0)
         {
             StateMachine.ChangeState(Player.WallSlideState);
         }
@@ -64,6 +65,7 @@ public class PlayerInAirState : PlayerState
         {
             Player.CheckIfShouldFlip(_xInput);
             Player.SetVelocityX(PlayerData.movementVelocity * _xInput);
+            
             Player.Anim.SetFloat(_yVelocity, Player.CurrentVelocity.y);
             Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Player.CurrentVelocity.x));
         }
