@@ -20,10 +20,18 @@ public class PlayerInputHandler : MonoBehaviour
     public bool DashInput { get; private set; }
     public bool DashInputStop { get; private set; }
 
+    public bool[] AttackInputs { get; private set; }
+
     [SerializeField] private float inputHoldTime = 0.2f;
 
     private float _jumpInputStartTime;
     private float _dashInputStartTime;
+
+    private void Start()
+    {
+        var count = Enum.GetValues(typeof(CombatInputs)).Length;
+        AttackInputs = new bool[count];
+    }
 
     private void Update()
     {
@@ -31,12 +39,38 @@ public class PlayerInputHandler : MonoBehaviour
         CheckDashInputHoldTime();
     }
 
+    public void OnPrimaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInputs[(int) CombatInputs.Primary] = true;
+        }
+
+        if (context.canceled)
+        {
+            AttackInputs[(int) CombatInputs.Primary] = false;
+        }
+    }
+
+    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInputs[(int) CombatInputs.Secondary] = true;
+        }
+
+        if (context.canceled)
+        {
+            AttackInputs[(int) CombatInputs.Secondary] = false;
+        }
+    }
+
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         RawMovementInput = context.ReadValue<Vector2>();
 
-        NormalizedInputX = (int) (RawMovementInput * Vector2.right).normalized.x;
-        NormalizedInputY = (int) (RawMovementInput * Vector2.up).normalized.y;
+        NormalizedInputX = Mathf.RoundToInt(RawMovementInput.x);
+        NormalizedInputY = Mathf.RoundToInt(RawMovementInput.y);
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)
@@ -99,4 +133,10 @@ public class PlayerInputHandler : MonoBehaviour
             DashInput = false;
         }
     }
+}
+
+public enum CombatInputs
+{
+    Primary,
+    Secondary
 }

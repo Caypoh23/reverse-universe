@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerDashState DashState { get; private set; }
+    public PlayerAttackState PrimaryAttackState { get; private set; }
+    public PlayerAttackState SecondaryAttackState { get; private set; }
 
 
     [SerializeField] private PlayerData playerData;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D Rb { get; private set; }
     public Transform DashDirectionIndicator { get; private set; }
+    public PlayerInventory PlayerInventory { get; private set; }
     public ObjectPooler ObjectPooler { get; private set; }
     public Tag afterImageTag;
 
@@ -63,6 +66,8 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
         DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
+        PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
+        SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
     }
 
     private void Start()
@@ -72,8 +77,11 @@ public class Player : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         ObjectPooler = FindObjectOfType<ObjectPooler>();
+        PlayerInventory = GetComponent<PlayerInventory>();
+        
         FacingDirection = 1;
 
+        PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
         StateMachine.Initialize(IdleState);
     }
 
