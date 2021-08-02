@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
+    // Input
     private int _xInput;
-    private bool _isGrounded;
-    private bool _isTouchingWall;
     private bool _jumpInput;
     private bool _jumpInputStop;
+    private bool _dashInput;
+
+    // Checks
+    private bool _isGrounded;
+    private bool _isTouchingWall;
     private bool _coyoteTime;
     private bool _isJumping;
+
     private readonly int _yVelocity = Animator.StringToHash("yVelocity");
     private readonly int _xVelocity = Animator.StringToHash("xVelocity");
 
@@ -38,6 +43,7 @@ public class PlayerInAirState : PlayerState
         _xInput = Player.InputHandler.NormalizedInputX;
         _jumpInput = Player.InputHandler.JumpInput;
         _jumpInputStop = Player.InputHandler.JumpInputStop;
+        _dashInput = Player.InputHandler.DashInput;
 
         CheckJumpMultiplier();
 
@@ -61,11 +67,15 @@ public class PlayerInAirState : PlayerState
         {
             StateMachine.ChangeState(Player.WallSlideState);
         }
+        else if (_dashInput && Player.DashState.CheckIfCanDash())
+        {
+            StateMachine.ChangeState(Player.DashState);
+        }
         else
         {
             Player.CheckIfShouldFlip(_xInput);
             Player.SetVelocityX(PlayerData.movementVelocity * _xInput);
-            
+
             Player.Anim.SetFloat(_yVelocity, Player.CurrentVelocity.y);
             Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Player.CurrentVelocity.x));
         }

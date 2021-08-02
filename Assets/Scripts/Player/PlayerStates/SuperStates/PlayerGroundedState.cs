@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class PlayerGroundedState : PlayerState
 
     private bool _jumpInput;
     private bool _isGrounded;
+    private bool _dashInput;
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
         string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -19,6 +21,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Enter();
         Player.JumpState.ResetAmountOfJumpsLeft();
+        Player.DashState.ResetCanDash();
     }
 
     public override void Exit()
@@ -32,6 +35,7 @@ public class PlayerGroundedState : PlayerState
 
         XInput = Player.InputHandler.NormalizedInputX;
         _jumpInput = Player.InputHandler.JumpInput;
+        _dashInput = Player.InputHandler.DashInput;
 
         if (_jumpInput && Player.JumpState.CanJump())
         {
@@ -41,6 +45,10 @@ public class PlayerGroundedState : PlayerState
         {
             Player.InAirState.StartCoyoteTime();
             StateMachine.ChangeState(Player.InAirState);
+        }
+        else if (_dashInput && Player.DashState.CheckIfCanDash())
+        {
+            StateMachine.ChangeState(Player.DashState);
         }
     }
 
