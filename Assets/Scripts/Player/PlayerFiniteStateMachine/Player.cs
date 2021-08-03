@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     #region Components
 
+    public Core Core { get; private set; }
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D Rb { get; private set; }
@@ -36,17 +37,9 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    #region Check Transforms
 
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
-
-    #endregion
 
     #region Other Variables
-
-    public Vector2 CurrentVelocity { get; private set; }
-    public int FacingDirection { get; private set; }
 
     private Vector2 _workspace;
 
@@ -56,6 +49,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        Core = GetComponentInChildren<Core>();
+        
         StateMachine = new PlayerStateMachine();
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
@@ -79,7 +74,7 @@ public class Player : MonoBehaviour
         ObjectPooler = FindObjectOfType<ObjectPooler>();
         PlayerInventory = GetComponent<PlayerInventory>();
         
-        FacingDirection = 1;
+        
 
         PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
         StateMachine.Initialize(IdleState);
@@ -87,7 +82,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        CurrentVelocity = Rb.velocity;
+        Core.LogicUpdate();
         StateMachine.CurrentState.LogicUpdate();
     }
 
@@ -98,77 +93,12 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    #region Set Functions
-
-    public void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        angle.Normalize();
-        _workspace.Set(angle.x * velocity * direction, angle.y * velocity);
-        Rb.velocity = _workspace;
-        CurrentVelocity = _workspace;
-    }
-
-    public void SetVelocity(float velocity, Vector2 direction)
-    {
-        _workspace = direction * velocity;
-        Rb.velocity = _workspace;
-        CurrentVelocity = _workspace;
-    }
-    
-    public void SetVelocityX(float velocity)
-    {
-        _workspace.Set(velocity, CurrentVelocity.y);
-        Rb.velocity = _workspace;
-        CurrentVelocity = _workspace;
-    }
-
-    public void SetVelocityY(float velocity)
-    {
-        _workspace.Set(CurrentVelocity.x, velocity);
-        Rb.velocity = _workspace;
-        CurrentVelocity = _workspace;
-    }
-
-    #endregion
-
-    #region Check Functions
-
-    // вывести логику в отдельный скрипт 
-    // player isGrounded state
-    public bool CheckIfGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
-    }
-
-    // вынести логику в отдельный скрипт
-    public void CheckIfShouldFlip(int xInput)
-    {
-        if (xInput != 0 && xInput != FacingDirection)
-        {
-            Flip();
-        }
-    }
-
-    public bool CheckIfTouchingWall()
-    {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance,
-            playerData.whatIsGround);
-    }
-
-    #endregion
-
-
     #region Other Functions
 
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
 
-    private void Flip()
-    {
-        FacingDirection *= -1;
-        transform.Rotate(0.0f, 180.0f, 0.0f);
-    }
 
     #endregion
 }

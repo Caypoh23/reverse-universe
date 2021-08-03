@@ -34,8 +34,4 @@ public class PlayerData : ScriptableObject
     public float dashEndYMultiplier = 0.2f;
     public float distanceBetweenAfterImages = 0.5f;
 
-    [Header("Check Variables")] 
-    public float groundCheckRadius = 0.3f;
-    public float wallCheckDistance = 0.5f;
-    public LayerMask whatIsGround;
 }

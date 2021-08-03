@@ -55,14 +55,14 @@ public class PlayerInAirState : PlayerState
         {
             StateMachine.ChangeState(Player.SecondaryAttackState);
         }
-        else if (_isGrounded && Player.CurrentVelocity.y < 0.01f)
+        else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
         {
             StateMachine.ChangeState(Player.LandState);
         }
         else if (_jumpInput && Player.WallSlideState.IsWallSliding)
         {
             Player.InputHandler.UseJumpInput();
-            _isTouchingWall = Player.CheckIfTouchingWall();
+            _isTouchingWall = Core.CollisionSenses.WallFront;
             Player.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
             StateMachine.ChangeState(Player.WallJumpState);
         }
@@ -71,7 +71,7 @@ public class PlayerInAirState : PlayerState
             Player.InputHandler.UseJumpInput();
             StateMachine.ChangeState(Player.JumpState);
         }
-        else if (_isTouchingWall && _xInput == Player.FacingDirection && Player.Rb.velocity.y < 0)
+        else if (_isTouchingWall && _xInput == Core.Movement.FacingDirection && Player.Rb.velocity.y < 0)
         {
             StateMachine.ChangeState(Player.WallSlideState);
         }
@@ -81,11 +81,11 @@ public class PlayerInAirState : PlayerState
         }
         else
         {
-            Player.CheckIfShouldFlip(_xInput);
-            Player.SetVelocityX(PlayerData.movementVelocity * _xInput);
+            Core.Movement.CheckIfShouldFlip(_xInput);
+            Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
 
-            Player.Anim.SetFloat(_yVelocity, Player.CurrentVelocity.y);
-            Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Player.CurrentVelocity.x));
+            Player.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
+            Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
         }
     }
 
@@ -95,10 +95,10 @@ public class PlayerInAirState : PlayerState
         {
             if (_jumpInputStop)
             {
-                Player.SetVelocityY(Player.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
+                Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
                 _isJumping = false;
             }
-            else if (Player.CurrentVelocity.y <= 0f)
+            else if (Core.Movement.CurrentVelocity.y <= 0f)
             {
                 _isJumping = false;
             }
@@ -128,7 +128,7 @@ public class PlayerInAirState : PlayerState
     {
         base.DoChecks();
 
-        _isGrounded = Player.CheckIfGrounded();
-        _isTouchingWall = Player.CheckIfTouchingWall();
+        _isGrounded = Core.CollisionSenses.Ground;
+        _isTouchingWall = Core.CollisionSenses.WallFront;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 // make abstract
 public abstract class PlayerState
 {
+    protected Core Core;
+    
     // Name should be changed
     // _private
     protected Player Player; // animator
@@ -24,6 +26,7 @@ public abstract class PlayerState
         StateMachine = stateMachine;
         PlayerData = playerData;
         _animBoolName = animBoolName;
+        Core = player.Core;
     }
 
     public virtual void Enter()

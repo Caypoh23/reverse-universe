@@ -41,7 +41,7 @@ public class PlayerTouchingWallState : PlayerState
         {
             StateMachine.ChangeState(Player.IdleState);
         }
-        else if (!IsTouchingWall || XInput != Player.FacingDirection && Player.CurrentVelocity.y <= 0)
+        else if (!IsTouchingWall || XInput != Core.Movement.FacingDirection && Core.Movement.CurrentVelocity.y <= 0)
         {
             StateMachine.ChangeState(Player.InAirState);
         }
@@ -56,8 +56,8 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.DoChecks();
 
-        IsGrounded = Player.CheckIfGrounded();
-        IsTouchingWall = Player.CheckIfTouchingWall();
+        IsGrounded = Core.CollisionSenses.Ground;
+        IsTouchingWall = Core.CollisionSenses.WallFront;
     }
 
     public override void AnimationTrigger()

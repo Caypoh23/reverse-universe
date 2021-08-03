@@ -70,6 +70,6 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
 
-        _isGrounded = Player.CheckIfGrounded();
+        _isGrounded = Core.CollisionSenses.Ground;
     }
 }
