@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State
+public abstract class State
 {
     protected FiniteStateMachine StateMachine;
     protected Entity Entity;
+    protected Core Core;
 
     protected float StartTime;
 
@@ -18,6 +19,7 @@ public class State
         Entity = entity;
         StateMachine = stateMachine;
         AnimBoolName = animBoolName;
+        Core = Entity.Core;
     }
 
     // States

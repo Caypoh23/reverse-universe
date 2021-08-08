@@ -22,14 +22,14 @@ public class Enemy1 : Entity
     [SerializeField] private D_MeleeAttack meleeAttackStateData;
     [SerializeField] private D_StunState stunStateData;
     [SerializeField] private D_DeadState deadStateData;
-    
+
 
     [SerializeField] private Transform meleeAttackPosition;
 
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         MoveState = new E1_MoveState(this, StateMachine, "move", moveStateData, this);
         IdleState = new E1_IdleState(this, StateMachine, "idle", idleStateData, this);
@@ -45,12 +45,11 @@ public class Enemy1 : Entity
         StateMachine.Initialize(MoveState);
     }
 
-
     public override void Damage(AttackDetails attackDetails)
     {
         base.Damage(attackDetails);
 
-        
+
         if (IsDead)
         {
             StateMachine.ChangeState(DeadState);
@@ -59,13 +58,12 @@ public class Enemy1 : Entity
         {
             StateMachine.ChangeState(StunState);
         }
-
     }
 
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-        
+
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 }
