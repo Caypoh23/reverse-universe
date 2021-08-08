@@ -37,8 +37,6 @@ public class Player : MonoBehaviour
 
     #endregion
 
-
-
     #region Other Variables
 
     private Vector2 _workspace;
@@ -50,7 +48,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Core = GetComponentInChildren<Core>();
-        
+
         StateMachine = new PlayerStateMachine();
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
@@ -73,8 +71,7 @@ public class Player : MonoBehaviour
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         ObjectPooler = FindObjectOfType<ObjectPooler>();
         PlayerInventory = GetComponent<PlayerInventory>();
-        
-        
+
 
         PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
         StateMachine.Initialize(IdleState);
@@ -98,7 +95,6 @@ public class Player : MonoBehaviour
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
-
 
     #endregion
 }
