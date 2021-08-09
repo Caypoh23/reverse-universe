@@ -42,24 +42,14 @@ public class Enemy1 : Entity
             new E1_MeleeAttackState(this, StateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
         StunState = new E1_StunState(this, StateMachine, "stun", stunStateData, this);
         DeadState = new E1_DeadState(this, StateMachine, "dead", deadStateData, this);
+
+    }
+
+    private void Start()
+    {
         StateMachine.Initialize(MoveState);
     }
-
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-
-
-        if (IsDead)
-        {
-            StateMachine.ChangeState(DeadState);
-        }
-        else if (IsStunned && StateMachine.CurrentState != StunState)
-        {
-            StateMachine.ChangeState(StunState);
-        }
-    }
-
+    
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

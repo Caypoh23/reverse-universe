@@ -8,8 +8,8 @@ public class AggressiveWeapon : Weapon
 {
     protected SO_AggressiveWeaponData AggressiveWeaponData;
 
-    private List<IDamageable> _detectedDamageable = new List<IDamageable>();
-
+    private List<IDamageable> _detectedDamageables = new List<IDamageable>();
+    private List<IKnockbackable> _detectedKnockbackables = new List<IKnockbackable>();
     protected override void Awake()
     {
         base.Awake();
@@ -35,29 +35,47 @@ public class AggressiveWeapon : Weapon
     {
         var details = AggressiveWeaponData.AttackDetails[AttackCounter];
         
-        foreach (var item in _detectedDamageable.ToList())
+        foreach (var item in _detectedDamageables.ToList())
         {
             item.Damage(details.damageAmount);
         }
+        
+        foreach (var item in _detectedKnockbackables.ToList())
+        {
+            item.Knockback(details.knockbackAngle, details.knockbackStrength, Core.Movement.FacingDirection);
+        }
+        
     }
 
     public void AddToDetected(Collider2D collision)
     {
         var damageable = collision.GetComponent<IDamageable>();
+        var knockbackable = collision.GetComponent<IKnockbackable>();
 
         if (damageable != null)
         {
-            _detectedDamageable.Add(damageable);
+            _detectedDamageables.Add(damageable);
+        } 
+        
+        if (knockbackable != null)
+        {
+            _detectedKnockbackables.Add(knockbackable);
         }
     }
 
     public void RemoveFromDetected(Collider2D collision)
     {
         var damageable = collision.GetComponent<IDamageable>();
+        var knockbackable = collision.GetComponent<IKnockbackable>();
 
         if (damageable != null)
         {
-            _detectedDamageable.Remove(damageable);
+            _detectedDamageables.Remove(damageable);
+        }
+        
+        if (knockbackable != null)
+        {
+            _detectedKnockbackables.Remove(knockbackable);
         }
     }
 }

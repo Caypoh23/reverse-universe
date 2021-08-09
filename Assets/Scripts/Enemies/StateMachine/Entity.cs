@@ -59,6 +59,8 @@ public class Entity : MonoBehaviour
 
     public virtual void Update()
     {
+        Core.LogicUpdate();
+        
         StateMachine.CurrentState.LogicUpdate();
 
         //Anim.SetFloat("yVelocity", Core.Movement.Rb.velocity.y);
@@ -108,38 +110,6 @@ public class Entity : MonoBehaviour
     {
         IsStunned = false;
         _currentStunResistance = entityData.stunResistance;
-    }
-
-    public virtual void Damage(AttackDetails attackDetails)
-    {
-        _lastDamageTime = Time.time;
-
-        _currentHealth -= attackDetails.damageAmount;
-        _currentStunResistance -= attackDetails.stunDamageAmount;
-
-        DamageHop(entityData.damageHopSpeed);
-
-        Instantiate(entityData.hitParticle, transform.position,
-            Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
-
-        if (attackDetails.position.x > transform.position.x)
-        {
-            LastDamageDirection = -1;
-        }
-        else
-        {
-            LastDamageDirection = 1;
-        }
-
-        if (_currentStunResistance <= 0)
-        {
-            IsStunned = true;
-        }
-
-        if (_currentHealth <= 0)
-        {
-            IsDead = true;
-        }
     }
 
     public virtual void OnDrawGizmos()

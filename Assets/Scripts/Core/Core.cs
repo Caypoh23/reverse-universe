@@ -7,45 +7,36 @@ public class Core : MonoBehaviour
 {
     public Movement Movement
     {
-        get
-        {
-            if (_movement != null)
-            {
-                return _movement;
-            }
-
-            Debug.LogError("No Movement Core Component on " + transform.parent.name);
-            return null;
-        }
+        get => GenericNotImplementedError<Movement>.TryGet(_movement, transform.parent.name);
         private set => _movement = value;
     }
 
     public CollisionSenses CollisionSenses
     {
-        get
-        {
-            if (_collisionSenses != null)
-            {
-                return _collisionSenses;
-            }
-
-            Debug.LogError("No CollisionSenses Core Component on " + transform.parent.name);
-            return null;
-        }
+        get => GenericNotImplementedError<CollisionSenses>.TryGet(_collisionSenses, transform.parent.name);
         private set => _collisionSenses = value;
+    }
+
+    public Combat Combat
+    {
+        get => GenericNotImplementedError<Combat>.TryGet(_combat, transform.parent.name);
+        private set => _combat = value;
     }
 
     private Movement _movement;
     private CollisionSenses _collisionSenses;
+    private Combat _combat;
 
     private void Awake()
     {
         Movement = GetComponentInChildren<Movement>();
         CollisionSenses = GetComponentInChildren<CollisionSenses>();
+        Combat = GetComponentInChildren<Combat>();
     }
 
     public void LogicUpdate()
     {
         Movement.LogicUpdate();
+        _combat.LogicUpdate();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -10,7 +11,7 @@ public class Weapon : MonoBehaviour
     protected Animator WeaponAnimator;
     
     protected PlayerAttackState State;
-
+    protected Core Core;
     protected int AttackCounter;
     
     private readonly int _attack = Animator.StringToHash("attack");
@@ -84,8 +85,9 @@ public class Weapon : MonoBehaviour
 
     #endregion
 
-    public void InitializeWeapon(PlayerAttackState state)
+    public void InitializeWeapon(PlayerAttackState state, Core core)
     {
         State = state;
+        Core = core;
     }
 }

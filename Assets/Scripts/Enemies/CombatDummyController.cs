@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = System.Random;
 
 public class CombatDummyController : MonoBehaviour
-{
+{/*
     [SerializeField] private Animator aliveAnim;
 
     [SerializeField] private float maxHealth;
@@ -110,5 +110,5 @@ public class CombatDummyController : MonoBehaviour
         rbBrokenTop.velocity = new Vector2(knockBackDeathSpeedX * _playerFacingDirection, knockBackDeathSpeedY);
         rbBrokenTop.AddTorque(deathTorque * -_playerFacingDirection, ForceMode2D.Impulse);
         
-    }
+    }*/
 }

@@ -9,7 +9,7 @@ public class SO_AggressiveWeaponData : SO_WeaponData
     public WeaponAttackDetails[] AttackDetails
     {
         get => attackDetails;
-        set => attackDetails = value;
+        private set => attackDetails = value;
     }
     
     private void OnEnable()
