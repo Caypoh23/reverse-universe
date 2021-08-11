@@ -1,27 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
+using Player.SuperStates;
 
-public class PlayerLandState : PlayerGroundedState
+namespace Player.PlayerStates.SubStates
 {
-    public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerLandState : PlayerGroundedState
     {
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (!IsExitingState)
+        public PlayerLandState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            if (XInput != 0)
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (!IsExitingState)
             {
-                StateMachine.ChangeState(Player.MoveState);
-            }
-            else if (IsAnimationFinished)
-            {
-                StateMachine.ChangeState(Player.IdleState);
+                if (XInput != 0)
+                {
+                    StateMachine.ChangeState(PlayerBase.MoveState);
+                }
+                else if (IsAnimationFinished)
+                {
+                    StateMachine.ChangeState(PlayerBase.IdleState);
+                }
             }
         }
     }

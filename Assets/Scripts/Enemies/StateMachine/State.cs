@@ -1,51 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public abstract class State
+namespace Enemies.StateMachine
 {
-    protected FiniteStateMachine StateMachine;
-    protected Entity Entity;
-    protected Core Core;
-
-    protected float StartTime;
-
-    protected string AnimBoolName;
-
-    // Constructor
-
-    public State(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
+    public abstract class State
     {
-        Entity = entity;
-        StateMachine = stateMachine;
-        AnimBoolName = animBoolName;
-        Core = Entity.Core;
-    }
+        protected readonly FiniteStateMachine StateMachine;
+        protected readonly Entity Entity;
+        protected readonly Core Core;
 
-    // States
-    public virtual void Enter()
-    {
-        StartTime = Time.time;
-        Entity.Anim.SetBool(AnimBoolName, true);
-        DoChecks();
-    }
+        protected float StartTime;
 
-    public virtual void Exit()
-    {
-        Entity.Anim.SetBool(AnimBoolName, false);
-    }
+        private readonly string _animBoolName;
 
-    public virtual void LogicUpdate()
-    {
-    }
+        public State(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
+        {
+            Entity = entity;
+            StateMachine = stateMachine;
+            _animBoolName = animBoolName;
+            Core = Entity.Core;
+        }
 
-    public virtual void PhysicsUpdate()
-    {
-        DoChecks();
-    }
+        #region States
 
-    public virtual void DoChecks()
-    {
+        public virtual void Enter()
+        {
+            StartTime = Time.time;
+            Entity.Anim.SetBool(_animBoolName, true);
+            DoChecks();
+        }
+
+        public virtual void Exit()
+        {
+            Entity.Anim.SetBool(_animBoolName, false);
+        }
+
+        public virtual void LogicUpdate()
+        {
+        }
+
+        public virtual void PhysicsUpdate()
+        {
+            DoChecks();
+        }
+
+        public virtual void DoChecks()
+        {
+        }
+
+        #endregion
         
     }
 }

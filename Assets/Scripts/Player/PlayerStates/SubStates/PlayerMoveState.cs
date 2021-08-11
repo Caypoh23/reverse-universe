@@ -1,45 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
+using Player.SuperStates;
 
-public class PlayerMoveState : PlayerGroundedState
+namespace Player.PlayerStates.SubStates
 {
-    public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerMoveState : PlayerGroundedState
     {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        Core.Movement.CheckIfShouldFlip(XInput);
-        
-        Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
-
-        if (XInput == 0 && !IsExitingState)
+        public PlayerMoveState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            StateMachine.ChangeState(Player.IdleState);
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Enter()
+        {
+            base.Enter();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            Core.Movement.CheckIfShouldFlip(XInput);
+
+            Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
+
+            if (XInput == 0 && !IsExitingState)
+            {
+                StateMachine.ChangeState(PlayerBase.IdleState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
     }
 }

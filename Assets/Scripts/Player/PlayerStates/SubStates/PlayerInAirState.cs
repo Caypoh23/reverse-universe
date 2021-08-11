@@ -1,134 +1,138 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Player.Data;
+using Player.Input;
+using Player.PlayerFiniteStateMachine;
 using UnityEngine;
 
-public class PlayerInAirState : PlayerState
+namespace Player.PlayerStates.SubStates
 {
-    // Input
-    private int _xInput;
-    private bool _jumpInput;
-    private bool _jumpInputStop;
-    private bool _dashInput;
-
-    // Checks
-    private bool _isGrounded;
-    private bool _isTouchingWall;
-    private bool _coyoteTime;
-    private bool _isJumping;
-
-    private readonly int _yVelocity = Animator.StringToHash("yVelocity");
-    private readonly int _xVelocity = Animator.StringToHash("xVelocity");
-
-    public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerInAirState : PlayerState
     {
-    }
+        // Input
+        private int _xInput;
+        private bool _jumpInput;
+        private bool _jumpInputStop;
+        private bool _dashInput;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
+        // Checks
+        private bool _isGrounded;
+        private bool _isTouchingWall;
+        private bool _coyoteTime;
+        private bool _isJumping;
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
+        private readonly int _yVelocity = Animator.StringToHash("yVelocity");
+        private readonly int _xVelocity = Animator.StringToHash("xVelocity");
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        CheckCoyoteTime();
-
-        _xInput = Player.InputHandler.NormalizedInputX;
-        _jumpInput = Player.InputHandler.JumpInput;
-        _jumpInputStop = Player.InputHandler.JumpInputStop;
-        _dashInput = Player.InputHandler.DashInput;
-
-        CheckJumpMultiplier();
-
-        if (Player.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+        public PlayerInAirState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            StateMachine.ChangeState(Player.PrimaryAttackState);
         }
-        else if (Player.InputHandler.AttackInputs[(int) CombatInputs.Secondary])
+
+        public override void Enter()
         {
-            StateMachine.ChangeState(Player.SecondaryAttackState);
+            base.Enter();
         }
-        else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+
+        public override void Exit()
         {
-            StateMachine.ChangeState(Player.LandState);
+            base.Exit();
         }
-        else if (_jumpInput && Player.WallSlideState.IsWallSliding)
+
+        public override void LogicUpdate()
         {
-            Player.InputHandler.UseJumpInput();
+            base.LogicUpdate();
+
+            CheckCoyoteTime();
+
+            _xInput = PlayerBase.InputHandler.NormalizedInputX;
+            _jumpInput = PlayerBase.InputHandler.JumpInput;
+            _jumpInputStop = PlayerBase.InputHandler.JumpInputStop;
+            _dashInput = PlayerBase.InputHandler.DashInput;
+
+            CheckJumpMultiplier();
+
+            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+            {
+                StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
+            }
+            else if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Secondary])
+            {
+                StateMachine.ChangeState(PlayerBase.SecondaryAttackState);
+            }
+            else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+            {
+                StateMachine.ChangeState(PlayerBase.LandState);
+            }
+            else if (_jumpInput && PlayerBase.WallSlideState.IsWallSliding)
+            {
+                PlayerBase.InputHandler.UseJumpInput();
+                _isTouchingWall = Core.CollisionSenses.WallFront;
+                PlayerBase.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
+                StateMachine.ChangeState(PlayerBase.WallJumpState);
+            }
+            else if (_jumpInput && PlayerBase.JumpState.CanJump())
+            {
+                PlayerBase.InputHandler.UseJumpInput();
+                StateMachine.ChangeState(PlayerBase.JumpState);
+            }
+            else if (_isTouchingWall && _xInput == Core.Movement.FacingDirection && PlayerBase.Rb.velocity.y < 0)
+            {
+                StateMachine.ChangeState(PlayerBase.WallSlideState);
+            }
+            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
+            {
+                StateMachine.ChangeState(PlayerBase.DashState);
+            }
+            else
+            {
+                Core.Movement.CheckIfShouldFlip(_xInput);
+                Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
+
+                PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
+                PlayerBase.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
+            }
+        }
+
+        private void CheckJumpMultiplier()
+        {
+            if (_isJumping)
+            {
+                if (_jumpInputStop)
+                {
+                    Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
+                    _isJumping = false;
+                }
+                else if (Core.Movement.CurrentVelocity.y <= 0f)
+                {
+                    _isJumping = false;
+                }
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public void CheckCoyoteTime()
+        {
+            if (_coyoteTime && Time.time > StartTime + PlayerData.coyoteTime)
+            {
+                _coyoteTime = false;
+                PlayerBase.JumpState.DecreaseAmountOfJumpsLeft();
+            }
+        }
+
+        public void StartCoyoteTime() => _coyoteTime = true;
+
+        public void SetIsJumping() => _isJumping = true;
+
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+
+            _isGrounded = Core.CollisionSenses.Ground;
             _isTouchingWall = Core.CollisionSenses.WallFront;
-            Player.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
-            StateMachine.ChangeState(Player.WallJumpState);
         }
-        else if (_jumpInput && Player.JumpState.CanJump())
-        {
-            Player.InputHandler.UseJumpInput();
-            StateMachine.ChangeState(Player.JumpState);
-        }
-        else if (_isTouchingWall && _xInput == Core.Movement.FacingDirection && Player.Rb.velocity.y < 0)
-        {
-            StateMachine.ChangeState(Player.WallSlideState);
-        }
-        else if (_dashInput && Player.DashState.CheckIfCanDash())
-        {
-            StateMachine.ChangeState(Player.DashState);
-        }
-        else
-        {
-            Core.Movement.CheckIfShouldFlip(_xInput);
-            Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
-
-            Player.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
-            Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
-        }
-    }
-
-    private void CheckJumpMultiplier()
-    {
-        if (_isJumping)
-        {
-            if (_jumpInputStop)
-            {
-                Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
-                _isJumping = false;
-            }
-            else if (Core.Movement.CurrentVelocity.y <= 0f)
-            {
-                _isJumping = false;
-            }
-        }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
-
-    public void CheckCoyoteTime()
-    {
-        if (_coyoteTime && Time.time > StartTime + PlayerData.coyoteTime)
-        {
-            _coyoteTime = false;
-            Player.JumpState.DecreaseAmountOfJumpsLeft();
-        }
-    }
-
-    public void StartCoyoteTime() => _coyoteTime = true;
-
-    public void SetIsJumping() => _isJumping = true;
-
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-
-        _isGrounded = Core.CollisionSenses.Ground;
-        _isTouchingWall = Core.CollisionSenses.WallFront;
     }
 }

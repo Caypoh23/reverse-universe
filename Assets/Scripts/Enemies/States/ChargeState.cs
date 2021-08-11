@@ -1,63 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.StateMachine;
+using Enemies.States.Data;
 using UnityEngine;
 
-public class ChargeState : State
+namespace Enemies.States
 {
-    protected D_ChargeState StateData;
-
-    protected bool IsPlayerInMinAgroRange;
-    protected bool IsDetectingLedge;
-    protected bool IsDetectingWall;
-    protected bool IsChargeTimeOver;
-    protected bool PerformCloseRangeAction;
-
-    public ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData) :
-        base(entity, stateMachine,
-            animBoolName)
+    public class ChargeState : State
     {
-        StateData = stateData;
-    }
+        protected readonly D_ChargeState StateData;
 
-    public override void Enter()
-    {
-        base.Enter();
+        protected bool IsPlayerInMinAgroRange;
+        protected bool IsDetectingLedge;
+        protected bool IsDetectingWall;
+        protected bool IsChargeTimeOver;
+        protected bool PerformCloseRangeAction;
 
-        IsChargeTimeOver = false;
-        Core.Movement.SetVelocityX(StateData.chargeSpeed * Core.Movement.FacingDirection);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        Core.Movement.SetVelocityX(StateData.chargeSpeed * Core.Movement.FacingDirection);
-
-        if (Time.time >= StartTime + StateData.chargeTime)
+        public ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            D_ChargeState stateData) :
+            base(entity, stateMachine,
+                animBoolName)
         {
-            IsChargeTimeOver = true;
+            StateData = stateData;
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Enter()
+        {
+            base.Enter();
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+            IsChargeTimeOver = false;
+            Core.Movement.SetVelocityX(StateData.chargeSpeed * Core.Movement.FacingDirection);
+        }
 
-        IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-        IsDetectingLedge = Core.CollisionSenses.Ledge;
-        IsDetectingWall = Core.CollisionSenses.WallFront;
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
 
-        PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+            Core.Movement.SetVelocityX(StateData.chargeSpeed * Core.Movement.FacingDirection);
+
+            if (Time.time >= StartTime + StateData.chargeTime)
+            {
+                IsChargeTimeOver = true;
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+
+            IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+
+            IsDetectingLedge = Core.CollisionSenses.Ledge;
+            IsDetectingWall = Core.CollisionSenses.WallFront;
+
+            PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+        }
     }
 }

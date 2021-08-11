@@ -1,17 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class GenericNotImplementedError<T>
+namespace Generics
 {
-    public static T TryGet(T value, string name)
+    public static class GenericNotImplementedError<T>
     {
-        if (value != null)
+        public static T TryGet(T value, string name)
         {
-            return value;
-        }
+            if (value != null)
+            {
+                return value;
+            }
 
-        Debug.LogError(typeof(T) + " not implemented on " + name);
-        return default;
+            Debug.LogError(typeof(T) + " not implemented on " + name);
+            return default;
+        }
     }
 }

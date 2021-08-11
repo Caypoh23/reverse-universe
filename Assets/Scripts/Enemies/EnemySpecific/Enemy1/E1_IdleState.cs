@@ -1,43 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Enemies.StateMachine;
+using Enemies.States;
+using Enemies.States.Data;
 
-public class E1_IdleState : IdleState
+namespace Enemies.EnemySpecific.Enemy1
 {
-    private Enemy1 _enemy;
-
-    public E1_IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData,
-        Enemy1 enemy) :
-        base(entity, stateMachine, animBoolName, stateData)
+    public class E1_IdleState : IdleState
     {
-        _enemy = enemy;
-    }
+        private readonly Enemy1 _enemy;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        if (IsPlayerInMinAgroRange)
+        public E1_IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData,
+            Enemy1 enemy) :
+            base(entity, stateMachine, animBoolName, stateData)
         {
-            StateMachine.ChangeState(_enemy.PlayerDetectedState);
+            _enemy = enemy;
         }
-        else if (IsIdleTimeOver)
-        {
-            StateMachine.ChangeState(_enemy.MoveState);
-        }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            if (IsPlayerInMinAgroRange)
+            {
+                StateMachine.ChangeState(_enemy.PlayerDetectedState);
+            }
+            else if (IsIdleTimeOver)
+            {
+                StateMachine.ChangeState(_enemy.MoveState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
     }
 }

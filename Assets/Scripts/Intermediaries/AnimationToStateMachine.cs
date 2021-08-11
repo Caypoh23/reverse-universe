@@ -1,18 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.States;
 using UnityEngine;
 
-public class AnimationToStateMachine : MonoBehaviour
-{ 
-    public AttackState attackState;
-    
-    public void TriggerAttack()
+namespace Intermediaries
+{
+    public class AnimationToStateMachine : MonoBehaviour
     {
-        attackState.TriggerAttack();
-    }
+        public AttackState AttackState;
 
-    public void FinishAttack()
-    {
-        attackState.FinishAttack();
+        public void TriggerAttack()
+        {
+            AttackState.TriggerAttack();
+        }
+
+        public void FinishAttack()
+        {
+            AttackState.FinishAttack();
+        }
     }
 }

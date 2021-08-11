@@ -1,62 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.StateMachine;
+using Enemies.States;
+using Enemies.States.Data;
 using UnityEngine;
 
-public class E1_MeleeAttackState : MeleeAttackState
+namespace Enemies.EnemySpecific.Enemy1
 {
-    private Enemy1 _enemy;
-    
-    public E1_MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-        Transform attackPosition, D_MeleeAttack stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, attackPosition,
-        stateData)
+    public class E1_MeleeAttackState : MeleeAttackState
     {
-        _enemy = enemy;
-    }
+        private readonly Enemy1 _enemy;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (IsAnimationFinished)
+        public E1_MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            Transform attackPosition, D_MeleeAttack stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName,
+            attackPosition,
+            stateData)
         {
-            if (IsPlayerMinAgroRange)
+            _enemy = enemy;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (IsAnimationFinished)
             {
-                StateMachine.ChangeState(_enemy.PlayerDetectedState);
-            }
-            else
-            {
-                StateMachine.ChangeState(_enemy.LookForPlayerState);
+                if (IsPlayerMinAgroRange)
+                {
+                    StateMachine.ChangeState(_enemy.PlayerDetectedState);
+                }
+                else
+                {
+                    StateMachine.ChangeState(_enemy.LookForPlayerState);
+                }
             }
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
 
-    public override void TriggerAttack()
-    {
-        base.TriggerAttack();
-    }
+        public override void TriggerAttack()
+        {
+            base.TriggerAttack();
+        }
 
-    public override void FinishAttack()
-    {
-        base.FinishAttack();
+        public override void FinishAttack()
+        {
+            base.FinishAttack();
+        }
     }
 }

@@ -1,26 +1,29 @@
-﻿using System;
+﻿using Structs;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "newAggressiveWeaponData", menuName = "Data/Weapon Data/Aggressive Weapon")]
-public class SO_AggressiveWeaponData : SO_WeaponData
+namespace ScriptableObjects.Weapons
 {
-    [SerializeField] private WeaponAttackDetails[] attackDetails;
-   
-    public WeaponAttackDetails[] AttackDetails
+    [CreateAssetMenu(fileName = "newAggressiveWeaponData", menuName = "Data/Weapon Data/Aggressive Weapon")]
+    public class SO_AggressiveWeaponData : SO_WeaponData
     {
-        get => attackDetails;
-        private set => attackDetails = value;
-    }
-    
-    private void OnEnable()
-    {
-        amountOfAttacks = attackDetails.Length;
+        [SerializeField] private WeaponAttackDetails[] attackDetails;
 
-        movementSpeed = new float[amountOfAttacks];
-
-        for (var i = 0; i < amountOfAttacks; i++)
+        public WeaponAttackDetails[] AttackDetails
         {
-            movementSpeed[i] = attackDetails[i].movementSpeed;
+            get => attackDetails;
+            private set => attackDetails = value;
+        }
+
+        private void OnEnable()
+        {
+            amountOfAttacks = attackDetails.Length;
+
+            movementSpeed = new float[amountOfAttacks];
+
+            for (var i = 0; i < amountOfAttacks; i++)
+            {
+                movementSpeed[i] = attackDetails[i].movementSpeed;
+            }
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "newChargeStateData", menuName = "Data/State Data/Charge State")]
-
-public class D_ChargeState : ScriptableObject
+namespace Enemies.States.Data
 {
-    public float chargeSpeed = 6f;
+    [CreateAssetMenu(fileName = "newChargeStateData", menuName = "Data/State Data/Charge State")]
+    public class D_ChargeState : ScriptableObject
+    {
+        public float chargeSpeed = 6f;
 
-    public float chargeTime = 2f;
-
+        public float chargeTime = 2f;
+    }
 }

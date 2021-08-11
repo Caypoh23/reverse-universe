@@ -1,23 +1,25 @@
-﻿using System;
+﻿using Player.Weapons;
 using UnityEngine;
-using UnityEngine.InputSystem.Android;
 
-public class WeaponHitboxToWeapon : MonoBehaviour
+namespace Intermediaries
 {
-    private AggressiveWeapon _weapon;
-
-    private void Awake()
+    public class WeaponHitboxToWeapon : MonoBehaviour
     {
-        _weapon = GetComponentInParent<AggressiveWeapon>();
-    }
+        private AggressiveWeapon _weapon;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        _weapon.AddToDetected(other);
-    }
+        private void Awake()
+        {
+            _weapon = GetComponentInParent<AggressiveWeapon>();
+        }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        _weapon.RemoveFromDetected(other);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            _weapon.AddToDetected(other);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            _weapon.RemoveFromDetected(other);
+        }
     }
 }

@@ -1,75 +1,76 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.XR.GoogleVr;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using Player.Data;
+using Player.Input;
+using Player.PlayerFiniteStateMachine;
 
-public class PlayerGroundedState : PlayerState
+namespace Player.SuperStates
 {
-    protected int XInput;
-
-    private bool _jumpInput;
-    private bool _isGrounded;
-    private bool _dashInput;
-
-    public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerGroundedState : PlayerState
     {
-    }
+        protected int XInput;
 
-    public override void Enter()
-    {
-        base.Enter();
-        Player.JumpState.ResetAmountOfJumpsLeft();
-        Player.DashState.ResetCanDash();
-    }
+        private bool _jumpInput;
+        private bool _isGrounded;
+        private bool _dashInput;
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        XInput = Player.InputHandler.NormalizedInputX;
-        _jumpInput = Player.InputHandler.JumpInput;
-        _dashInput = Player.InputHandler.DashInput;
-
-
-        if (Player.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+        public PlayerGroundedState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            StateMachine.ChangeState(Player.PrimaryAttackState);
         }
-        else if (Player.InputHandler.AttackInputs[(int) CombatInputs.Secondary])
-        {
-            StateMachine.ChangeState(Player.SecondaryAttackState);
-        }
-        else if (_jumpInput && Player.JumpState.CanJump())
-        {
-            StateMachine.ChangeState(Player.JumpState);
-        }
-        else if (!_isGrounded)
-        {
-            Player.InAirState.StartCoyoteTime();
-            StateMachine.ChangeState(Player.InAirState);
-        }
-        else if (_dashInput && Player.DashState.CheckIfCanDash())
-        {
-            StateMachine.ChangeState(Player.DashState);
-        }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Enter()
+        {
+            base.Enter();
+            PlayerBase.JumpState.ResetAmountOfJumpsLeft();
+            PlayerBase.DashState.ResetCanDash();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-        _isGrounded = Core.CollisionSenses.Ground;
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            XInput = PlayerBase.InputHandler.NormalizedInputX;
+            _jumpInput = PlayerBase.InputHandler.JumpInput;
+            _dashInput = PlayerBase.InputHandler.DashInput;
+
+
+            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+            {
+                StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
+            }
+            else if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Secondary])
+            {
+                StateMachine.ChangeState(PlayerBase.SecondaryAttackState);
+            }
+            else if (_jumpInput && PlayerBase.JumpState.CanJump())
+            {
+                StateMachine.ChangeState(PlayerBase.JumpState);
+            }
+            else if (!_isGrounded)
+            {
+                PlayerBase.InAirState.StartCoyoteTime();
+                StateMachine.ChangeState(PlayerBase.InAirState);
+            }
+            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
+            {
+                StateMachine.ChangeState(PlayerBase.DashState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+
+            _isGrounded = Core.CollisionSenses.Ground;
+        }
     }
 }

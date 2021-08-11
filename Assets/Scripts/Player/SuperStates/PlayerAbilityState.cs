@@ -1,55 +1,57 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
 
-public class PlayerAbilityState : PlayerState
+namespace Player.SuperStates
 {
-    protected bool IsAbilityDone;
-    private bool _isGrounded;
-
-    public PlayerAbilityState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerAbilityState : PlayerState
     {
-    }
+        protected bool IsAbilityDone;
+        private bool _isGrounded;
 
-    public override void Enter()
-    {
-        base.Enter();
-
-        IsAbilityDone = false;
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (IsAbilityDone)
+        public PlayerAbilityState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+
+            IsAbilityDone = false;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (IsAbilityDone)
             {
-                StateMachine.ChangeState(Player.IdleState);
-            }
-            else
-            {
-                StateMachine.ChangeState(Player.InAirState);
+                if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+                {
+                    StateMachine.ChangeState(PlayerBase.IdleState);
+                }
+                else
+                {
+                    StateMachine.ChangeState(PlayerBase.InAirState);
+                }
             }
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void DoChecks()
+        {
+            base.DoChecks();
 
-        _isGrounded = Core.CollisionSenses.Ground;
+            _isGrounded = Core.CollisionSenses.Ground;
+        }
     }
 }

@@ -1,44 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.StateMachine;
+using Enemies.States.Data;
 using UnityEngine;
 
-public class DeadState : State
+namespace Enemies.States
 {
-    protected D_DeadState StateData;
-    
-    public DeadState(Entity entity, FiniteStateMachine stateMachine,
-        string animBoolName, D_DeadState stateData) : base(entity, stateMachine, animBoolName)
+    public class DeadState : State
     {
-        StateData = stateData;
-    }
+        protected readonly D_DeadState StateData;
 
-    public override void Enter()
-    {
-        base.Enter();
+        public DeadState(Entity entity, FiniteStateMachine stateMachine,
+            string animBoolName, D_DeadState stateData) : base(entity, stateMachine, animBoolName)
+        {
+            StateData = stateData;
+        }
 
-        GameObject.Instantiate(StateData.deathBloodParticle, Entity.transform.position, StateData.deathBloodParticle.transform.rotation);
-        GameObject.Instantiate(StateData.deathBloodParticle, Entity.transform.position, StateData.deathBloodParticle.transform.rotation);
+        public override void Enter()
+        {
+            base.Enter();
 
-        Entity.gameObject.SetActive(false);
-    }
+            var position = Entity.transform.position;
+            var rotation = StateData.deathBloodParticle.transform.rotation;
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
+            Object.Instantiate(StateData.deathBloodParticle, position,
+                rotation);
+            Object.Instantiate(StateData.deathBloodParticle, position,
+                rotation);
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-    }
+            Entity.gameObject.SetActive(false);
+        }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
     }
 }

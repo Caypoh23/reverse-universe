@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Player.Weapons;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+namespace Player
 {
-    public Weapon[] weapons;
+    public class PlayerInventory : MonoBehaviour
+    {
+        public Weapon[] weapons;
+    }
 }

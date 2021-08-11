@@ -1,77 +1,80 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.StateMachine;
+using Enemies.States.Data;
 using UnityEngine;
-using Random = System.Random;
 
-public class IdleState : State
+namespace Enemies.States
 {
-    protected D_IdleState StateData;
-
-    protected bool FlipAfterIdle;
-    protected bool IsIdleTimeOver;
-    protected bool IsPlayerInMinAgroRange;
-
-    protected float IdleTime;
-
-    public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(
-        entity, stateMachine,
-        animBoolName)
+    public class IdleState : State
     {
-        StateData = stateData;
-    }
+        protected readonly D_IdleState StateData;
 
-    public override void Enter()
-    {
-        base.Enter();
+        protected bool FlipAfterIdle;
+        protected bool IsIdleTimeOver;
+        protected bool IsPlayerInMinAgroRange;
 
-        Core.Movement.SetVelocityX(0f);
-        IsIdleTimeOver = false;
+        protected float IdleTime;
 
-        SetRandomIdleTime();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        if (FlipAfterIdle)
+        public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            D_IdleState stateData) : base(
+            entity, stateMachine,
+            animBoolName)
         {
-            Core.Movement.Flip();
+            StateData = stateData;
         }
-    }
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        
-        Core.Movement.SetVelocityX(0f);
-        
-        if (Time.time >= StartTime + IdleTime)
+        public override void Enter()
         {
-            IsIdleTimeOver = true;
+            base.Enter();
+
+            Core.Movement.SetVelocityX(0f);
+            IsIdleTimeOver = false;
+
+            SetRandomIdleTime();
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Exit()
+        {
+            base.Exit();
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+            if (FlipAfterIdle)
+            {
+                Core.Movement.Flip();
+            }
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            Core.Movement.SetVelocityX(0f);
+
+            if (Time.time >= StartTime + IdleTime)
+            {
+                IsIdleTimeOver = true;
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
 
 
-        IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
-    }
+            IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        }
 
-    public void SetFlipAfterIdle(bool flip)
-    {
-        FlipAfterIdle = flip;
-    }
+        public void SetFlipAfterIdle(bool flip)
+        {
+            FlipAfterIdle = flip;
+        }
 
-    public void SetRandomIdleTime()
-    {
-        IdleTime = UnityEngine.Random.Range(StateData.minIdleTime, StateData.maxIdleTime);
+        public void SetRandomIdleTime()
+        {
+            IdleTime = UnityEngine.Random.Range(StateData.minIdleTime, StateData.maxIdleTime);
+        }
     }
 }

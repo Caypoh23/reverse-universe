@@ -1,44 +1,45 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Player.Weapons;
 using UnityEngine;
 
-public class WeaponAnimationToWeapon : MonoBehaviour
+namespace Intermediaries
 {
-    private Weapon _weapon;
-
-    private void Start()
+    public class WeaponAnimationToWeapon : MonoBehaviour
     {
-        _weapon = GetComponentInParent<Weapon>();
-    }
+        private Weapon _weapon;
 
-    private void AnimationFinishTrigger()
-    {
-        _weapon.AnimationFinishedTrigger();
-    }
+        private void Start()
+        {
+            _weapon = GetComponentInParent<Weapon>();
+        }
 
-    private void AnimationStartMovementTrigger()
-    {
-        _weapon.AnimationStartMovementTrigger();
-    }
+        private void AnimationFinishTrigger()
+        {
+            _weapon.AnimationFinishedTrigger();
+        }
 
-    private void AnimationStopMovementTrigger()
-    {
-        _weapon.AnimationStopMovementTrigger();
-    }
+        private void AnimationStartMovementTrigger()
+        {
+            _weapon.AnimationStartMovementTrigger();
+        }
 
-    private void AnimationTurnOffFlipTrigger()
-    {
-        _weapon.AnimationTurnOffFlipTrigger();
-    }
+        private void AnimationStopMovementTrigger()
+        {
+            _weapon.AnimationStopMovementTrigger();
+        }
 
-    private void AnimationTurnOnFlipTrigger()
-    {
-        _weapon.AnimationTurnOnFlipTrigger();
-    }
+        private void AnimationTurnOffFlipTrigger()
+        {
+            _weapon.AnimationTurnOffFlipTrigger();
+        }
 
-    private void AnimationActionTrigger()
-    {
-        _weapon.AnimationActionTrigger();
+        private void AnimationTurnOnFlipTrigger()
+        {
+            _weapon.AnimationTurnOnFlipTrigger();
+        }
+
+        private void AnimationActionTrigger()
+        {
+            _weapon.AnimationActionTrigger();
+        }
     }
 }

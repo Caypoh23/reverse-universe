@@ -1,127 +1,127 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Unity.Mathematics;
-using UnityEditorInternal;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
+using Player.SuperStates;
 using UnityEngine;
 
-public class PlayerDashState : PlayerAbilityState
+namespace Player.PlayerStates.SubStates
 {
-    public bool CanDash { get; private set; }
-
-    private bool _isHolding;
-    private bool _dashInputStop;
-
-    private float _lastDashTime;
-
-    private Vector2 _dashDirection;
-    private Vector2 _dashDirectionInput;
-    private Vector2 _lastAfterImagePosition;
-
-    private readonly int _xVelocity = Animator.StringToHash("xVelocity");
-    private readonly int _yVelocity = Animator.StringToHash("yVelocity");
-
-    public PlayerDashState(Player player, PlayerStateMachine stateMachine,
-        PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerDashState : PlayerAbilityState
     {
-    }
+        public bool CanDash { get; private set; }
 
-    public override void Enter()
-    {
-        base.Enter();
+        private bool _isHolding;
+        private bool _dashInputStop;
 
-        CanDash = false;
-        Player.InputHandler.UseDashInput();
+        private float _lastDashTime;
 
-        _isHolding = true;
-        _dashDirection = Vector2.right * Core.Movement.FacingDirection;
+        private Vector2 _dashDirection;
+        private Vector2 _dashDirectionInput;
+        private Vector2 _lastAfterImagePosition;
 
-        Time.timeScale = PlayerData.holdTimeScale;
-        StartTime = Time.unscaledTime;
+        private readonly int _xVelocity = Animator.StringToHash("xVelocity");
+        private readonly int _yVelocity = Animator.StringToHash("yVelocity");
 
-        Player.DashDirectionIndicator.gameObject.SetActive(true);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        if (Core.Movement.CurrentVelocity.y > 0)
+        public PlayerDashState(PlayerBase playerBase, PlayerStateMachine stateMachine,
+            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.dashEndYMultiplier);
         }
-    }
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (!IsExitingState)
+        public override void Enter()
         {
-            Player.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
-            Player.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
+            base.Enter();
 
-            if (_isHolding)
+            CanDash = false;
+            PlayerBase.InputHandler.UseDashInput();
+
+            _isHolding = true;
+            _dashDirection = Vector2.right * Core.Movement.FacingDirection;
+
+            Time.timeScale = PlayerData.holdTimeScale;
+            StartTime = Time.unscaledTime;
+
+            PlayerBase.DashDirectionIndicator.gameObject.SetActive(true);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            if (Core.Movement.CurrentVelocity.y > 0)
             {
-                _dashDirectionInput = Player.InputHandler.DashDirectionInput;
-                _dashInputStop = Player.InputHandler.DashInputStop;
+                Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.dashEndYMultiplier);
+            }
+        }
 
-                if (_dashDirectionInput != Vector2.zero)
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (!IsExitingState)
+            {
+                PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
+                PlayerBase.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
+
+                if (_isHolding)
                 {
-                    _dashDirection = _dashDirectionInput;
-                    _dashDirection.Normalize();
+                    _dashDirectionInput = PlayerBase.InputHandler.DashDirectionInput;
+                    _dashInputStop = PlayerBase.InputHandler.DashInputStop;
+
+                    if (_dashDirectionInput != Vector2.zero)
+                    {
+                        _dashDirection = _dashDirectionInput;
+                        _dashDirection.Normalize();
+                    }
+
+                    var angle = Vector2.SignedAngle(Vector2.right, _dashDirection);
+                    PlayerBase.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
+
+                    if (_dashInputStop || Time.unscaledTime >= StartTime + PlayerData.maxHoldTime)
+                    {
+                        _isHolding = false;
+                        Time.timeScale = 1f;
+                        StartTime = Time.time;
+                        Core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(_dashDirection.x));
+                        PlayerBase.Rb.drag = PlayerData.drag;
+                        Core.Movement.SetVelocity(PlayerData.dashVelocity, _dashDirection);
+                        PlayerBase.DashDirectionIndicator.gameObject.SetActive(false);
+                        PlaceAfterImage();
+                    }
                 }
-
-                var angle = Vector2.SignedAngle(Vector2.right, _dashDirection);
-                Player.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
-
-                if (_dashInputStop || Time.unscaledTime >= StartTime + PlayerData.maxHoldTime)
+                else
                 {
-                    _isHolding = false;
-                    Time.timeScale = 1f;
-                    StartTime = Time.time;
-                    Core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(_dashDirection.x));
-                    Player.Rb.drag = PlayerData.drag;
                     Core.Movement.SetVelocity(PlayerData.dashVelocity, _dashDirection);
-                    Player.DashDirectionIndicator.gameObject.SetActive(false);
-                    PlaceAfterImage();
-                }
-            }
-            else
-            {
-                Core.Movement.SetVelocity(PlayerData.dashVelocity, _dashDirection);
-                CheckIfShouldPlaceAfterImage();
+                    CheckIfShouldPlaceAfterImage();
 
-                if (Time.time >= StartTime + PlayerData.dashTime)
-                {
-                    Player.Rb.drag = 0f;
-                    IsAbilityDone = true;
-                    _lastDashTime = Time.time;
-                    
+                    if (Time.time >= StartTime + PlayerData.dashTime)
+                    {
+                        PlayerBase.Rb.drag = 0f;
+                        IsAbilityDone = true;
+                        _lastDashTime = Time.time;
+                    }
                 }
             }
         }
-    }
 
-    private void CheckIfShouldPlaceAfterImage()
-    {
-        if (Vector2.Distance(Player.transform.position, _lastAfterImagePosition) >=
-            PlayerData.distanceBetweenAfterImages)
+        private void CheckIfShouldPlaceAfterImage()
         {
-            PlaceAfterImage();
+            if (Vector2.Distance(PlayerBase.transform.position, _lastAfterImagePosition) >=
+                PlayerData.distanceBetweenAfterImages)
+            {
+                PlaceAfterImage();
+            }
         }
-    }
 
-    private void PlaceAfterImage()
-    {
-        Player.ObjectPooler.SpawnFromPool(Player.afterImageTag, Player.transform.position, Player.transform.rotation);
-        //_lastAfterImagePosition = Player.transform.position;
-    }
+        private void PlaceAfterImage()
+        {
+            PlayerBase.ObjectPooler.SpawnFromPool(PlayerBase.afterImageTag, PlayerBase.transform.position, PlayerBase.transform.rotation);
+            //_lastAfterImagePosition = Player.transform.position;
+        }
 
-    public bool CheckIfCanDash()
-    {
-        return CanDash && Time.time >= _lastDashTime + PlayerData.dashCooldown;
-    }
+        public bool CheckIfCanDash()
+        {
+            return CanDash && Time.time >= _lastDashTime + PlayerData.dashCooldown;
+        }
 
-    public void ResetCanDash() => CanDash = true;
+        public void ResetCanDash() => CanDash = true;
+    }
 }

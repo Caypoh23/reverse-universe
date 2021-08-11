@@ -1,48 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Enemies.StateMachine;
+using Enemies.States;
+using Enemies.States.Data;
 
-public class E1_LookForPlayerState : LookForPlayerState
+namespace Enemies.EnemySpecific.Enemy1
 {
-    private Enemy1 _enemy1;
-    
-    public E1_LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-        D_LookForPlayer stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, stateData)
+    public class E1_LookForPlayerState : LookForPlayerState
     {
-        _enemy1 = enemy;
-    }
+        private readonly Enemy1 _enemy;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (IsPlayerIsInMinAgroRange)
+        public E1_LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            D_LookForPlayer stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, stateData)
         {
-            StateMachine.ChangeState(_enemy1.PlayerDetectedState);
+            _enemy = enemy;
         }
-        else if (IsAllTurnsTimeDone)
+
+        public override void Enter()
         {
-            StateMachine.ChangeState(_enemy1.MoveState);
+            base.Enter();
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (IsPlayerIsInMinAgroRange)
+            {
+                StateMachine.ChangeState(_enemy.PlayerDetectedState);
+            }
+            else if (IsAllTurnsTimeDone)
+            {
+                StateMachine.ChangeState(_enemy.MoveState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
     }
 }

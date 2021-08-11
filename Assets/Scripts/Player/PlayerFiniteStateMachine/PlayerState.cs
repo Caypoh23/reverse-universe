@@ -1,71 +1,73 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Player.Data;
 using UnityEngine;
 
 // make abstract
-public abstract class PlayerState
+namespace Player.PlayerFiniteStateMachine
 {
-    protected Core Core;
-    
-    // Name should be changed
-    // _private
-    protected Player Player; // animator
-    protected PlayerStateMachine StateMachine;
-    protected PlayerData PlayerData;
-    protected bool IsAnimationFinished;
-    protected bool IsExitingState;
-
-    protected float StartTime;
-
-    private string _animBoolName;
-
-    public PlayerState(Player player, PlayerStateMachine stateMachine,
-        PlayerData playerData, string animBoolName)
+    public abstract class PlayerState
     {
-        Player = player;
-        StateMachine = stateMachine;
-        PlayerData = playerData;
-        _animBoolName = animBoolName;
-        Core = player.Core;
-    }
+        protected readonly Core Core;
 
-    public virtual void Enter()
-    {
-        DoChecks();
-        Player.Anim.SetBool(_animBoolName, true);
-        StartTime = Time.time;
-        IsAnimationFinished = false;
-        IsExitingState = false;
-    }
+        // Name should be changed
+        // _private
+        protected readonly PlayerBase PlayerBase; // animator
+        protected readonly PlayerStateMachine StateMachine;
+        protected readonly PlayerData PlayerData;
+        protected bool IsAnimationFinished;
+        protected bool IsExitingState;
 
-    public virtual void Exit()
-    {
-        Player.Anim.SetBool(_animBoolName, false);
-        IsExitingState = true;
-    }
+        protected float StartTime;
 
-    // Update
-    public virtual void LogicUpdate()
-    {
-    }
+        private readonly string _animBoolName;
 
-    // Fixed Update
-    public virtual void PhysicsUpdate()
-    {
-        DoChecks();
-    }
+        public PlayerState(PlayerBase playerBase, PlayerStateMachine stateMachine,
+            PlayerData playerData, string animBoolName)
+        {
+            PlayerBase = playerBase;
+            StateMachine = stateMachine;
+            PlayerData = playerData;
+            _animBoolName = animBoolName;
+            Core = playerBase.Core;
+        }
 
-    // Check for wall, ground, ledge etc.
-    // Tick
-    // OnUpdate
-    // Rename
-    public virtual void DoChecks()
-    {
-    }
+        public virtual void Enter()
+        {
+            DoChecks();
+            PlayerBase.Anim.SetBool(_animBoolName, true);
+            StartTime = Time.time;
+            IsAnimationFinished = false;
+            IsExitingState = false;
+        }
 
-    public virtual void AnimationTrigger()
-    {
-    }
+        public virtual void Exit()
+        {
+            PlayerBase.Anim.SetBool(_animBoolName, false);
+            IsExitingState = true;
+        }
 
-    public virtual void AnimationFinishedTrigger() => IsAnimationFinished = true;
+        // Update
+        public virtual void LogicUpdate()
+        {
+        }
+
+        // Fixed Update
+        public virtual void PhysicsUpdate()
+        {
+            DoChecks();
+        }
+
+        // Check for wall, ground, ledge etc.
+        // Tick
+        // OnUpdate
+        // Rename
+        public virtual void DoChecks()
+        {
+        }
+
+        public virtual void AnimationTrigger()
+        {
+        }
+
+        public virtual void AnimationFinishedTrigger() => IsAnimationFinished = true;
+    }
 }

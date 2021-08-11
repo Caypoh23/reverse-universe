@@ -1,51 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Enemies.StateMachine;
+using Enemies.States.Data;
 
-public class MoveState : State
+namespace Enemies.States
 {
-    protected D_MoveState StateData;
-
-    protected bool IsDetectingWall;
-    protected bool IsDetectingLedge;
-    protected bool IsPlayerInMinAgroRange;
-
-    public MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(
-        entity, stateMachine, animBoolName)
+    public class MoveState : State
     {
-        StateData = stateData;
-    }
+        protected readonly D_MoveState StateData;
 
-    public override void Enter()
-    {
-        base.Enter();
-        Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
-    }
+        protected bool IsDetectingWall;
+        protected bool IsDetectingLedge;
+        protected bool IsPlayerInMinAgroRange;
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
+        public MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(
+            entity, stateMachine, animBoolName)
+        {
+            StateData = stateData;
+        }
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
+        public override void Enter()
+        {
+            base.Enter();
+            Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
+        }
 
-    }
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
-        
-        IsDetectingLedge = Core.CollisionSenses.Ledge;
-        IsDetectingWall = Core.CollisionSenses.WallFront;
-        
-        IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+
+            IsDetectingLedge = Core.CollisionSenses.Ledge;
+            IsDetectingWall = Core.CollisionSenses.WallFront;
+
+            IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        }
     }
 }

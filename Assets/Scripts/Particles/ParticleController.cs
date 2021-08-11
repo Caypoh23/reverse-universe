@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ParticleController : MonoBehaviour
+namespace Particles
 {
-    private void FinishAnimation()
+    public class ParticleController : MonoBehaviour
     {
-        gameObject.SetActive(false);
+        private void FinishAnimation()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

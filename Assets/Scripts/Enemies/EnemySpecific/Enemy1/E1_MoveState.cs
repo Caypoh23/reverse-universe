@@ -1,46 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using UnityEngine;
+﻿using Enemies.StateMachine;
+using Enemies.States;
+using Enemies.States.Data;
 
-public class E1_MoveState : MoveState
+namespace Enemies.EnemySpecific.Enemy1
 {
-    private Enemy1 _enemy;
-
-    public E1_MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData,
-        Enemy1 enemy) :
-        base(entity, stateMachine, animBoolName, stateData)
+    public class E1_MoveState : MoveState
     {
-        _enemy = enemy;
-    }
+        private readonly Enemy1 _enemy;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (IsPlayerInMinAgroRange)
+        public E1_MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData,
+            Enemy1 enemy) :
+            base(entity, stateMachine, animBoolName, stateData)
         {
-            StateMachine.ChangeState(_enemy.PlayerDetectedState);
+            _enemy = enemy;
         }
-        else if (IsDetectingWall || !IsDetectingLedge)
-        {
-            _enemy.IdleState.SetFlipAfterIdle(true);
-            StateMachine.ChangeState(_enemy.IdleState);
-        }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (IsPlayerInMinAgroRange)
+            {
+                StateMachine.ChangeState(_enemy.PlayerDetectedState);
+            }
+            else if (IsDetectingWall || !IsDetectingLedge)
+            {
+                _enemy.IdleState.SetFlipAfterIdle(true);
+                StateMachine.ChangeState(_enemy.IdleState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
     }
 }

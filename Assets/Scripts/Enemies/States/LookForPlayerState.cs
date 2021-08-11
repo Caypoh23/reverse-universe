@@ -1,90 +1,93 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Enemies.StateMachine;
+using Enemies.States.Data;
 using UnityEngine;
 
-public class LookForPlayerState : State
+namespace Enemies.States
 {
-    protected D_LookForPlayer StateData;
-    
-    protected bool IsPlayerIsInMinAgroRange;
-    protected bool IsAllTurnsDone;
-    protected bool IsAllTurnsTimeDone;
-    protected bool TurnImmediately;
-
-    protected float LastTurnTime;
-
-    protected int AmountOfTurnsDone;
-
-    public LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-        D_LookForPlayer stateData) : base(entity,
-        stateMachine, animBoolName)
+    public class LookForPlayerState : State
     {
-        StateData = stateData;
-    }
+        protected readonly D_LookForPlayer StateData;
 
-    public override void Enter()
-    {
-        base.Enter();
+        protected bool IsPlayerIsInMinAgroRange;
+        protected bool IsAllTurnsDone;
+        protected bool IsAllTurnsTimeDone;
+        protected bool TurnImmediately;
 
-        IsAllTurnsDone = false;
-        IsAllTurnsTimeDone = false;
+        protected float LastTurnTime;
 
-        LastTurnTime = StartTime;
-        AmountOfTurnsDone = 0;
+        protected int AmountOfTurnsDone;
 
-        Core.Movement.SetVelocityX(0f);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        
-        Core.Movement.SetVelocityX(0f);
-        
-        if (TurnImmediately)
+        public LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            D_LookForPlayer stateData) : base(entity,
+            stateMachine, animBoolName)
         {
-            Core.Movement.Flip();
-            LastTurnTime = Time.time;
-            AmountOfTurnsDone++;
-            TurnImmediately = false;
-        }
-        else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone)
-        {
-            Core.Movement.Flip();
-            LastTurnTime = Time.time;
-            AmountOfTurnsDone++;
+            StateData = stateData;
         }
 
-        if (AmountOfTurnsDone >= StateData.amountOfTurns)
+        public override void Enter()
         {
-            IsAllTurnsDone = true;
+            base.Enter();
+
+            IsAllTurnsDone = false;
+            IsAllTurnsTimeDone = false;
+
+            LastTurnTime = StartTime;
+            AmountOfTurnsDone = 0;
+
+            Core.Movement.SetVelocityX(0f);
         }
 
-        if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone)
+        public override void Exit()
         {
-            IsAllTurnsTimeDone = true;
+            base.Exit();
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+            Core.Movement.SetVelocityX(0f);
 
-        IsPlayerIsInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
-    }
+            if (TurnImmediately)
+            {
+                Core.Movement.Flip();
+                LastTurnTime = Time.time;
+                AmountOfTurnsDone++;
+                TurnImmediately = false;
+            }
+            else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone)
+            {
+                Core.Movement.Flip();
+                LastTurnTime = Time.time;
+                AmountOfTurnsDone++;
+            }
 
-    public void SetTurnImmediately(bool flip)
-    {
-        TurnImmediately = flip;
+            if (AmountOfTurnsDone >= StateData.amountOfTurns)
+            {
+                IsAllTurnsDone = true;
+            }
+
+            if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone)
+            {
+                IsAllTurnsTimeDone = true;
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+
+            IsPlayerIsInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        }
+
+        public void SetTurnImmediately(bool flip)
+        {
+            TurnImmediately = flip;
+        }
     }
 }

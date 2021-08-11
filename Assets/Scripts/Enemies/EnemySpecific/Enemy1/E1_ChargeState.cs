@@ -1,63 +1,65 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using UnityEngine;
+﻿using Enemies.StateMachine;
+using Enemies.States;
+using Enemies.States.Data;
 
-
-public class E1_ChargeState : ChargeState
+namespace Enemies.EnemySpecific.Enemy1
 {
-    private Enemy1 _enemy1;
-
-    public E1_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData,
-        Enemy1 enemy)
-        : base(entity, stateMachine, animBoolName, stateData)
+    public class E1_ChargeState : ChargeState
     {
-        _enemy1 = enemy;
-    }
+        private readonly Enemy1 _enemy;
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-
-        if (PerformCloseRangeAction)
+        public E1_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
+            D_ChargeState stateData,
+            Enemy1 enemy)
+            : base(entity, stateMachine, animBoolName, stateData)
         {
-            StateMachine.ChangeState(_enemy1.MeleeAttackState);
+            _enemy = enemy;
         }
-        else if (!IsDetectingLedge || IsDetectingWall)
+
+        public override void Enter()
         {
-            StateMachine.ChangeState(_enemy1.LookForPlayerState);
+            base.Enter();
         }
-        else if (IsChargeTimeOver)
+
+        public override void Exit()
         {
-            if (IsPlayerInMinAgroRange)
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+
+            if (PerformCloseRangeAction)
             {
-                StateMachine.ChangeState(_enemy1.PlayerDetectedState);
+                StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
-            else
+            else if (!IsDetectingLedge || IsDetectingWall)
             {
-                StateMachine.ChangeState(_enemy1.LookForPlayerState);
+                StateMachine.ChangeState(_enemy.LookForPlayerState);
+            }
+            else if (IsChargeTimeOver)
+            {
+                if (IsPlayerInMinAgroRange)
+                {
+                    StateMachine.ChangeState(_enemy.PlayerDetectedState);
+                }
+                else
+                {
+                    StateMachine.ChangeState(_enemy.LookForPlayerState);
+                }
             }
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
     }
 }

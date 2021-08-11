@@ -1,31 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
+using Player.SuperStates;
 
-public class PlayerWallSlideState : PlayerTouchingWallState
+namespace Player.PlayerStates.SubStates
 {
-    public bool IsWallSliding;
-    
-    public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine,
-        PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerWallSlideState : PlayerTouchingWallState
     {
-    }
+        public bool IsWallSliding;
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (!IsExitingState)
+        public PlayerWallSlideState(PlayerBase playerBase, PlayerStateMachine stateMachine,
+            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            IsWallSliding = true;
-            Core.Movement.SetVelocityY(-PlayerData.wallSlideVelocity);
         }
-    }
 
-    public override void Exit()
-    {
-        base.Exit();
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
 
-        IsWallSliding = false;
+            if (!IsExitingState)
+            {
+                IsWallSliding = true;
+                Core.Movement.SetVelocityY(-PlayerData.wallSlideVelocity);
+            }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            IsWallSliding = false;
+        }
     }
 }

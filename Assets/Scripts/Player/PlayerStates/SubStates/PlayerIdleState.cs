@@ -1,43 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Player.Data;
+using Player.PlayerFiniteStateMachine;
+using Player.SuperStates;
 
-public class PlayerIdleState : PlayerGroundedState
+namespace Player.PlayerStates.SubStates
 {
-    public PlayerIdleState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
-        string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerIdleState : PlayerGroundedState
     {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-
-        Core.Movement.SetVelocityX(0.0f);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (XInput != 0 && !IsExitingState)
+        public PlayerIdleState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
         {
-            StateMachine.ChangeState(Player.MoveState);
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Enter()
+        {
+            base.Enter();
 
-    public override void DoChecks()
-    {
-        base.DoChecks();
+            Core.Movement.SetVelocityX(0.0f);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (XInput != 0 && !IsExitingState)
+            {
+                StateMachine.ChangeState(PlayerBase.MoveState);
+            }
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
     }
 }

@@ -1,15 +1,17 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMoveInput : MonoBehaviour
+namespace Player.Old
 {
-    private Vector2 _movementInput;
-
-    [SerializeField] private float movementSpeed;
-
-    public void OnMoveInput(InputAction.CallbackContext context)
+    public class PlayerMoveInput : MonoBehaviour
     {
-        _movementInput = context.ReadValue<Vector2>();
+        private Vector2 _movementInput;
+
+        [SerializeField] private float movementSpeed;
+
+        public void OnMoveInput(InputAction.CallbackContext context)
+        {
+            _movementInput = context.ReadValue<Vector2>();
+        }
     }
 }

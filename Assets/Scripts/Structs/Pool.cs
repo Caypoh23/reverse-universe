@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Structs
 {
     [Serializable]
-    
     public struct Pool
     {
         public Tag tag;
