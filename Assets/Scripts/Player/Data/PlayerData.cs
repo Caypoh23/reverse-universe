@@ -30,7 +30,7 @@ namespace Player.Data
 
         [Header("Time")] 
         public float timeDilationTimeScale = 0.25f;
-        public float maxTimeDilationHoldTime = 1f;
-        public float timeDilationDuration = 1f;
+        public float maxTimeDilationHoldTime = 3f;
+        public float timeDilationDuration = 0f;
     }
 }

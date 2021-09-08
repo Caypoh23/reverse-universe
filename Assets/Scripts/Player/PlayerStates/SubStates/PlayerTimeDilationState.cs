@@ -13,7 +13,7 @@ public class PlayerTimeDilationState : PlayerAbilityState
     private bool _timeDilationInputStop;
 
     private float _lastTimeDilationDuration;
-    
+
     public PlayerTimeDilationState(
         PlayerBase playerBase,
         PlayerStateMachine stateMachine,
@@ -39,7 +39,6 @@ public class PlayerTimeDilationState : PlayerAbilityState
         // smooth time dilation
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
         StartTime = Time.unscaledTime;
-        
     }
 
     public override void Exit()
@@ -57,7 +56,7 @@ public class PlayerTimeDilationState : PlayerAbilityState
             {
                 _timeDilationInputStop = PlayerBase.InputHandler.TimeDilationInputStop;
 
-                if (_timeDilationInputStop || Time.unscaledTime >= StartTime + PlayerData.maxHoldTime)
+                if (_timeDilationInputStop || Time.unscaledTime >= StartTime + PlayerData.maxTimeDilationHoldTime)
                 {
                     _isHolding = false;
                     Time.timeScale = 1f;
@@ -74,11 +73,12 @@ public class PlayerTimeDilationState : PlayerAbilityState
             }
         }
     }
-    
+
     public bool CheckIfCanDelayTime()
     {
         return CanDelayTime && Time.time >= _lastTimeDilationDuration + PlayerData.dashCooldown;
     }
+
     public void ResetCanDelayTime() => CanDelayTime = true;
 
     public override void PhysicsUpdate()
