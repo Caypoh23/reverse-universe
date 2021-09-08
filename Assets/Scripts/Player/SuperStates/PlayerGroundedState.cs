@@ -11,6 +11,7 @@ namespace Player.SuperStates
         private bool _jumpInput;
         private bool _isGrounded;
         private bool _dashInput;
+        private bool _timeDilationInput;
 
         public PlayerGroundedState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
             string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
@@ -22,6 +23,7 @@ namespace Player.SuperStates
             base.Enter();
             PlayerBase.JumpState.ResetAmountOfJumpsLeft();
             PlayerBase.DashState.ResetCanDash();
+            PlayerBase.TimeDilationState.ResetCanDelayTime();
         }
 
         public override void Exit()
@@ -36,6 +38,7 @@ namespace Player.SuperStates
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             _jumpInput = PlayerBase.InputHandler.JumpInput;
             _dashInput = PlayerBase.InputHandler.DashInput;
+            _timeDilationInput = PlayerBase.InputHandler.TimeDilationInput;
 
 
             if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
@@ -49,6 +52,10 @@ namespace Player.SuperStates
             else if (_jumpInput && PlayerBase.JumpState.CanJump())
             {
                 StateMachine.ChangeState(PlayerBase.JumpState);
+            }
+            else if (_timeDilationInput && PlayerBase.TimeDilationState.CheckIfCanDelayTime())
+            {
+                StateMachine.ChangeState(PlayerBase.TimeDilationState);
             }
             else if (!_isGrounded)
             {

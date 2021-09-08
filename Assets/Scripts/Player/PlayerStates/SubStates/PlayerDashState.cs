@@ -37,6 +37,7 @@ namespace Player.PlayerStates.SubStates
             _dashDirection = Vector2.right * Core.Movement.FacingDirection;
 
             Time.timeScale = PlayerData.holdTimeScale;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
             StartTime = Time.unscaledTime;
 
             PlayerBase.DashDirectionIndicator.gameObject.SetActive(true);

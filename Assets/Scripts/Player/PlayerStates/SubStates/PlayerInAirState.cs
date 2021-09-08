@@ -12,6 +12,7 @@ namespace Player.PlayerStates.SubStates
         private bool _jumpInput;
         private bool _jumpInputStop;
         private bool _dashInput;
+        private bool _timeDilationInput;
 
         // Checks
         private bool _isGrounded;
@@ -47,6 +48,7 @@ namespace Player.PlayerStates.SubStates
             _jumpInput = PlayerBase.InputHandler.JumpInput;
             _jumpInputStop = PlayerBase.InputHandler.JumpInputStop;
             _dashInput = PlayerBase.InputHandler.DashInput;
+            _timeDilationInput = PlayerBase.InputHandler.TimeDilationInput;
 
             CheckJumpMultiplier();
 
@@ -81,6 +83,10 @@ namespace Player.PlayerStates.SubStates
             else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
             {
                 StateMachine.ChangeState(PlayerBase.DashState);
+            }
+            else if (_timeDilationInput && PlayerBase.TimeDilationState.CheckIfCanDelayTime())
+            {
+                StateMachine.ChangeState(PlayerBase.TimeDilationState);
             }
             else
             {

@@ -27,5 +27,10 @@ namespace Player.Data
         public float drag = 10f;
         public float dashEndYMultiplier = 0.2f;
         public float distanceBetweenAfterImages = 0.5f;
+
+        [Header("Time")] 
+        public float timeDilationTimeScale = 0.25f;
+        public float maxTimeDilationHoldTime = 1f;
+        public float timeDilationDuration = 1f;
     }
 }

@@ -21,6 +21,12 @@ namespace Player.Input
         public bool JumpInputStop { get; private set; }
         public bool DashInput { get; private set; }
         public bool DashInputStop { get; private set; }
+        
+        public bool TimeDilationInput { get; private set; }
+        public bool TimeDilationInputStop { get; private set; }
+        public bool TimeReverseInput { get; private set; }
+        public bool TimeReverseInputStop { get; private set; }
+
 
         public bool[] AttackInputs { get; private set; }
 
@@ -28,6 +34,8 @@ namespace Player.Input
 
         private float _jumpInputStartTime;
         private float _dashInputStartTime;
+        private float _timeReverseInputStartTime;
+        private float _timeDilationInputStartTime;
 
         private void Start()
         {
@@ -39,6 +47,8 @@ namespace Player.Input
         {
             CheckJumpInputHoldTime();
             CheckDashInputHoldTime();
+            CheckTimeReverseInputHoldTime();
+            CheckTimeDilationInputHoldTime();
         }
 
         public void OnPrimaryAttackInput(InputAction.CallbackContext context)
@@ -89,7 +99,38 @@ namespace Player.Input
                 JumpInputStop = true;
             }
         }
+        
+        public void OnTimeReverseInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                TimeReverseInput = true;
+                TimeReverseInputStop = false;
+                _timeReverseInputStartTime = Time.time;
+            }
 
+            if (context.canceled)
+            {
+                TimeReverseInputStop = true;
+            }
+        }
+        
+        public void OnTimeDilationInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                TimeDilationInput = true;
+                TimeDilationInputStop = false;
+                _timeDilationInputStartTime = Time.time;
+            }
+
+            if (context.canceled)
+            {
+                TimeDilationInputStop = true;
+            }
+        }
+
+        
         public void OnDashInput(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -118,6 +159,8 @@ namespace Player.Input
 
         public void UseJumpInput() => JumpInput = false;
         public void UseDashInput() => DashInput = false;
+        public void UseTimeReverseInput() => DashInput = false;
+        public void UseTimeDilationInput() => TimeDilationInput = false;
 
 
         private void CheckJumpInputHoldTime()
@@ -125,6 +168,21 @@ namespace Player.Input
             if (Time.time >= _jumpInputStartTime + inputHoldTime)
             {
                 JumpInput = false;
+            }
+        }
+        
+        private void CheckTimeReverseInputHoldTime()
+        {
+            if (Time.time >= _timeReverseInputStartTime + inputHoldTime)
+            {
+                TimeReverseInput = false;
+            }
+        }
+        private void CheckTimeDilationInputHoldTime()
+        {
+            if (Time.time >= _timeDilationInputStartTime + inputHoldTime)
+            {
+                TimeDilationInput = false;
             }
         }
 
