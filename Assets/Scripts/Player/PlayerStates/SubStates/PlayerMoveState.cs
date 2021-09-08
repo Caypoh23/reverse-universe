@@ -6,8 +6,16 @@ namespace Player.PlayerStates.SubStates
 {
     public class PlayerMoveState : PlayerGroundedState
     {
-        public PlayerMoveState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
-            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerMoveState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 

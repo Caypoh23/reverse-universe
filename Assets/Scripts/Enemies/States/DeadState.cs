@@ -6,10 +6,17 @@ namespace Enemies.States
 {
     public class DeadState : State
     {
-        protected readonly D_DeadState StateData;
+        protected readonly DeadStateData StateData;
 
-        public DeadState(Entity entity, FiniteStateMachine stateMachine,
-            string animBoolName, D_DeadState stateData) : base(entity, stateMachine, animBoolName)
+        public DeadState(
+            Entity entity, 
+            FiniteStateMachine stateMachine,
+            string animBoolName, 
+            DeadStateData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }

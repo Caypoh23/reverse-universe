@@ -8,17 +8,17 @@ using UnityEngine;
 public class E2_PlayerDetectedState : PlayerDetectedState
 {
     private Enemy2 _enemy;
-    
+
     public E2_PlayerDetectedState(
-        Entity entity, 
-        FiniteStateMachine stateMachine, 
-        string animBoolName, 
-        D_PlayerDetected stateData,
-        Enemy2 enemy) : 
+        Entity entity,
+        FiniteStateMachine stateMachine,
+        string animBoolName,
+        PlayerDetectedData stateData,
+        Enemy2 enemy) :
         base(
-            entity, 
-            stateMachine, 
-            animBoolName, 
+            entity,
+            stateMachine,
+            animBoolName,
             stateData)
     {
         _enemy = enemy;

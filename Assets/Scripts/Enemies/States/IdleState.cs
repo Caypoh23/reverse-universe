@@ -6,7 +6,7 @@ namespace Enemies.States
 {
     public class IdleState : State
     {
-        protected readonly D_IdleState StateData;
+        protected readonly IdleStateData StateData;
 
         protected bool FlipAfterIdle;
         protected bool IsIdleTimeOver;
@@ -14,10 +14,15 @@ namespace Enemies.States
 
         protected float IdleTime;
 
-        public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            D_IdleState stateData) : base(
-            entity, stateMachine,
-            animBoolName)
+        public IdleState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName,
+            IdleStateData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }

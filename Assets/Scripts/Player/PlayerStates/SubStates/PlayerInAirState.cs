@@ -23,8 +23,16 @@ namespace Player.PlayerStates.SubStates
         private readonly int _yVelocity = Animator.StringToHash("yVelocity");
         private readonly int _xVelocity = Animator.StringToHash("xVelocity");
 
-        public PlayerInAirState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
-            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerInAirState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 
@@ -45,10 +53,10 @@ namespace Player.PlayerStates.SubStates
             CheckCoyoteTime();
 
             _xInput = PlayerBase.InputHandler.NormalizedInputX;
-            _jumpInput = PlayerBase.InputHandler.JumpInput;
-            _jumpInputStop = PlayerBase.InputHandler.JumpInputStop;
-            _dashInput = PlayerBase.InputHandler.DashInput;
-            _timeDilationInput = PlayerBase.InputHandler.TimeDilationInput;
+            _jumpInput = PlayerBase.InputHandler.CanJumpInput;
+            _jumpInputStop = PlayerBase.InputHandler.CanJumpInputStop;
+            _dashInput = PlayerBase.InputHandler.CanDashInput;
+            _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
 
             CheckJumpMultiplier();
 
@@ -67,7 +75,7 @@ namespace Player.PlayerStates.SubStates
             else if (_jumpInput && PlayerBase.WallSlideState.IsWallSliding)
             {
                 PlayerBase.InputHandler.UseJumpInput();
-                _isTouchingWall = Core.CollisionSenses.WallFront;
+                _isTouchingWall = Core.CollisionSenses.IsCheckingWall;
                 PlayerBase.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
                 StateMachine.ChangeState(PlayerBase.WallJumpState);
             }
@@ -137,8 +145,8 @@ namespace Player.PlayerStates.SubStates
         {
             base.DoChecks();
 
-            _isGrounded = Core.CollisionSenses.Ground;
-            _isTouchingWall = Core.CollisionSenses.WallFront;
+            _isGrounded = Core.CollisionSenses.IsGrounded;
+            _isTouchingWall = Core.CollisionSenses.IsCheckingWall;
         }
     }
 }

@@ -8,8 +8,16 @@ namespace Player.SuperStates
         protected bool IsAbilityDone;
         private bool _isGrounded;
 
-        public PlayerAbilityState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
-            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerAbilityState(
+            PlayerBase playerBase, 
+            PlayerStateMachine stateMachine, 
+            PlayerData playerData,
+            string animBoolName) : 
+            base(
+                playerBase, 
+                stateMachine, 
+                playerData, 
+                animBoolName)
         {
         }
 
@@ -51,7 +59,7 @@ namespace Player.SuperStates
         {
             base.DoChecks();
 
-            _isGrounded = Core.CollisionSenses.Ground;
+            _isGrounded = Core.CollisionSenses.IsGrounded;
         }
     }
 }

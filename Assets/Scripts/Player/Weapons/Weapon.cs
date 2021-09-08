@@ -6,7 +6,7 @@ namespace Player.Weapons
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] protected SO_WeaponData weaponData;
+        [SerializeField] protected WeaponData weaponData;
 
         protected Animator BaseAnimator;
         protected Animator WeaponAnimator;

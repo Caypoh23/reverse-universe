@@ -19,7 +19,7 @@ namespace Enemies.StateMachine
 
         public FiniteStateMachine StateMachine;
 
-        [SerializeField] private D_Entity entityData;
+        [SerializeField] private EntityData entityData;
 
         #endregion
 

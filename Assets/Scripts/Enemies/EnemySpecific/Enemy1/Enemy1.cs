@@ -15,14 +15,14 @@ namespace Enemies.EnemySpecific.Enemy1
         public E1_StunState StunState { get; private set; }
         public E1_DeadState DeadState { get; private set; }
 
-        [SerializeField] private D_IdleState idleStateData;
-        [SerializeField] private D_MoveState moveStateData;
-        [SerializeField] private D_PlayerDetected playerDetectedData;
-        [SerializeField] private D_ChargeState chargeStateData;
-        [SerializeField] private D_LookForPlayer lookForPlayerStateData;
-        [SerializeField] private D_MeleeAttack meleeAttackStateData;
-        [SerializeField] private D_StunState stunStateData;
-        [SerializeField] private D_DeadState deadStateData;
+        [SerializeField] private IdleStateData idleStateData;
+        [SerializeField] private MoveStateData moveStateData;
+        [SerializeField] private PlayerDetectedData playerDetectedData;
+        [SerializeField] private ChargeStateData chargeStateData;
+        [SerializeField] private LookForPlayerData lookForPlayerStateData;
+        [SerializeField] private MeleeAttackData meleeAttackStateData;
+        [SerializeField] private StunStateData stunStateData;
+        [SerializeField] private DeadStateData deadStateData;
 
 
         [SerializeField] private Transform meleeAttackPosition;

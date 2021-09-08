@@ -9,10 +9,19 @@ namespace Enemies.EnemySpecific.Enemy1
     {
         private readonly Enemy1 _enemy;
 
-        public E1_MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            Transform attackPosition, D_MeleeAttack stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName,
-            attackPosition,
-            stateData)
+        public E1_MeleeAttackState(
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            string animBoolName,
+            Transform attackPosition,
+            MeleeAttackData stateData,
+            Enemy1 enemy) :
+            base(
+                entity,
+                stateMachine,
+                animBoolName,
+                attackPosition,
+                stateData)
         {
             _enemy = enemy;
         }

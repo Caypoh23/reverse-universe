@@ -13,7 +13,7 @@ public class E2_MoveState : MoveState
         Entity entity,
         FiniteStateMachine stateMachine,
         string animBoolName,
-        D_MoveState stateData,
+        MoveStateData stateData,
         Enemy2 enemy) :
         base(
             entity,

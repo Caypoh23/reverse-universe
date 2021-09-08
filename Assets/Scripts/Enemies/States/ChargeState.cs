@@ -6,7 +6,7 @@ namespace Enemies.States
 {
     public class ChargeState : State
     {
-        protected readonly D_ChargeState StateData;
+        protected readonly ChargeStateData StateData;
 
         protected bool IsPlayerInMinAgroRange;
         protected bool IsDetectingLedge;
@@ -14,9 +14,14 @@ namespace Enemies.States
         protected bool IsChargeTimeOver;
         protected bool PerformCloseRangeAction;
 
-        public ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            D_ChargeState stateData) :
-            base(entity, stateMachine,
+        public ChargeState(
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            string animBoolName,
+            ChargeStateData stateData) :
+            base(
+                entity,
+                stateMachine,
                 animBoolName)
         {
             StateData = stateData;
@@ -58,8 +63,8 @@ namespace Enemies.States
 
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
 
-            IsDetectingLedge = Core.CollisionSenses.Ledge;
-            IsDetectingWall = Core.CollisionSenses.WallFront;
+            IsDetectingLedge = Core.CollisionSenses.IsCheckingLedge;
+            IsDetectingWall = Core.CollisionSenses.IsCheckingWall;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
         }

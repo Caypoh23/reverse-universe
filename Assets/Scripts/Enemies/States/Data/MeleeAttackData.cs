@@ -3,7 +3,7 @@
 namespace Enemies.States.Data
 {
     [CreateAssetMenu(fileName = "newMeleeAttackStateData", menuName = "Data/State Data/Melee Attack State")]
-    public class D_MeleeAttack : ScriptableObject
+    public class MeleeAttackData : ScriptableObject
     {
         public float attackRadius = 0.5f;
         public float attackDamage = 10f;

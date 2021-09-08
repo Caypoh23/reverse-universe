@@ -13,7 +13,7 @@ public class E2_LookForPlayerState : LookForPlayerState
         Entity entity,
         FiniteStateMachine stateMachine,
         string animBoolName,
-        D_LookForPlayer stateData,
+        LookForPlayerData stateData,
         Enemy2 enemy) :
         base(
             entity,

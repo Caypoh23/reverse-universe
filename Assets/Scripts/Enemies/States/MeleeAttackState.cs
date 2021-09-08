@@ -7,10 +7,19 @@ namespace Enemies.States
 {
     public class MeleeAttackState : AttackState
     {
-        protected readonly D_MeleeAttack StateData;
+        protected readonly MeleeAttackData StateData;
 
-        public MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            Transform attackPosition, D_MeleeAttack stateData) : base(entity, stateMachine, animBoolName, attackPosition)
+        public MeleeAttackState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName,
+            Transform attackPosition, 
+            MeleeAttackData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName, 
+                attackPosition)
         {
             StateData = stateData;
         }
@@ -52,7 +61,7 @@ namespace Enemies.States
                 var hitInfo = collider.GetComponent<IDamageable>();
                 var knockbackable = collider.GetComponent<IKnockbackable>();
 
-                hitInfo?.Damage(StateData.attackDamage);
+                hitInfo?.TakeDamage(StateData.attackDamage);
 
                 knockbackable?.Knockback(StateData.knockbackAngle, StateData.knockbackStrength,
                     Core.Movement.FacingDirection);

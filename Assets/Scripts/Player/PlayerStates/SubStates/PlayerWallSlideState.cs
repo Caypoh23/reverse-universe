@@ -8,8 +8,16 @@ namespace Player.PlayerStates.SubStates
     {
         public bool IsWallSliding;
 
-        public PlayerWallSlideState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerWallSlideState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 

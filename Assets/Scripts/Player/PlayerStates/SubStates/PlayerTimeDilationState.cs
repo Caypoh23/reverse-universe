@@ -54,7 +54,7 @@ public class PlayerTimeDilationState : PlayerAbilityState
         {
             if (_isHolding)
             {
-                _timeDilationInputStop = PlayerBase.InputHandler.TimeDilationInputStop;
+                _timeDilationInputStop = PlayerBase.InputHandler.CanDelayTimeInputStop;
 
                 if (_timeDilationInputStop || Time.unscaledTime >= StartTime + PlayerData.maxTimeDilationHoldTime)
                 {

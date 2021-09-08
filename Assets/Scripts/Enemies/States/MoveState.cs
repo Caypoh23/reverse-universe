@@ -5,14 +5,21 @@ namespace Enemies.States
 {
     public class MoveState : State
     {
-        protected readonly D_MoveState StateData;
+        protected readonly MoveStateData StateData;
 
         protected bool IsDetectingWall;
         protected bool IsDetectingLedge;
         protected bool IsPlayerInMinAgroRange;
 
-        public MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(
-            entity, stateMachine, animBoolName)
+        public MoveState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName, 
+            MoveStateData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }
@@ -43,8 +50,8 @@ namespace Enemies.States
         {
             base.DoChecks();
 
-            IsDetectingLedge = Core.CollisionSenses.Ledge;
-            IsDetectingWall = Core.CollisionSenses.WallFront;
+            IsDetectingLedge = Core.CollisionSenses.IsCheckingLedge;
+            IsDetectingWall = Core.CollisionSenses.IsCheckingWall;
 
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
         }

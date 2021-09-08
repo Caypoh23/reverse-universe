@@ -8,7 +8,7 @@ namespace Player.Weapons
 {
     public class AggressiveWeapon : Weapon
     {
-        protected SO_AggressiveWeaponData AggressiveWeaponData;
+        protected AggressiveWeaponData AggressiveWeaponData;
 
         private List<IDamageable> _detectedDamageables = new List<IDamageable>();
         private List<IKnockbackable> _detectedKnockbackables = new List<IKnockbackable>();
@@ -16,9 +16,9 @@ namespace Player.Weapons
         {
             base.Awake();
 
-            if (weaponData.GetType() == typeof(SO_AggressiveWeaponData))
+            if (weaponData.GetType() == typeof(AggressiveWeaponData))
             {
-                AggressiveWeaponData = (SO_AggressiveWeaponData) weaponData;
+                AggressiveWeaponData = (AggressiveWeaponData) weaponData;
             }
             else
             {
@@ -39,7 +39,7 @@ namespace Player.Weapons
         
             foreach (var item in _detectedDamageables.ToList())
             {
-                item.Damage(details.damageAmount);
+                item.TakeDamage(details.damageAmount);
             }
         
             foreach (var item in _detectedKnockbackables.ToList())

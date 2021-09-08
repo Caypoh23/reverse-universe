@@ -10,9 +10,15 @@ namespace Enemies.States
         protected bool IsAnimationFinished;
         protected bool IsPlayerMinAgroRange;
 
-        public AttackState(Entity entity, FiniteStateMachine stateMachine,
-            string animBoolName, Transform attackPosition) : base(entity, stateMachine,
-            animBoolName)
+        public AttackState(
+            Entity entity, 
+            FiniteStateMachine stateMachine,
+            string animBoolName, 
+            Transform attackPosition) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             AttackPosition = attackPosition;
         }

@@ -6,7 +6,7 @@ namespace Enemies.States
 {
     public class StunState : State
     {
-        protected readonly D_StunState StateData;
+        protected readonly StunStateData StateData;
 
         protected bool IsStunTimeOver;
         protected bool IsGrounded;
@@ -14,9 +14,15 @@ namespace Enemies.States
         protected bool PerformCloseRangeAction;
         protected bool IsPLayerInMinAgroRange;
 
-        public StunState(Entity entity, FiniteStateMachine stateMachine,
-            string animBoolName, D_StunState stateData) : base(entity, stateMachine,
-            animBoolName)
+        public StunState(
+            Entity entity, 
+            FiniteStateMachine stateMachine,
+            string animBoolName, 
+            StunStateData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }
@@ -63,7 +69,7 @@ namespace Enemies.States
         {
             base.DoChecks();
 
-            IsGrounded = Core.CollisionSenses.Ground;
+            IsGrounded = Core.CollisionSenses.IsGrounded;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
             IsPLayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();

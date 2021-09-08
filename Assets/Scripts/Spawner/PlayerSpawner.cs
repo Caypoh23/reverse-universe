@@ -1,9 +1,9 @@
 ﻿using Cinemachine;
 using UnityEngine;
 
-namespace Manager
+namespace Spawner
 {
-    public class GameManager : MonoBehaviour
+    public class PlayerSpawner : MonoBehaviour
     {
         [SerializeField] private Transform respawnPoint;
         [SerializeField] private GameObject player;

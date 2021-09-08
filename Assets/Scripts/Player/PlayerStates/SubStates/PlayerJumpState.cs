@@ -8,8 +8,16 @@ namespace Player.PlayerStates.SubStates
     {
         private int _amountOfJumpsLeft;
 
-        public PlayerJumpState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
-            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerJumpState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
             _amountOfJumpsLeft = playerData.amountOfJumps;
         }

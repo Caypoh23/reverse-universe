@@ -21,8 +21,16 @@ namespace Player.PlayerStates.SubStates
         private readonly int _xVelocity = Animator.StringToHash("xVelocity");
         private readonly int _yVelocity = Animator.StringToHash("yVelocity");
 
-        public PlayerDashState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerDashState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 
@@ -65,7 +73,7 @@ namespace Player.PlayerStates.SubStates
                 if (_isHolding)
                 {
                     _dashDirectionInput = PlayerBase.InputHandler.DashDirectionInput;
-                    _dashInputStop = PlayerBase.InputHandler.DashInputStop;
+                    _dashInputStop = PlayerBase.InputHandler.CanDashInputStop;
 
                     if (_dashDirectionInput != Vector2.zero)
                     {
@@ -114,7 +122,8 @@ namespace Player.PlayerStates.SubStates
 
         private void PlaceAfterImage()
         {
-            PlayerBase.ObjectPooler.SpawnFromPool(PlayerBase.afterImageTag, PlayerBase.transform.position, PlayerBase.transform.rotation);
+            PlayerBase.ObjectPooler.SpawnFromPool(PlayerBase.afterImageTag, PlayerBase.transform.position,
+                PlayerBase.transform.rotation);
             //_lastAfterImagePosition = Player.transform.position;
         }
 

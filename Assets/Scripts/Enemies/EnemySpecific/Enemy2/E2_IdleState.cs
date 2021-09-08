@@ -8,17 +8,17 @@ using UnityEngine;
 public class E2_IdleState : IdleState
 {
     private readonly Enemy2 _enemy;
-    
+
     public E2_IdleState(
-        Entity entity, 
+        Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName, 
-        D_IdleState stateData,
+        string animBoolName,
+        IdleStateData stateData,
         Enemy2 enemy) :
         base(
-            entity, 
-            stateMachine, 
-            animBoolName, 
+            entity,
+            stateMachine,
+            animBoolName,
             stateData)
     {
         _enemy = enemy;

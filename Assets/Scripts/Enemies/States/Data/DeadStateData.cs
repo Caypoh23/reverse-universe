@@ -3,7 +3,7 @@
 namespace Enemies.States.Data
 {
     [CreateAssetMenu(fileName = "newDeadStateData", menuName = "Data/State Data/Dead State")]
-    public class D_DeadState : ScriptableObject
+    public class DeadStateData : ScriptableObject
     {
         public GameObject deathChunkParticle;
         public GameObject deathBloodParticle;

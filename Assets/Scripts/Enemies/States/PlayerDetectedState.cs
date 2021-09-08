@@ -6,7 +6,7 @@ namespace Enemies.States
 {
     public class PlayerDetectedState : State
     {
-        protected readonly D_PlayerDetected StateData;
+        protected readonly PlayerDetectedData StateData;
 
         protected bool IsPlayerInMinAgroRange;
         protected bool IsPlayerInMaxAgroRange;
@@ -14,8 +14,15 @@ namespace Enemies.States
         protected bool PerformCloseRangeAction;
         protected bool IsDetectingLedge;
 
-        public PlayerDetectedState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            D_PlayerDetected stateData) : base(entity, stateMachine, animBoolName)
+        public PlayerDetectedState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName,
+            PlayerDetectedData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }
@@ -55,7 +62,7 @@ namespace Enemies.States
 
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
             IsPlayerInMaxAgroRange = Entity.CheckPlayerInMaxAgroRange();
-            IsDetectingLedge = Core.CollisionSenses.Ledge;
+            IsDetectingLedge = Core.CollisionSenses.IsCheckingLedge;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
         }

@@ -19,13 +19,13 @@ namespace Cores.CoreComponents
 
         #region Check Functions
 
-        public bool Ground => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        public bool IsGrounded => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        public bool WallFront =>
+        public bool IsCheckingWall =>
             Physics2D.Raycast(wallCheck.position, Vector2.right * Core.Movement.FacingDirection, wallCheckDistance,
                 whatIsGround);
 
-        public bool Ledge => Physics2D.Raycast(ledgeCheck.position, Vector2.down, wallCheckDistance, whatIsGround);
+        public bool IsCheckingLedge => Physics2D.Raycast(ledgeCheck.position, Vector2.down, wallCheckDistance, whatIsGround);
 
         #endregion
     }

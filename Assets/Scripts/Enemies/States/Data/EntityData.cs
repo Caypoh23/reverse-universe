@@ -3,7 +3,7 @@
 namespace Enemies.States.Data
 {
     [CreateAssetMenu(fileName = "newEntityData", menuName = "Data/Entity Data/Base Data")]
-    public class D_Entity : ScriptableObject
+    public class EntityData : ScriptableObject
     {
         public float maxHealth = 30;
 

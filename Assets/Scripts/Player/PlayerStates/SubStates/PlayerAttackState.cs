@@ -15,9 +15,16 @@ namespace Player.PlayerStates.SubStates
         private bool _setVelocity;
         private bool _shouldCheckFlip;
 
-        public PlayerAttackState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName)
-            : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerAttackState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 

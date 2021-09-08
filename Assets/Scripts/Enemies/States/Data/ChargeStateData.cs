@@ -3,7 +3,7 @@
 namespace Enemies.States.Data
 {
     [CreateAssetMenu(fileName = "newChargeStateData", menuName = "Data/State Data/Charge State")]
-    public class D_ChargeState : ScriptableObject
+    public class ChargeStateData : ScriptableObject
     {
         public float chargeSpeed = 6f;
 

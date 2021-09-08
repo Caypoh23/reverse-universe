@@ -12,7 +12,10 @@ namespace Enemies.StateMachine
 
         private readonly string _animBoolName;
 
-        public State(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
+        public State(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName)
         {
             Entity = entity;
             StateMachine = stateMachine;

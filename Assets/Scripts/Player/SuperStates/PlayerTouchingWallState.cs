@@ -10,8 +10,16 @@ namespace Player.SuperStates
         protected bool JumpInput;
         protected int XInput;
 
-        public PlayerTouchingWallState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerTouchingWallState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 
@@ -30,7 +38,7 @@ namespace Player.SuperStates
             base.LogicUpdate();
 
             XInput = PlayerBase.InputHandler.NormalizedInputX;
-            JumpInput = PlayerBase.InputHandler.JumpInput;
+            JumpInput = PlayerBase.InputHandler.CanJumpInput;
 
             if (JumpInput)
             {
@@ -56,8 +64,8 @@ namespace Player.SuperStates
         {
             base.DoChecks();
 
-            IsGrounded = Core.CollisionSenses.Ground;
-            IsTouchingWall = Core.CollisionSenses.WallFront;
+            IsGrounded = Core.CollisionSenses.IsGrounded;
+            IsTouchingWall = Core.CollisionSenses.IsCheckingWall;
         }
 
         public override void AnimationTrigger()

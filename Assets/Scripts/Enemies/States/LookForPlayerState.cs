@@ -6,7 +6,7 @@ namespace Enemies.States
 {
     public class LookForPlayerState : State
     {
-        protected readonly D_LookForPlayer StateData;
+        protected readonly LookForPlayerData StateData;
 
         protected bool IsPlayerIsInMinAgroRange;
         protected bool IsAllTurnsDone;
@@ -17,9 +17,15 @@ namespace Enemies.States
 
         protected int AmountOfTurnsDone;
 
-        public LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName,
-            D_LookForPlayer stateData) : base(entity,
-            stateMachine, animBoolName)
+        public LookForPlayerState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName,
+            LookForPlayerData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName)
         {
             StateData = stateData;
         }

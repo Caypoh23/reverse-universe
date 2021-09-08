@@ -5,22 +5,20 @@ using Enemies.States;
 using Enemies.States.Data;
 using UnityEngine;
 
-public class E2_MeleeAttackState : MeleeAttackState
+public class E2_DeadState : DeadState
 {
     private Enemy2 _enemy;
-
-    public E2_MeleeAttackState(
+    
+    public E2_DeadState(
         Entity entity,
         FiniteStateMachine stateMachine,
         string animBoolName,
-        Transform attackPosition,
-        MeleeAttackData stateData,
+        DeadStateData stateData,
         Enemy2 enemy) :
         base(
             entity,
             stateMachine,
             animBoolName,
-            attackPosition,
             stateData)
     {
         _enemy = enemy;
@@ -39,18 +37,6 @@ public class E2_MeleeAttackState : MeleeAttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (IsAnimationFinished)
-        {
-            if (IsPlayerMinAgroRange)
-            {
-                StateMachine.ChangeState(_enemy.PlayerDetectedState);
-            }
-            else if (!IsPlayerMinAgroRange)
-            {
-                StateMachine.ChangeState(_enemy.LookForPlayerState);
-            }
-        }
     }
 
     public override void PhysicsUpdate()
@@ -61,15 +47,5 @@ public class E2_MeleeAttackState : MeleeAttackState
     public override void DoChecks()
     {
         base.DoChecks();
-    }
-
-    public override void TriggerAttack()
-    {
-        base.TriggerAttack();
-    }
-
-    public override void FinishAttack()
-    {
-        base.FinishAttack();
     }
 }

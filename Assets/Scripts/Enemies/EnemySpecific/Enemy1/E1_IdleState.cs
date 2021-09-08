@@ -8,9 +8,17 @@ namespace Enemies.EnemySpecific.Enemy1
     {
         private readonly Enemy1 _enemy;
 
-        public E1_IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData,
+        public E1_IdleState(
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            string animBoolName,
+            IdleStateData stateData,
             Enemy1 enemy) :
-            base(entity, stateMachine, animBoolName, stateData)
+            base(
+                entity,
+                stateMachine,
+                animBoolName,
+                stateData)
         {
             _enemy = enemy;
         }

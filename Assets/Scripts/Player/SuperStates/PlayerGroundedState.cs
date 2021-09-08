@@ -13,8 +13,16 @@ namespace Player.SuperStates
         private bool _dashInput;
         private bool _timeDilationInput;
 
-        public PlayerGroundedState(PlayerBase playerBase, PlayerStateMachine stateMachine, PlayerData playerData,
-            string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerGroundedState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 
@@ -36,9 +44,9 @@ namespace Player.SuperStates
             base.LogicUpdate();
 
             XInput = PlayerBase.InputHandler.NormalizedInputX;
-            _jumpInput = PlayerBase.InputHandler.JumpInput;
-            _dashInput = PlayerBase.InputHandler.DashInput;
-            _timeDilationInput = PlayerBase.InputHandler.TimeDilationInput;
+            _jumpInput = PlayerBase.InputHandler.CanJumpInput;
+            _dashInput = PlayerBase.InputHandler.CanDashInput;
+            _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
 
 
             if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
@@ -77,7 +85,7 @@ namespace Player.SuperStates
         {
             base.DoChecks();
 
-            _isGrounded = Core.CollisionSenses.Ground;
+            _isGrounded = Core.CollisionSenses.IsGrounded;
         }
     }
 }

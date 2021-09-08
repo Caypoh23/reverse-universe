@@ -13,7 +13,7 @@ namespace Cores.CoreComponents
             CheckKnockback();
         }
 
-        public void Damage(float amount)
+        public void TakeDamage(float amount)
         {
             Debug.Log(Core.transform.parent.name + " Damaged!");
         }
@@ -28,7 +28,7 @@ namespace Cores.CoreComponents
 
         private void CheckKnockback()
         {
-            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && Core.CollisionSenses.Ground)
+            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && Core.CollisionSenses.IsGrounded)
             {
                 _isKnockbackActive = false;
                 Core.Movement.CanSetVelocity = true;

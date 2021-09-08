@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ScriptableObjects.Weapons
 {
     [CreateAssetMenu(fileName = "newAggressiveWeaponData", menuName = "Data/Weapon Data/Aggressive Weapon")]
-    public class SO_AggressiveWeaponData : SO_WeaponData
+    public class AggressiveWeaponData : WeaponData
     {
         [SerializeField] private WeaponAttackDetails[] attackDetails;
 

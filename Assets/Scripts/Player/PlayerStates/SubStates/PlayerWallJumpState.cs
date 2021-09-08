@@ -11,8 +11,16 @@ namespace Player.PlayerStates.SubStates
         private readonly int _yVelocity = Animator.StringToHash("yVelocity");
         private readonly int _xVelocity = Animator.StringToHash("xVelocity");
 
-        public PlayerWallJumpState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName) : base(playerBase, stateMachine, playerData, animBoolName)
+        public PlayerWallJumpState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            string animBoolName) :
+            base(
+                playerBase,
+                stateMachine,
+                playerData,
+                animBoolName)
         {
         }
 
