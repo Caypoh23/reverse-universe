@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enemies.EnemySpecific.Enemy2;
 using Enemies.StateMachine;
 using Enemies.States;
 using Enemies.States.Data;

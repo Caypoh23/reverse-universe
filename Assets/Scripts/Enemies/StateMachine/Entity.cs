@@ -38,6 +38,7 @@ namespace Enemies.StateMachine
 
         protected bool IsStunned;
         protected bool IsDead;
+        private readonly int _yVelocity = Animator.StringToHash("yVelocity");
 
         #endregion
 
@@ -59,10 +60,10 @@ namespace Enemies.StateMachine
         public virtual void Update()
         {
             Core.LogicUpdate();
+            
+            Anim.SetFloat(_yVelocity, Core.Movement.Rb.velocity.y);
 
             StateMachine.CurrentState.LogicUpdate();
-
-            //Anim.SetFloat("yVelocity", Core.Movement.Rb.velocity.y);
 
             if (Time.time >= _lastDamageTime + entityData.stunRecoveryTime)
             {

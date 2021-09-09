@@ -95090,7 +95090,7 @@ GameObject:
   - component: {fileID: 270461023}
   - component: {fileID: 270461025}
   - component: {fileID: 270461024}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95875,6 +95875,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb99af7f59c041f4aa9771297e679b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &547365060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547365061}
+  m_Layer: 9
+  m_Name: RangedAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547365061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547365060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1634677426}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &610030751
 GameObject:
   m_ObjectHideFlags: 0
@@ -95885,7 +95915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610030752}
   - component: {fileID: 610030753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96141,7 +96171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876882377}
   - component: {fileID: 876882378}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96717,7 +96747,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414104667}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96747,7 +96777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1475233941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97003,7 +97033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1518962224}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97252,12 +97282,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634677425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.04, y: 9.02, z: 0}
+  m_LocalPosition: {x: -15.12, y: 7.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 876882377}
   - {fileID: 1414104667}
   - {fileID: 1964841582}
+  - {fileID: 547365061}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97405,7 +97436,11 @@ MonoBehaviour:
     type: 2}
   stunStateData: {fileID: 11400000, guid: fe4bd4b2a25c1b343bb17ff28c3ac123, type: 2}
   deadStateData: {fileID: 11400000, guid: 160709ebedebc924f839e54abfc2fdd5, type: 2}
-  meleeAttackPosision: {fileID: 1964841582}
+  rangedAttackStateData: {fileID: 11400000, guid: 9af8ed7e5842a22499faef6bad40db5a,
+    type: 2}
+  dodgeStateData: {fileID: 11400000, guid: 2420cf9f261e44b4aba245f91f59e6f6, type: 2}
+  meleeAttackPosition: {fileID: 1964841582}
+  rangedAttackPosition: {fileID: 547365061}
 --- !u!114 &1634677432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97563,7 +97598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757049249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98401,7 +98436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1964841582}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeleeAttackPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98475,7 +98510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2029742293}
   - component: {fileID: 2029742294}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionSenses
   m_TagString: Untagged
   m_Icon: {fileID: 0}

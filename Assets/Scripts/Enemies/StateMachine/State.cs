@@ -8,7 +8,7 @@ namespace Enemies.StateMachine
         protected readonly Entity Entity;
         protected readonly Core Core;
 
-        protected float StartTime;
+        public float StartTime { get; protected set; }
 
         private readonly string _animBoolName;
 

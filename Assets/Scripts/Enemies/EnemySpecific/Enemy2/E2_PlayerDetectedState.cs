@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enemies.EnemySpecific.Enemy2;
 using Enemies.StateMachine;
 using Enemies.States;
 using Enemies.States.Data;
@@ -40,7 +41,18 @@ public class E2_PlayerDetectedState : PlayerDetectedState
 
         if (PerformCloseRangeAction)
         {
-            StateMachine.ChangeState(_enemy.MeleeAttackState);
+            if (Time.time >= _enemy.DodgeState.StartTime + _enemy.dodgeStateData.dodgeCooldown)
+            {
+                StateMachine.ChangeState(_enemy.DodgeState);
+            }
+            else
+            {
+                StateMachine.ChangeState(_enemy.MeleeAttackState);
+            }
+        }
+        else if (PerformLongRangeAction)
+        {
+            StateMachine.ChangeState(_enemy.RangedAttackState);
         }
         else if (!IsPlayerInMaxAgroRange)
         {

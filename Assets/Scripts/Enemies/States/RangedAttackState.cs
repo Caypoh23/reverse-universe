@@ -1,0 +1,70 @@
+﻿using Cores.CoreComponents;
+using Enemies.StateMachine;
+using Enemies.States.Data;
+using Projectiles;
+using UnityEngine;
+
+namespace Enemies.States
+{
+    public class RangedAttackState : AttackState
+    {
+        protected readonly RangedAttackStateData StateData;
+
+        protected GameObject projectile;
+        protected Projectile projectileScript;
+
+        public RangedAttackState(
+            Entity entity, 
+            FiniteStateMachine stateMachine, 
+            string animBoolName, 
+            Transform attackPosition,
+            RangedAttackStateData stateData) : 
+            base(
+                entity, 
+                stateMachine, 
+                animBoolName, 
+                attackPosition)
+        {
+            StateData = stateData;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void DoChecks()
+        {
+            base.DoChecks();
+        }
+
+        public override void TriggerAttack()
+        {
+            base.TriggerAttack();
+
+            projectile = GameObject.Instantiate(StateData.projectile, AttackPosition.position, AttackPosition.rotation);
+            projectileScript = projectile.GetComponent<Projectile>();
+            projectileScript.FireProjectile(StateData.projectileSpeed, StateData.projectileTravelDistance, StateData.projectileDamage);
+        }
+
+        public override void FinishAttack()
+        {
+            base.FinishAttack();
+        }
+    }
+}
