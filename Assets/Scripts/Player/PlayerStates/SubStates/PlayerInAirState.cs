@@ -92,10 +92,6 @@ namespace Player.PlayerStates.SubStates
             {
                 StateMachine.ChangeState(PlayerBase.DashState);
             }
-            else if (_timeDilationInput && PlayerBase.TimeDilationState.CheckIfCanDelayTime())
-            {
-                StateMachine.ChangeState(PlayerBase.TimeDilationState);
-            }
             else
             {
                 Core.Movement.CheckIfShouldFlip(_xInput);

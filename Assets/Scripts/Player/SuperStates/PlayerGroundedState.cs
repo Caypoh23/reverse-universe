@@ -31,7 +31,6 @@ namespace Player.SuperStates
             base.Enter();
             PlayerBase.JumpState.ResetAmountOfJumpsLeft();
             PlayerBase.DashState.ResetCanDash();
-            PlayerBase.TimeDilationState.ResetCanDelayTime();
         }
 
         public override void Exit()
@@ -60,10 +59,6 @@ namespace Player.SuperStates
             else if (_jumpInput && PlayerBase.JumpState.CanJump())
             {
                 StateMachine.ChangeState(PlayerBase.JumpState);
-            }
-            else if (_timeDilationInput && PlayerBase.TimeDilationState.CheckIfCanDelayTime())
-            {
-                StateMachine.ChangeState(PlayerBase.TimeDilationState);
             }
             else if (!_isGrounded)
             {

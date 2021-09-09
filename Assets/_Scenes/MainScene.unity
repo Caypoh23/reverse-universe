@@ -95091,7 +95091,7 @@ GameObject:
   - component: {fileID: 270461025}
   - component: {fileID: 270461024}
   m_Layer: 9
-  m_Name: GameObject
+  m_Name: Combat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95105,7 +95105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270461022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.78, y: -0.23, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 876882377}
@@ -95124,7 +95124,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.13009405, y: -0.24321914}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -95135,7 +95135,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7398119, y: 1.4864383}
   m_EdgeRadius: 0
 --- !u!114 &270461025
 MonoBehaviour:
@@ -95307,6 +95307,7 @@ GameObject:
   - component: {fileID: 459051297}
   - component: {fileID: 459051299}
   - component: {fileID: 459051301}
+  - component: {fileID: 459051302}
   - component: {fileID: 459051300}
   m_Layer: 11
   m_Name: Player
@@ -95643,6 +95644,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 615455131}
+--- !u!114 &459051302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459051292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084415b2e45e99a40ad37acbc055119d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 459051295}
+  playerData: {fileID: 11400000, guid: 0ce625870f25c1440b76fb52ed7c9747, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

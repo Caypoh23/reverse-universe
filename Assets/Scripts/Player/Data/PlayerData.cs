@@ -19,7 +19,8 @@ namespace Player.Data
         [Header("In Air State")] public float coyoteTime = 0.2f;
         public float jumpHeightMultiplier = 0.5f;
 
-        [Header("Dash State")] public float dashCooldown = 0.5f;
+        [Header("Dash State")] 
+        public float dashCooldown = 0.5f;
         public float maxHoldTime = 1f;
         public float holdTimeScale = 0.25f;
         public float dashTime = 0.2f;
@@ -29,8 +30,8 @@ namespace Player.Data
         public float distanceBetweenAfterImages = 0.5f;
 
         [Header("Time")] 
+        public float timeDilationCooldown = 0.5f;
         public float timeDilationTimeScale = 0.25f;
         public float maxTimeDilationHoldTime = 3f;
-        public float timeDilationDuration = 0f;
     }
 }

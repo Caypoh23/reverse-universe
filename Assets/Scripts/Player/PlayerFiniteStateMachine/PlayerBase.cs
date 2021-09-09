@@ -24,7 +24,6 @@ namespace Player.PlayerFiniteStateMachine
         public PlayerDashState DashState { get; private set; }
         public PlayerAttackState PrimaryAttackState { get; private set; }
         public PlayerAttackState SecondaryAttackState { get; private set; }
-        public PlayerTimeDilationState TimeDilationState { get; private set; }
 
 
         [SerializeField] private PlayerData playerData;
@@ -68,7 +67,6 @@ namespace Player.PlayerFiniteStateMachine
             DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
             PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
             SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
-            TimeDilationState = new PlayerTimeDilationState(this, StateMachine, playerData, "idle");
         }
 
         private void Start()
