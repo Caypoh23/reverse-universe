@@ -1,4 +1,9 @@
-﻿using Cores.CoreComponents;
+﻿using System;
+using Cores.CoreComponents;
+using Interfaces;
+using JetBrains.Annotations;
+using ReverseTime;
+using ReverseTime.Commands;
 using UnityEngine;
 
 namespace Cores.CoreComponents
@@ -13,6 +18,8 @@ namespace Cores.CoreComponents
         public bool CanSetVelocity { get; set; }
 
         private Vector2 _workspace;
+
+        private readonly CommandStack _commandStack = new CommandStack();
 
         protected override void Awake()
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   movementVelocity: 10
-  wallJumpVelocity: 21
+  wallJumpVelocity: 20
   wallJumpTime: 0.15
   wallJumpAngle: {x: 1, y: 2}
   jumpVelocity: 15
@@ -29,6 +29,6 @@ MonoBehaviour:
   drag: 10
   dashEndYMultiplier: 0.2
   distanceBetweenAfterImages: 0.5
+  timeDilationCooldown: 0.5
   timeDilationTimeScale: 0.25
   maxTimeDilationHoldTime: 3
-  timeDilationDuration: 0

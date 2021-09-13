@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cores.CoreComponents;
+using Interfaces;
 using ObjectPool;
 using Player.Data;
 using Player.Input;
 using Player.PlayerStates.SubStates;
+using ReverseTime;
+using ReverseTime.Commands;
 using UnityEngine;
 
 namespace Player.PlayerFiniteStateMachine
@@ -39,6 +43,7 @@ namespace Player.PlayerFiniteStateMachine
         public Transform DashDirectionIndicator { get; private set; }
         public PlayerInventory PlayerInventory { get; private set; }
         public ObjectPooler ObjectPooler { get; private set; }
+
         public Tag afterImageTag;
 
         #endregion
@@ -103,9 +108,5 @@ namespace Player.PlayerFiniteStateMachine
         private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
 
         #endregion
-    }
-
-    class PlayerBaseImpl : PlayerBase
-    {
     }
 }

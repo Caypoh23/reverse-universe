@@ -38,10 +38,8 @@ namespace Player.PlayerStates.SubStates
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public void ResetAmountOfJumpsLeft() => _amountOfJumpsLeft = PlayerData.amountOfJumps;

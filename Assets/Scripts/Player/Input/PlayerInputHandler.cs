@@ -23,7 +23,7 @@ namespace Player.Input
         public bool CanDashInputStop { get; private set; }
         public bool CanDelayTimeInput { get; private set; }
         public bool CanDelayTimeInputStop { get; private set; }
-        public bool CanReverseReverseInput { get; private set; }
+        public bool CanReverseTimeInput { get; private set; }
         public bool CanReverseTimeInputStop { get; private set; }
 
 
@@ -103,7 +103,7 @@ namespace Player.Input
         {
             if (context.started)
             {
-                CanReverseReverseInput = true;
+                CanReverseTimeInput = true;
                 CanReverseTimeInputStop = false;
                 _timeReverseInputStartTime = Time.time;
             }
@@ -158,10 +158,9 @@ namespace Player.Input
 
         public void UseJumpInput() => CanJumpInput = false;
         public void UseDashInput() => CanDashInput = false;
-        public void UseTimeReverseInput() => CanDashInput = false;
+        public void UseTimeReverseInput() => CanReverseTimeInput = false;
         public void UseTimeDilationInput() => CanDelayTimeInput = false;
-
-
+        
         private void CheckJumpInputHoldTime()
         {
             if (Time.time >= _jumpInputStartTime + inputHoldTime)
@@ -174,7 +173,7 @@ namespace Player.Input
         {
             if (Time.time >= _timeReverseInputStartTime + inputHoldTime)
             {
-                CanReverseReverseInput = false;
+                CanReverseTimeInput = false;
             }
         }
         private void CheckTimeDilationInputHoldTime()

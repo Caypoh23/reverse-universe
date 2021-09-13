@@ -95307,6 +95307,7 @@ GameObject:
   - component: {fileID: 459051297}
   - component: {fileID: 459051299}
   - component: {fileID: 459051301}
+  - component: {fileID: 459051303}
   - component: {fileID: 459051302}
   - component: {fileID: 459051300}
   m_Layer: 11
@@ -95658,6 +95659,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 459051295}
   playerData: {fileID: 11400000, guid: 0ce625870f25c1440b76fb52ed7c9747, type: 2}
+--- !u!114 &459051303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459051292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fdfe42c6c316f4b9aab5c6a8582667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 459051295}
+  timerValue: 5
+  movement: {fileID: 449838192}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -98252,7 +98268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1959552501
 Transform:
   m_ObjectHideFlags: 0

@@ -22,38 +22,37 @@ namespace Player
 
         public void Update()
         {
+            SlowdownTime();
+            ResetTimeScale();
+        }
+
+        private void SlowdownTime()
+        {
             if (inputHandler.CanDelayTimeInput)
             {
                 Debug.Log(inputHandler.CanDelayTimeInput + " pressed");
-                SlowdownTime();
-            }
+                inputHandler.UseTimeDilationInput();
+                _isHolding = true;
 
+                Time.timeScale = playerData.timeDilationTimeScale;
+                // smooth time dilation
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                _startTime = Time.unscaledTime;
+            }
+        }
+
+        private void ResetTimeScale()
+        {
             if (_isHolding)
             {
                 if (inputHandler.CanDelayTimeInputStop ||
                     Time.unscaledTime >= _startTime + playerData.maxTimeDilationHoldTime)
                 {
-                    ResetTimeScale();
+                    _isHolding = false;
+                    Time.timeScale = 1f;
+                    Debug.Log("Released");
                 }
             }
-        }
-
-        private void SlowdownTime()
-        {
-            inputHandler.UseTimeDilationInput();
-            _isHolding = true;
-
-            Time.timeScale = playerData.timeDilationTimeScale;
-            // smooth time dilation
-            Time.fixedDeltaTime = Time.timeScale * 0.02f;
-            _startTime = Time.unscaledTime;
-        }
-
-        private void ResetTimeScale()
-        {
-            _isHolding = false;
-            Time.timeScale = 1f;
-            Debug.Log("Released");
         }
     }
 }

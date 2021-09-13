@@ -47,7 +47,7 @@ namespace Player.PlayerStates.SubStates
             Time.timeScale = PlayerData.holdTimeScale;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
             StartTime = Time.unscaledTime;
-
+            PlayerBase.JumpState.DecreaseAmountOfJumpsLeft();
             PlayerBase.DashDirectionIndicator.gameObject.SetActive(true);
         }
 
