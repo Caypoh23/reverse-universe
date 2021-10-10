@@ -31,7 +31,7 @@ namespace Cores.CoreComponents
             CanSetVelocity = true;
         }
 
-        public void LogicUpdate()
+        public override void LogicUpdate()
         {
             CurrentVelocity = Rb.velocity;
         }

@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 namespace Cores.CoreComponents
 {
-    public class CoreComponent : MonoBehaviour
+    public class CoreComponent : MonoBehaviour, ILogicUpdate
     {
         protected Core Core;
 
@@ -14,6 +15,12 @@ namespace Cores.CoreComponents
             {
                 Debug.LogError("There is no core on the parent");
             }
+
+            Core.AddComponent(this); // Add the component to the list
+        }
+
+        public virtual void LogicUpdate()
+        {
         }
     }
 }

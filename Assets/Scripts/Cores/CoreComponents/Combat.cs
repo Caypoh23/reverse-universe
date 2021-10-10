@@ -5,10 +5,11 @@ namespace Cores.CoreComponents
 {
     public class Combat : CoreComponent, IDamageable, IKnockbackable
     {
+        [SerializeField] private float maxKnockbackTime = 0.2f;
         private bool _isKnockbackActive;
         private float _knockbackStartTime;
 
-        public void LogicUpdate()
+        public override void LogicUpdate()
         {
             CheckKnockback();
         }
@@ -16,6 +17,7 @@ namespace Cores.CoreComponents
         public void TakeDamage(float amount)
         {
             Debug.Log(Core.transform.parent.name + " Damaged!");
+            Core.Stats.DecreaseHealth(amount);
         }
 
         public void Knockback(Vector2 angle, float strength, int direction)
@@ -28,7 +30,8 @@ namespace Cores.CoreComponents
 
         private void CheckKnockback()
         {
-            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && Core.CollisionSenses.IsGrounded)
+            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && Core.CollisionSenses.IsGrounded ||
+                Time.time >= _knockbackStartTime + maxKnockbackTime)
             {
                 _isKnockbackActive = false;
                 Core.Movement.CanSetVelocity = true;
