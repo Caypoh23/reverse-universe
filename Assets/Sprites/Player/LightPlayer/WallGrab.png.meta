@@ -1,28 +1,46 @@
 fileFormatVersion: 2
-guid: e9e088011791fca4ba31cee706f97cc8
+guid: 3b4dbe61a3d4ccd469b58ca32ac93bc3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3628720756820899698
-    second: Character 1 Ledge Climb_0
+      213: 108842998102803312
+    second: WallGrab_0
   - first:
-      213: -1161963453228865433
-    second: Character 1 Ledge Climb_1
+      213: 2894668834885949826
+    second: WallGrab_1
   - first:
-      213: -6690693090405489421
-    second: Character 1 Ledge Climb_2
+      213: 5535297664508012297
+    second: WallGrab_2
   - first:
-      213: 4340307602009781571
-    second: Character 1 Ledge Climb_3
+      213: 7600696924274006728
+    second: WallGrab_3
   - first:
-      213: -131500372201574662
-    second: Character 1 Ledge Climb_4
+      213: -3882688163781373954
+    second: WallGrab_4
   - first:
-      213: -1687613396883202733
-    second: Character 1 Ledge Climb_5
+      213: 3293448942093791645
+    second: WallGrab_5
   - first:
-      213: -647306330058747984
-    second: Character 1 Ledge Climb_6
+      213: -572160366873647529
+    second: WallGrab_6
+  - first:
+      213: 1534803760060528935
+    second: WallGrab_7
+  - first:
+      213: 3323273547330425886
+    second: WallGrab_8
+  - first:
+      213: -4449487439172138403
+    second: WallGrab_9
+  - first:
+      213: 947559868011333124
+    second: WallGrab_10
+  - first:
+      213: 6031336148339610541
+    second: WallGrab_11
+  - first:
+      213: -2387884379606270869
+    second: WallGrab_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -53,8 +71,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -120,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_0
+      name: WallGrab_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e888a9c82b134adc0800000000000000
-      internalID: -3628720756820899698
+      spriteID: 073c43e4120b28100800000000000000
+      internalID: 108842998102803312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_1
+      name: WallGrab_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 17
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 768ae484560efdfe0800000000000000
-      internalID: -1161963453228865433
+      spriteID: 28955cdf7fdeb2820800000000000000
+      internalID: 2894668834885949826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_2
+      name: WallGrab_2
       rect:
         serializedVersion: 2
-        x: 256
+        x: 34
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f468354512e523a0800000000000000
-      internalID: -6690693090405489421
+      spriteID: 907ac0b06e351dc40800000000000000
+      internalID: 5535297664508012297
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_3
+      name: WallGrab_3
       rect:
         serializedVersion: 2
-        x: 384
+        x: 51
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34578b1a4cedb3c30800000000000000
-      internalID: 4340307602009781571
+      spriteID: 8ca91c815991b7960800000000000000
+      internalID: 7600696924274006728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_4
+      name: WallGrab_4
       rect:
         serializedVersion: 2
-        x: 512
+        x: 68
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afee713bb11dc2ef0800000000000000
-      internalID: -131500372201574662
+      spriteID: eff8238bfabed1ac0800000000000000
+      internalID: -3882688163781373954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_5
+      name: WallGrab_5
       rect:
         serializedVersion: 2
-        x: 640
+        x: 85
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35d16909e846498e0800000000000000
-      internalID: -1687613396883202733
+      spriteID: d91f2670d5ea4bd20800000000000000
+      internalID: 3293448942093791645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character 1 Ledge Climb_6
+      name: WallGrab_6
       rect:
         serializedVersion: 2
-        x: 768
+        x: 102
         y: 0
-        width: 128
-        height: 128
+        width: 17
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,8 +278,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bf8cf7825e4407f0800000000000000
-      internalID: -647306330058747984
+      spriteID: 75660f18d274f08f0800000000000000
+      internalID: -572160366873647529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_7
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 729775653e7bc4510800000000000000
+      internalID: 1534803760060528935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_8
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1415101fa3ae1e20800000000000000
+      internalID: 3323273547330425886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_9
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5a059b9fbe3042c0800000000000000
+      internalID: -4449487439172138403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_10
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4064b38fda8662d00800000000000000
+      internalID: 947559868011333124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_11
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da351c2854c93b350800000000000000
+      internalID: 6031336148339610541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallGrab_12
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6c3ddceec78cded0800000000000000
+      internalID: -2387884379606270869
       vertices: []
       indices: 
       edges: []
