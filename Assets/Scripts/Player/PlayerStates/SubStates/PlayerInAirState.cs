@@ -88,7 +88,7 @@ namespace Player.PlayerStates.SubStates
             {
                 StateMachine.ChangeState(PlayerBase.WallSlideState);
             }
-            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
+            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash() && !_isTouchingWall)
             {
                 StateMachine.ChangeState(PlayerBase.DashState);
             }

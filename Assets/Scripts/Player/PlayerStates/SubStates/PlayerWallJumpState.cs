@@ -29,6 +29,7 @@ namespace Player.PlayerStates.SubStates
             base.Enter();
             PlayerBase.InputHandler.UseJumpInput();
             PlayerBase.JumpState.ResetAmountOfJumpsLeft();
+            PlayerBase.DashState.ResetCanDash();
             Core.Movement.SetVelocity(PlayerData.wallJumpVelocity, PlayerData.wallJumpAngle, _wallJumpDirection);
             Core.Movement.CheckIfShouldFlip(_wallJumpDirection);
             PlayerBase.JumpState.DecreaseAmountOfJumpsLeft();

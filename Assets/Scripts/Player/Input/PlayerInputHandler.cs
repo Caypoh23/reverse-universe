@@ -45,7 +45,6 @@ namespace Player.Input
         private void Update()
         {
             CheckJumpInputHoldTime();
-            CheckDashInputHoldTime();
             CheckTimeReverseInputHoldTime();
             CheckTimeDilationInputHoldTime();
         }
@@ -141,6 +140,7 @@ namespace Player.Input
             else if (context.canceled)
             {
                 CanDashInputStop = true;
+                CanDashInput = false;   
             }
         }
 
@@ -181,14 +181,6 @@ namespace Player.Input
             if (Time.time >= _timeDilationInputStartTime + inputHoldTime)
             {
                 CanDelayTimeInput = false;
-            }
-        }
-
-        private void CheckDashInputHoldTime()
-        {
-            if (Time.time >= _dashInputStartTime + inputHoldTime)
-            {
-                CanDashInput = false;
             }
         }
     }

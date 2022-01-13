@@ -52,10 +52,6 @@ namespace Player.SuperStates
             {
                 StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
             }
-            else if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Secondary])
-            {
-                StateMachine.ChangeState(PlayerBase.SecondaryAttackState);
-            }
             else if (_jumpInput && PlayerBase.JumpState.CanJump())
             {
                 StateMachine.ChangeState(PlayerBase.JumpState);

@@ -40,7 +40,6 @@ namespace Player.PlayerFiniteStateMachine
         public Animator Anim { get; private set; }
         public PlayerInputHandler InputHandler { get; private set; }
         public Rigidbody2D Rb { get; private set; }
-        public Transform DashDirectionIndicator { get; private set; }
         public PlayerInventory PlayerInventory { get; private set; }
         public ObjectPooler ObjectPooler { get; private set; }
 
@@ -52,6 +51,14 @@ namespace Player.PlayerFiniteStateMachine
 
         private Vector2 _workspace;
 
+        private const string IdleParameterName = "idle";
+        private const string MoveParameterName = "move";
+        private const string InAirParameterName = "inAir";
+        private const string LandParameterName = "land";
+        private const string WallSlideParameterName = "wallSlide";
+        private const string AttackParameterName = "attack";
+        private const string CanDashParameterName = "canDash";
+
         #endregion
 
         #region Unity Callback Functions
@@ -62,16 +69,16 @@ namespace Player.PlayerFiniteStateMachine
 
             StateMachine = new PlayerStateMachine();
 
-            IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
-            MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
-            JumpState = new PlayerJumpState(this, StateMachine, playerData, "inAir");
-            InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
-            LandState = new PlayerLandState(this, StateMachine, playerData, "land");
-            WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
-            WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
-            DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
-            PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
-            SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
+            IdleState = new PlayerIdleState(this, StateMachine, playerData, IdleParameterName);
+            MoveState = new PlayerMoveState(this, StateMachine, playerData, MoveParameterName);
+            JumpState = new PlayerJumpState(this, StateMachine, playerData, InAirParameterName);
+            InAirState = new PlayerInAirState(this, StateMachine, playerData, InAirParameterName);
+            LandState = new PlayerLandState(this, StateMachine, playerData, LandParameterName);
+            WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, WallSlideParameterName);
+            WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, InAirParameterName);
+            DashState = new PlayerDashState(this, StateMachine, playerData, CanDashParameterName);
+            PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, AttackParameterName);
+            SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, AttackParameterName);
         }
 
         private void Start()
@@ -79,7 +86,6 @@ namespace Player.PlayerFiniteStateMachine
             Anim = GetComponent<Animator>();
             InputHandler = GetComponent<PlayerInputHandler>();
             Rb = GetComponent<Rigidbody2D>();
-            DashDirectionIndicator = transform.Find("DashDirectionIndicator");
             ObjectPooler = FindObjectOfType<ObjectPooler>();
             PlayerInventory = GetComponent<PlayerInventory>();
 
