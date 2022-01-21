@@ -14,12 +14,12 @@ namespace Player.SuperStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            string animBoolName) :
+            int animBoolId) :
             base(
                 playerBase,
                 stateMachine,
                 playerData,
-                animBoolName)
+                animBoolId)
         {
         }
 
@@ -40,16 +40,16 @@ namespace Player.SuperStates
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             JumpInput = PlayerBase.InputHandler.CanJumpInput;
 
-            if (JumpInput)
+            if (JumpInput && !Core.Movement.IsRewinding)
             {
                 PlayerBase.WallJumpState.DetermineWallJumpDirection(IsTouchingWall);
                 StateMachine.ChangeState(PlayerBase.WallJumpState);
             }
-            else if (IsGrounded)
+            else if (IsGrounded && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(PlayerBase.IdleState);
             }
-            else if (!IsTouchingWall || XInput != Core.Movement.FacingDirection && Core.Movement.CurrentVelocity.y <= 0)
+            else if (!Core.Movement.IsRewinding && !IsTouchingWall || XInput != Core.Movement.FacingDirection && Core.Movement.CurrentVelocity.y <= 0)
             {
                 StateMachine.ChangeState(PlayerBase.InAirState);
             }

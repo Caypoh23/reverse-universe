@@ -37,11 +37,11 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (IsPlayerInMinAgroRange)
+            if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.PlayerDetectedState);
             }
-            else if (IsDetectingWall || !IsDetectingLedge)
+            else if (IsDetectingWall || !IsDetectingLedge && !Core.Movement.IsRewinding)
             {
                 _enemy.IdleState.SetFlipAfterIdle(true);
                 StateMachine.ChangeState(_enemy.IdleState);

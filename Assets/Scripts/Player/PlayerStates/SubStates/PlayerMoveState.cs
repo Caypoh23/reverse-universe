@@ -10,12 +10,12 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            string animBoolName) :
+            int animBoolId) :
             base(
                 playerBase,
                 stateMachine,
                 playerData,
-                animBoolName)
+                animBoolId)
         {
         }
 

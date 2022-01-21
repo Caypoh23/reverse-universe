@@ -37,17 +37,17 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (IsStunTimeOver)
+            if (IsStunTimeOver && !Core.Movement.IsRewinding)
             {
                 if (PerformCloseRangeAction)
                 {
                     StateMachine.ChangeState(_enemy.MeleeAttackState);
                 }
-                else if (IsPLayerInMinAgroRange)
+                else if (IsPLayerInMinAgroRange && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(_enemy.ChargeState);
                 }
-                else
+                else if(!Core.Movement.IsRewinding)
                 {
                     _enemy.LookForPlayerState.SetTurnImmediately(true);
                     StateMachine.ChangeState(_enemy.LookForPlayerState);

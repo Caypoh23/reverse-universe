@@ -51,13 +51,13 @@ namespace Player.PlayerFiniteStateMachine
 
         private Vector2 _workspace;
 
-        private const string IdleParameterName = "idle";
-        private const string MoveParameterName = "move";
-        private const string InAirParameterName = "inAir";
-        private const string LandParameterName = "land";
-        private const string WallSlideParameterName = "wallSlide";
-        private const string AttackParameterName = "attack";
-        private const string CanDashParameterName = "canDash";
+        private readonly int IdleParameterName = Animator.StringToHash("Idle");
+        private readonly int MoveParameterName = Animator.StringToHash("Move");
+        private readonly int InAirParameterName = Animator.StringToHash("InAir");
+        private readonly int LandParameterName = Animator.StringToHash("Land");
+        private readonly int WallSlideParameterName = Animator.StringToHash("WallSlide");
+        private readonly int AttackParameterName = Animator.StringToHash("Attack");
+        private readonly int CanDashParameterName = Animator.StringToHash("CanDash");
 
         #endregion
 

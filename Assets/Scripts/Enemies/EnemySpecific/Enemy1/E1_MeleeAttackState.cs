@@ -40,7 +40,7 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (IsAnimationFinished)
+            if (IsAnimationFinished && !Core.Movement.IsRewinding)
             {
                 if (IsPlayerMinAgroRange)
                 {

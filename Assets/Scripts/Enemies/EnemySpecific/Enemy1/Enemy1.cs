@@ -48,7 +48,7 @@ namespace Enemies.EnemySpecific.Enemy1
 
         private void Start()
         {
-            StateMachine.Initialize(MoveState);
+            StateMachine.Initialize(IdleState);
         }
 
         public override void OnDrawGizmos()

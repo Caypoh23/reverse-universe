@@ -41,20 +41,20 @@ public class E2_PlayerDetectedState : PlayerDetectedState
 
         if (PerformCloseRangeAction)
         {
-            if (Time.time >= _enemy.DodgeState.StartTime + _enemy.dodgeStateData.dodgeCooldown)
+            if (Time.time >= _enemy.DodgeState.StartTime + _enemy.dodgeStateData.dodgeCooldown && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.DodgeState);
             }
-            else
+            else if(!Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
         }
-        else if (PerformLongRangeAction)
+        else if (PerformLongRangeAction && !Core.Movement.IsRewinding)
         {
             StateMachine.ChangeState(_enemy.RangedAttackState);
         }
-        else if (!IsPlayerInMaxAgroRange)
+        else if (!IsPlayerInMaxAgroRange && !Core.Movement.IsRewinding)
         {
             StateMachine.ChangeState(_enemy.LookForPlayerState);
         }

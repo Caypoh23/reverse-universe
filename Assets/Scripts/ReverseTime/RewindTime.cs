@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cores.CoreComponents;
+using Player.Data;
 using Player.Input;
 using ReverseTime.Commands;
 using UnityEngine;
@@ -11,64 +12,31 @@ namespace ReverseTime
     public class RewindTime : MonoBehaviour
     {
         [SerializeField] private PlayerInputHandler inputHandler;
+        [SerializeField] private PlayerData playerData;
 
-        private readonly CommandStack _commandStack = new CommandStack();
+        private bool _isRewindingTime;
 
-        private bool _isHolding;
+        public bool IsRewindingTime => _isRewindingTime;
 
-        [SerializeField] private float timerValue = 5.0f;
-
-        [SerializeField] private Movement movement;
-
-        private float _currentTimerValue;
-        private bool _canClearCache;
-
-
-        private void Awake()
-        {
-            _currentTimerValue = timerValue;
-        }
-
-        private void Update()
-        {
-            ReverseTime();
-            StopRevisingTime();
-
-            /*if(_currentTimerValue >= 0)
-            {
-                _currentTimerValue -= Time.deltaTime;
-                
-            }
-
-            if (_canClearCache && _currentTimerValue <= 0)
-            {
-                _commandStack.ClearCache();
-                _canClearCache = false;
-                _currentTimerValue = timerValue;
-            }*/
-        }
-
-        private void ReverseTime()
+        public void ReverseTime(CommandStack commandStack)
         {
             if (inputHandler.CanReverseTimeInput)
             {
                 Debug.Log(inputHandler.CanReverseTimeInput + " Pressed rewind");
-
-                inputHandler.UseTimeReverseInput();
-                _isHolding = true;
-
-                _commandStack.UndoLastCommand();
+                
+                _isRewindingTime = true;
+                commandStack.UndoLastCommand();
             }
         }
 
-        private void StopRevisingTime()
+        public void StopRevisingTime()
         {
-            if (_isHolding)
+            if (_isRewindingTime)
             {
                 if (inputHandler.CanReverseTimeInputStop)
                 {
-                    _isHolding = false;
-
+                    inputHandler.UseTimeReverseInput();
+                    _isRewindingTime = false;
                     Debug.Log("Released rewind");
                 }
             }

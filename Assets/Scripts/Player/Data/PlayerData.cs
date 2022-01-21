@@ -31,5 +31,9 @@ namespace Player.Data
         public float timeDilationCooldown = 0.5f;
         public float timeDilationTimeScale = 0.25f;
         public float maxTimeDilationHoldTime = 3f;
+
+        [Header("Rewind Time")]
+        public float reverseTimeCooldown = 5f;
+        public float maxReverseTimeHoldTime = 5f;
     }
 }

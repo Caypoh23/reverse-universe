@@ -42,11 +42,11 @@ namespace Enemies.EnemySpecific.Enemy2
 
             if (IsAnimationFinished)
             {
-                if (IsPlayerMinAgroRange)
+                if (IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(_enemy.PlayerDetectedState);
                 }
-                else
+                else if (!Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(_enemy.LookForPlayerState);
                 }

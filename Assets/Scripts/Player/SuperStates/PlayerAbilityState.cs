@@ -12,12 +12,12 @@ namespace Player.SuperStates
             PlayerBase playerBase, 
             PlayerStateMachine stateMachine, 
             PlayerData playerData,
-            string animBoolName) : 
+            int animBoolId) : 
             base(
                 playerBase, 
                 stateMachine, 
                 playerData, 
-                animBoolName)
+                animBoolId)
         {
         }
 
@@ -39,7 +39,7 @@ namespace Player.SuperStates
 
             if (IsAbilityDone)
             {
-                if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+                if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(PlayerBase.IdleState);
                 }

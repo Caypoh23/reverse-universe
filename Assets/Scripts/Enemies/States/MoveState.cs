@@ -27,7 +27,8 @@ namespace Enemies.States
         public override void Enter()
         {
             base.Enter();
-            Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
+            if(!Core.Movement.IsRewinding)
+                Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
         }
 
         public override void Exit()
@@ -38,7 +39,8 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
+            if(!Core.Movement.IsRewinding)
+                Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
         }
 
         public override void PhysicsUpdate()

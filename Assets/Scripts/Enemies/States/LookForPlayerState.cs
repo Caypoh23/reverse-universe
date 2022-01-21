@@ -54,14 +54,14 @@ namespace Enemies.States
 
             Core.Movement.SetVelocityX(0f);
 
-            if (TurnImmediately)
+            if (TurnImmediately && !Core.Movement.IsRewinding)
             {
                 Core.Movement.Flip();
                 LastTurnTime = Time.time;
                 AmountOfTurnsDone++;
                 TurnImmediately = false;
             }
-            else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone)
+            else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone && !Core.Movement.IsRewinding)
             {
                 Core.Movement.Flip();
                 LastTurnTime = Time.time;
@@ -73,7 +73,7 @@ namespace Enemies.States
                 IsAllTurnsDone = true;
             }
 
-            if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone)
+            if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone && !Core.Movement.IsRewinding)
             {
                 IsAllTurnsTimeDone = true;
             }

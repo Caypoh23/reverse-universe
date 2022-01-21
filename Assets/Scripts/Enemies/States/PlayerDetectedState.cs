@@ -45,7 +45,7 @@ namespace Enemies.States
 
             Core.Movement.SetVelocityX(0f);
 
-            if (Time.time >= StartTime + StateData.longRangeActionTime)
+            if (Time.time >= StartTime + StateData.longRangeActionTime && !Core.Movement.IsRewinding)
             {
                 PerformLongRangeAction = true;
             }

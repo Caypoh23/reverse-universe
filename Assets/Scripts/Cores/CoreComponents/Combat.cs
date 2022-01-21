@@ -30,8 +30,8 @@ namespace Cores.CoreComponents
 
         private void CheckKnockback()
         {
-            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && Core.CollisionSenses.IsGrounded ||
-                Time.time >= _knockbackStartTime + maxKnockbackTime)
+            if (_isKnockbackActive && Core.Movement.CurrentVelocity.y <= 0.01f && (Core.CollisionSenses.IsGrounded ||
+                Time.time >= _knockbackStartTime + maxKnockbackTime))
             {
                 _isKnockbackActive = false;
                 Core.Movement.CanSetVelocity = true;

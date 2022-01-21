@@ -45,7 +45,7 @@ namespace Player.Input
         private void Update()
         {
             CheckJumpInputHoldTime();
-            CheckTimeReverseInputHoldTime();
+            //CheckTimeReverseInputHoldTime();
             CheckTimeDilationInputHoldTime();
         }
 

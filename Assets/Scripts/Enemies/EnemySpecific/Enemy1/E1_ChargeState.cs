@@ -38,15 +38,15 @@ namespace Enemies.EnemySpecific.Enemy1
             base.LogicUpdate();
 
 
-            if (PerformCloseRangeAction)
+            if (PerformCloseRangeAction && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
-            else if (!IsDetectingLedge || IsDetectingWall)
+            else if (!IsDetectingLedge || IsDetectingWall && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
             }
-            else if (IsChargeTimeOver)
+            else if (IsChargeTimeOver && !Core.Movement.IsRewinding)
             {
                 if (IsPlayerInMinAgroRange)
                 {

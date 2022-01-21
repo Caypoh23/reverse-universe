@@ -18,22 +18,22 @@ namespace Player.PlayerFiniteStateMachine
 
         protected float StartTime;
 
-        private readonly string _animBoolName;
+        private readonly int _animBoolId;
 
         public PlayerState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, string animBoolName)
+            PlayerData playerData, int animBoolId)
         {
             PlayerBase = playerBase;
             StateMachine = stateMachine;
             PlayerData = playerData;
-            _animBoolName = animBoolName;
+            _animBoolId = animBoolId;
             Core = playerBase.Core;
         }
 
         public virtual void Enter()
         {
             DoChecks();
-            PlayerBase.Anim.SetBool(_animBoolName, true);
+            PlayerBase.Anim.SetBool(_animBoolId, true);
             StartTime = Time.time;
             IsAnimationFinished = false;
             IsExitingState = false;
@@ -41,7 +41,7 @@ namespace Player.PlayerFiniteStateMachine
 
         public virtual void Exit()
         {
-            PlayerBase.Anim.SetBool(_animBoolName, false);
+            PlayerBase.Anim.SetBool(_animBoolId, false);
             IsExitingState = true;
         }
 

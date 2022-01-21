@@ -48,12 +48,12 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (Time.time >= StartTime + StateData.stunTime)
+            if (Time.time >= StartTime + StateData.stunTime && !Core.Movement.IsRewinding)
             {
                 IsStunTimeOver = true;
             }
 
-            if (IsGrounded && Time.time >= StartTime + StateData.stunKnockbackTime && !IsMovementStopped)
+            if (IsGrounded && Time.time >= StartTime + StateData.stunKnockbackTime && !IsMovementStopped && !Core.Movement.IsRewinding)
             {
                 IsMovementStopped = true;
                 Core.Movement.SetVelocityX(0f);

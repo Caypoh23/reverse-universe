@@ -17,12 +17,12 @@ namespace Player.SuperStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            string animBoolName) :
+            int animBoolId) :
             base(
                 playerBase,
                 stateMachine,
                 playerData,
-                animBoolName)
+                animBoolId)
         {
         }
 
@@ -48,20 +48,20 @@ namespace Player.SuperStates
             _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
 
 
-            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary] && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
             }
-            else if (_jumpInput && PlayerBase.JumpState.CanJump())
+            else if (_jumpInput && PlayerBase.JumpState.CanJump() && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(PlayerBase.JumpState);
             }
-            else if (!_isGrounded)
+            else if (!_isGrounded && !Core.Movement.IsRewinding)
             {
                 PlayerBase.InAirState.StartCoyoteTime();
                 StateMachine.ChangeState(PlayerBase.InAirState);
             }
-            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
+            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash() && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(PlayerBase.DashState);
             }

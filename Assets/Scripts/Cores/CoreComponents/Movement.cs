@@ -10,7 +10,11 @@ namespace Cores.CoreComponents
 {
     public class Movement : CoreComponent
     {
-        public Rigidbody2D Rb { get; private set; }
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Animator animator;
+        [SerializeField] private RewindTime rewindTime;
+
+        public Rigidbody2D Rb => rb;
 
         public int FacingDirection { get; private set; }
 
@@ -19,13 +23,13 @@ namespace Cores.CoreComponents
 
         private Vector2 _workspace;
 
+        public bool IsRewinding => rewindTime.IsRewindingTime;
+
         private readonly CommandStack _commandStack = new CommandStack();
 
         protected override void Awake()
         {
             base.Awake();
-
-            Rb = GetComponentInParent<Rigidbody2D>();
 
             FacingDirection = 1;
             CanSetVelocity = true;
@@ -33,7 +37,12 @@ namespace Cores.CoreComponents
 
         public override void LogicUpdate()
         {
-            CurrentVelocity = Rb.velocity;
+            CurrentVelocity = rb.velocity;
+
+            rewindTime.ReverseTime(_commandStack);
+            rewindTime.StopRevisingTime();
+
+            ResetFacingDirection();
         }
 
         #region Set Functions
@@ -73,10 +82,24 @@ namespace Cores.CoreComponents
         {
             if (CanSetVelocity)
             {
-                Rb.velocity = _workspace;
+                rb.velocity = _workspace;
                 CurrentVelocity = _workspace;
+                _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator));
             }
         }
+
+        // private void RewindTime()
+        // {
+        //     if (Input.GetKey(KeyCode.R))
+        //     {
+        //         _isRewinding = true;
+        //         _commandStack.UndoLastCommand();
+        //     }
+        //     else
+        //     {
+        //         _isRewinding = false;
+        //     }
+        // }
 
         public void CheckIfShouldFlip(int xInput)
         {
@@ -89,7 +112,19 @@ namespace Cores.CoreComponents
         public void Flip()
         {
             FacingDirection *= -1;
-            Rb.transform.Rotate(0.0f, 180.0f, 0.0f);
+            rb.transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+
+        private void ResetFacingDirection()
+        {
+            if (rb.transform.localRotation.eulerAngles.y >= 180f)
+            {
+                FacingDirection = -1;
+            }
+            else
+            {
+                FacingDirection = 1;
+            }
         }
 
         #endregion

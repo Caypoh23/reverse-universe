@@ -37,7 +37,7 @@ namespace Enemies.EnemySpecific.Enemy2
         {
             base.LogicUpdate();
 
-            if (IsDodgeOver)
+            if (IsDodgeOver && !Core.Movement.IsRewinding)
             {
                 if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)
                 {

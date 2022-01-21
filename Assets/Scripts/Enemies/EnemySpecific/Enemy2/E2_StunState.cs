@@ -39,7 +39,7 @@ public class E2_StunState : StunState
     {
         base.LogicUpdate();
 
-        if (IsStunTimeOver)
+        if (IsStunTimeOver && !Core.Movement.IsRewinding)
         {
             if (IsPLayerInMinAgroRange)
             {

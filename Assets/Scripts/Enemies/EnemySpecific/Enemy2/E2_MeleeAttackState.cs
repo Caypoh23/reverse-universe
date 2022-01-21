@@ -43,11 +43,11 @@ public class E2_MeleeAttackState : MeleeAttackState
 
         if (IsAnimationFinished)
         {
-            if (IsPlayerMinAgroRange)
+            if (IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.PlayerDetectedState);
             }
-            else if (!IsPlayerMinAgroRange)
+            else if (!IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
             }

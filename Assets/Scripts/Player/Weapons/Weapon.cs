@@ -7,22 +7,18 @@ namespace Player.Weapons
     public class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponData weaponData;
-
-        protected Animator BaseAnimator;
-        protected Animator WeaponAnimator;
-
+        [SerializeField] private Animator baseWeaponAnimator;
+        [SerializeField] private Animator weaponAnimator;
+        
         protected PlayerAttackState State;
         protected Core Core;
         protected int AttackCounter;
 
-        private readonly int _attack = Animator.StringToHash("attack");
-        private readonly int _attackCounter = Animator.StringToHash("attackCounter");
+        private readonly int _attack = Animator.StringToHash("Attack");
+        private readonly int _attackCounter = Animator.StringToHash("AttackCounter");
 
         protected virtual void Awake()
         {
-            BaseAnimator = transform.Find("Base").GetComponent<Animator>();
-            WeaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
-
             gameObject.SetActive(false);
         }
 
@@ -35,17 +31,17 @@ namespace Player.Weapons
                 AttackCounter = 0;
             }
 
-            BaseAnimator.SetBool(_attack, true);
-            WeaponAnimator.SetBool(_attack, true);
+            baseWeaponAnimator.SetBool(_attack, true);
+            weaponAnimator.SetBool(_attack, true);
 
-            BaseAnimator.SetInteger(_attackCounter, AttackCounter);
-            WeaponAnimator.SetInteger(_attackCounter, AttackCounter);
+            baseWeaponAnimator.SetInteger(_attackCounter, AttackCounter);
+            weaponAnimator.SetInteger(_attackCounter, AttackCounter);
         }
 
         public virtual void ExitWeapon()
         {
-            BaseAnimator.SetBool(_attack, false);
-            WeaponAnimator.SetBool(_attack, false);
+            baseWeaponAnimator.SetBool(_attack, false);
+            weaponAnimator.SetBool(_attack, false);
 
             AttackCounter++;
 

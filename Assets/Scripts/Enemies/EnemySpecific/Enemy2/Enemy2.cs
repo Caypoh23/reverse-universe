@@ -53,7 +53,7 @@ namespace Enemies.EnemySpecific.Enemy2
 
         private void Start()
         {
-            StateMachine.Initialize(MoveState);
+            StateMachine.Initialize(IdleState);
         }
 
 

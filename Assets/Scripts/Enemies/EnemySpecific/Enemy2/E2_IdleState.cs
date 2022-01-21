@@ -40,11 +40,11 @@ public class E2_IdleState : IdleState
         base.LogicUpdate();
 
 
-        if (IsPlayerInMinAgroRange)
+        if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }
-        else if (IsIdleTimeOver)
+        else if (IsIdleTimeOver && !Core.Movement.IsRewinding)
         {
             StateMachine.ChangeState(_enemy.MoveState);
         }

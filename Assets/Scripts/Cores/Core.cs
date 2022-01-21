@@ -8,6 +8,12 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
+    
+    [SerializeField] private Movement _movement;
+    [SerializeField] private CollisionSenses _collisionSenses;
+    [SerializeField] private Combat _combat;
+    [SerializeField] private Stats _stats;
+
     public Movement Movement
     {
         get => GenericNotImplementedError<Movement>.TryGet(_movement, transform.parent.name);
@@ -32,20 +38,7 @@ public class Core : MonoBehaviour
         private set => _stats = value;
     }
 
-    private Movement _movement;
-    private CollisionSenses _collisionSenses;
-    private Combat _combat;
-    private Stats _stats;
-
     private readonly List<ILogicUpdate> _components = new List<ILogicUpdate>();
-
-    private void Awake()
-    {
-        Movement = GetComponentInChildren<Movement>();
-        CollisionSenses = GetComponentInChildren<CollisionSenses>();
-        Combat = GetComponentInChildren<Combat>();
-        Stats = GetComponentInChildren<Stats>();
-    }
 
     public void LogicUpdate()
     {
