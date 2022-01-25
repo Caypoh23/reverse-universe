@@ -13,13 +13,13 @@ public class E2_IdleState : IdleState
     public E2_IdleState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolId,
         IdleStateData stateData,
         Enemy2 enemy) :
         base(
             entity,
             stateMachine,
-            animBoolName,
+            animBoolId,
             stateData)
     {
         _enemy = enemy;

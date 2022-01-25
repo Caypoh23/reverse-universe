@@ -27,23 +27,35 @@ namespace Enemies.EnemySpecific.Enemy1
 
         [SerializeField] private Transform meleeAttackPosition;
 
+        #region Animation parameter names
+
+        private readonly int IdleParameterName = Animator.StringToHash("Idle");
+        private readonly int MoveParameterName = Animator.StringToHash("Move");
+        private readonly int PlayerDetectedParameterName = Animator.StringToHash("PlayerDetected");
+        private readonly int MeleeAttackParameterName = Animator.StringToHash("MeleeAttack");
+        private readonly int LookForPlayerParameterName = Animator.StringToHash("LookForPlayer");
+        private readonly int StunParameterName = Animator.StringToHash("Stun");
+        private readonly int DeadParameterName = Animator.StringToHash("Dead");
+        private readonly int ChargeParameterName = Animator.StringToHash("Charge");
+
+        #endregion
 
         public override void Awake()
         {
             base.Awake();
 
-            MoveState = new E1_MoveState(this, StateMachine, "move", moveStateData, this);
-            IdleState = new E1_IdleState(this, StateMachine, "idle", idleStateData, this);
+            MoveState = new E1_MoveState(this, StateMachine, MoveParameterName, moveStateData, this);
+            IdleState = new E1_IdleState(this, StateMachine, IdleParameterName, idleStateData, this);
             PlayerDetectedState =
-                new E1_PlayerDetectedState(this, StateMachine, "playerDetected", playerDetectedData, this);
-            ChargeState = new E1_ChargeState(this, StateMachine, "charge", chargeStateData, this);
+                new E1_PlayerDetectedState(this, StateMachine, PlayerDetectedParameterName, playerDetectedData, this);
+            ChargeState = new E1_ChargeState(this, StateMachine, ChargeParameterName, chargeStateData, this);
             LookForPlayerState =
-                new E1_LookForPlayerState(this, StateMachine, "lookForPlayer", lookForPlayerStateData, this);
+                new E1_LookForPlayerState(this, StateMachine, LookForPlayerParameterName, lookForPlayerStateData, this);
             MeleeAttackState =
-                new E1_MeleeAttackState(this, StateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData,
+                new E1_MeleeAttackState(this, StateMachine, MeleeAttackParameterName, meleeAttackPosition, meleeAttackStateData,
                     this);
-            StunState = new E1_StunState(this, StateMachine, "stun", stunStateData, this);
-            DeadState = new E1_DeadState(this, StateMachine, "dead", deadStateData, this);
+            StunState = new E1_StunState(this, StateMachine, StunParameterName, stunStateData, this);
+            DeadState = new E1_DeadState(this, StateMachine, DeadParameterName, deadStateData, this);
         }
 
         private void Start()

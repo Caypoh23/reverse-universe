@@ -17,12 +17,12 @@ namespace Enemies.States
         public ChargeState(
             Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName,
+            int animBoolId,
             ChargeStateData stateData) :
             base(
                 entity,
                 stateMachine,
-                animBoolName)
+                animBoolId)
         {
             StateData = stateData;
         }
@@ -30,7 +30,7 @@ namespace Enemies.States
         public override void Enter()
         {
             base.Enter();
-
+            
             IsChargeTimeOver = false;
             Core.Movement.SetVelocityX(StateData.chargeSpeed * Core.Movement.FacingDirection);
         }

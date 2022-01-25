@@ -16,13 +16,13 @@ namespace Enemies.States
         public RangedAttackState(
             Entity entity, 
             FiniteStateMachine stateMachine, 
-            string animBoolName, 
+            int animBoolId, 
             Transform attackPosition,
             RangedAttackStateData stateData) : 
             base(
                 entity, 
                 stateMachine, 
-                animBoolName, 
+                animBoolId, 
                 attackPosition)
         {
             StateData = stateData;

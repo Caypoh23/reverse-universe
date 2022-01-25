@@ -15,14 +15,11 @@ namespace Enemies.States
         protected bool IsDetectingLedge;
 
         public PlayerDetectedState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            string animBoolName,
-            PlayerDetectedData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolName)
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolId,
+            PlayerDetectedData stateData
+        ) : base(entity, stateMachine, animBoolId)
         {
             StateData = stateData;
         }
@@ -31,7 +28,11 @@ namespace Enemies.States
         {
             base.Enter();
             PerformLongRangeAction = false;
-            Core.Movement.SetVelocityX(0f);
+
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(0f);
+            }
         }
 
         public override void Exit()
@@ -43,11 +44,14 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            Core.Movement.SetVelocityX(0f);
-
-            if (Time.time >= StartTime + StateData.longRangeActionTime && !Core.Movement.IsRewinding)
+            if (!Core.Movement.IsRewinding)
             {
-                PerformLongRangeAction = true;
+                Core.Movement.SetVelocityX(0f);
+
+                if (Time.time >= StartTime + StateData.longRangeActionTime)
+                {
+                    PerformLongRangeAction = true;
+                }
             }
         }
 

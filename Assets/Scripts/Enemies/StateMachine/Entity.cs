@@ -71,10 +71,8 @@ namespace Enemies.StateMachine
             }
         }
 
-        public void FixedUpdate()
-        {
-            StateMachine.CurrentState.PhysicsUpdate();
-        }
+        public void FixedUpdate() => StateMachine.CurrentState.PhysicsUpdate();
+        
 
         #endregion
 

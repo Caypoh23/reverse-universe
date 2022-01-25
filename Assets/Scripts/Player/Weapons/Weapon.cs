@@ -6,10 +6,13 @@ namespace Player.Weapons
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] protected WeaponData weaponData;
-        [SerializeField] private Animator baseWeaponAnimator;
-        [SerializeField] private Animator weaponAnimator;
-        
+        [SerializeField]
+        protected WeaponData weaponData;
+        [SerializeField]
+        private Animator baseWeaponAnimator;
+        [SerializeField]
+        private Animator weaponAnimator;
+
         protected PlayerAttackState State;
         protected Core Core;
         protected int AttackCounter;
@@ -57,12 +60,18 @@ namespace Player.Weapons
 
         public virtual void AnimationStartMovementTrigger()
         {
-            State.SetPlayerVelocity(weaponData.movementSpeed[AttackCounter]);
+            if (!Core.Movement.IsRewinding)
+            {
+                State.SetPlayerVelocity(weaponData.movementSpeed[AttackCounter]);
+            }
         }
 
         public virtual void AnimationStopMovementTrigger()
         {
-            State.SetPlayerVelocity(0f);
+            if (!Core.Movement.IsRewinding)
+            {
+                State.SetPlayerVelocity(0f);
+            }
         }
 
         public virtual void AnimationTurnOffFlipTrigger()
@@ -75,9 +84,7 @@ namespace Player.Weapons
             State.SetFlipCheck(true);
         }
 
-        public virtual void AnimationActionTrigger()
-        {
-        }
+        public virtual void AnimationActionTrigger() { }
 
         #endregion
 

@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class E2_LookForPlayerState : LookForPlayerState
 {
-    private Enemy2 _enemy;
+    private readonly Enemy2 _enemy;
 
     public E2_LookForPlayerState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolName,
         LookForPlayerData stateData,
         Enemy2 enemy) :
         base(

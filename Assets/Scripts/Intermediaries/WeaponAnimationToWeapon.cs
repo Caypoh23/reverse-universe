@@ -5,12 +5,7 @@ namespace Intermediaries
 {
     public class WeaponAnimationToWeapon : MonoBehaviour
     {
-        private Weapon _weapon;
-
-        private void Start()
-        {
-            _weapon = GetComponentInParent<Weapon>();
-        }
+        [SerializeField] private Weapon _weapon;
 
         private void AnimationFinishTrigger()
         {

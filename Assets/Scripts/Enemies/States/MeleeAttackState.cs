@@ -12,13 +12,13 @@ namespace Enemies.States
         public MeleeAttackState(
             Entity entity, 
             FiniteStateMachine stateMachine, 
-            string animBoolName,
+            int animBoolId,
             Transform attackPosition, 
             MeleeAttackData stateData) : 
             base(
                 entity, 
                 stateMachine, 
-                animBoolName, 
+                animBoolId, 
                 attackPosition)
         {
             StateData = stateData;

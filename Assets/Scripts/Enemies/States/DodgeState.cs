@@ -16,12 +16,12 @@ namespace Enemies.States
         public DodgeState(
             Entity entity, 
             FiniteStateMachine stateMachine, 
-            string animBoolName,
+            int animBoolId,
             DodgeStateData stateData) :
             base(
                 entity, 
                 stateMachine, 
-                animBoolName)
+                animBoolId)
         {
             StateData = stateData;
         }

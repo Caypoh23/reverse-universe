@@ -10,14 +10,8 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -35,8 +29,11 @@ namespace Player.PlayerStates.SubStates
 
             Core.Movement.CheckIfShouldFlip(XInput);
 
-            Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
-
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
+            }
+            
             if (XInput == 0 && !IsExitingState)
             {
                 StateMachine.ChangeState(PlayerBase.IdleState);

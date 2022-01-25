@@ -10,12 +10,12 @@ namespace Enemies.StateMachine
 
         public float StartTime { get; protected set; }
 
-        private readonly string _animBoolName;
+        private readonly int _animBoolName;
 
         public State(
             Entity entity, 
             FiniteStateMachine stateMachine, 
-            string animBoolName)
+            int animBoolName)
         {
             Entity = entity;
             StateMachine = stateMachine;

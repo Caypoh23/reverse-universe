@@ -18,14 +18,11 @@ namespace Enemies.States
         protected int AmountOfTurnsDone;
 
         public LookForPlayerState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            string animBoolName,
-            LookForPlayerData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolName)
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolName,
+            LookForPlayerData stateData
+        ) : base(entity, stateMachine, animBoolName)
         {
             StateData = stateData;
         }
@@ -34,13 +31,16 @@ namespace Enemies.States
         {
             base.Enter();
 
-            IsAllTurnsDone = false;
-            IsAllTurnsTimeDone = false;
+            if (!Core.Movement.IsRewinding)
+            {
+                IsAllTurnsDone = false;
+                IsAllTurnsTimeDone = false;
 
-            LastTurnTime = StartTime;
-            AmountOfTurnsDone = 0;
+                LastTurnTime = StartTime;
+                AmountOfTurnsDone = 0;
 
-            Core.Movement.SetVelocityX(0f);
+                Core.Movement.SetVelocityX(0f);
+            }
         }
 
         public override void Exit()
@@ -51,8 +51,11 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-
-            Core.Movement.SetVelocityX(0f);
+            
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(0f);
+            }
 
             if (TurnImmediately && !Core.Movement.IsRewinding)
             {
@@ -61,7 +64,11 @@ namespace Enemies.States
                 AmountOfTurnsDone++;
                 TurnImmediately = false;
             }
-            else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone && !Core.Movement.IsRewinding)
+            else if (
+                Time.time >= LastTurnTime + StateData.timeBetweenTurns
+                && !IsAllTurnsDone
+                && !Core.Movement.IsRewinding
+            )
             {
                 Core.Movement.Flip();
                 LastTurnTime = Time.time;
@@ -73,7 +80,11 @@ namespace Enemies.States
                 IsAllTurnsDone = true;
             }
 
-            if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone && !Core.Movement.IsRewinding)
+            if (
+                Time.time >= LastTurnTime + StateData.timeBetweenTurns
+                && IsAllTurnsDone
+                && !Core.Movement.IsRewinding
+            )
             {
                 IsAllTurnsTimeDone = true;
             }

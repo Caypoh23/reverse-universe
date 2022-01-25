@@ -17,12 +17,12 @@ namespace Enemies.States
         public StunState(
             Entity entity, 
             FiniteStateMachine stateMachine,
-            string animBoolName, 
+            int animBoolId, 
             StunStateData stateData) : 
             base(
                 entity, 
                 stateMachine, 
-                animBoolName)
+                animBoolId)
         {
             StateData = stateData;
         }

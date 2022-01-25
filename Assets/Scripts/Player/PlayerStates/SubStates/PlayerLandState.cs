@@ -25,11 +25,11 @@ namespace Player.PlayerStates.SubStates
 
             if (!IsExitingState)
             {
-                if (XInput != 0)
+                if (XInput != 0 && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(PlayerBase.MoveState);
                 }
-                else if (IsAnimationFinished)
+                else if (IsAnimationFinished && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(PlayerBase.IdleState);
                 }

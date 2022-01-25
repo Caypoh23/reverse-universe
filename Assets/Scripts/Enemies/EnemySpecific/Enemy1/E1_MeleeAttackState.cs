@@ -12,14 +12,14 @@ namespace Enemies.EnemySpecific.Enemy1
         public E1_MeleeAttackState(
             Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName,
+            int animBoolId,
             Transform attackPosition,
             MeleeAttackData stateData,
             Enemy1 enemy) :
             base(
                 entity,
                 stateMachine,
-                animBoolName,
+                animBoolId,
                 attackPosition,
                 stateData)
         {

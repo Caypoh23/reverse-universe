@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class E2_DeadState : DeadState
 {
-    private Enemy2 _enemy;
+    private readonly Enemy2 _enemy;
     
     public E2_DeadState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolName,
         DeadStateData stateData,
         Enemy2 enemy) :
         base(

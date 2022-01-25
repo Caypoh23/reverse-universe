@@ -14,12 +14,12 @@ namespace Enemies.States
         public MoveState(
             Entity entity, 
             FiniteStateMachine stateMachine, 
-            string animBoolName, 
+            int animBoolId, 
             MoveStateData stateData) : 
             base(
                 entity, 
                 stateMachine, 
-                animBoolName)
+                animBoolId)
         {
             StateData = stateData;
         }

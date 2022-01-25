@@ -42,6 +42,15 @@ namespace Cores.CoreComponents
             rewindTime.ReverseTime(_commandStack);
             rewindTime.StopRevisingTime();
 
+            if(rewindTime.IsRewindingTime)
+            {
+                animator.SetFloat("Direction", -1);
+            }
+            else
+            {
+                animator.SetFloat("Direction", 1);
+            }
+
             ResetFacingDirection();
         }
 
@@ -85,6 +94,7 @@ namespace Cores.CoreComponents
                 rb.velocity = _workspace;
                 CurrentVelocity = _workspace;
                 _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator));
+               
             }
         }
 

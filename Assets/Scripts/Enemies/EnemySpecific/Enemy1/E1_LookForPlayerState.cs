@@ -11,13 +11,13 @@ namespace Enemies.EnemySpecific.Enemy1
         public E1_LookForPlayerState(
             Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName,
+            int animBoolId,
             LookForPlayerData stateData,
             Enemy1 enemy) :
             base(
                 entity,
                 stateMachine,
-                animBoolName,
+                animBoolId,
                 stateData)
         {
             _enemy = enemy;

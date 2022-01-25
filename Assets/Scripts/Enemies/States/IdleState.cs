@@ -15,14 +15,11 @@ namespace Enemies.States
         protected float IdleTime;
 
         public IdleState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            string animBoolName,
-            IdleStateData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolName)
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolId,
+            IdleStateData stateData
+        ) : base(entity, stateMachine, animBoolId)
         {
             StateData = stateData;
         }
@@ -31,7 +28,11 @@ namespace Enemies.States
         {
             base.Enter();
 
-            Core.Movement.SetVelocityX(0f);
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(0f);
+            }
+
             IsIdleTimeOver = false;
 
             SetRandomIdleTime();
@@ -51,7 +52,10 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            Core.Movement.SetVelocityX(0f);
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(0f);
+            }
 
             if (Time.time >= StartTime + IdleTime)
             {
@@ -68,18 +72,12 @@ namespace Enemies.States
         {
             base.DoChecks();
 
-
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
         }
 
-        public void SetFlipAfterIdle(bool flip)
-        {
-            FlipAfterIdle = flip;
-        }
+        public void SetFlipAfterIdle(bool flip) => FlipAfterIdle = flip;
 
-        public void SetRandomIdleTime()
-        {
-            IdleTime = UnityEngine.Random.Range(StateData.minIdleTime, StateData.maxIdleTime);
-        }
+        public void SetRandomIdleTime() =>
+            IdleTime = Random.Range(StateData.minIdleTime, StateData.maxIdleTime);
     }
 }

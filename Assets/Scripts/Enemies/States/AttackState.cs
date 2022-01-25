@@ -11,14 +11,11 @@ namespace Enemies.States
         protected bool IsPlayerMinAgroRange;
 
         public AttackState(
-            Entity entity, 
+            Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName, 
-            Transform attackPosition) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolName)
+            int animBoolId,
+            Transform attackPosition
+        ) : base(entity, stateMachine, animBoolId)
         {
             AttackPosition = attackPosition;
         }
@@ -26,9 +23,13 @@ namespace Enemies.States
         public override void Enter()
         {
             base.Enter();
-            Entity.AnimationToState.AttackState = this;
-            IsAnimationFinished = false;
-            Core.Movement.SetVelocityX(0f);
+
+            if (!Core.Movement.IsRewinding)
+            {
+                Entity.AnimationToState.AttackState = this;
+                IsAnimationFinished = false;
+                Core.Movement.SetVelocityX(0f);
+            }
         }
 
         public override void Exit()
@@ -39,7 +40,11 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            Core.Movement.SetVelocityX(0f);
+
+            if (!Core.Movement.IsRewinding)
+            {
+                Core.Movement.SetVelocityX(0f);
+            }
         }
 
         public override void PhysicsUpdate()
@@ -54,9 +59,7 @@ namespace Enemies.States
             IsPlayerMinAgroRange = Entity.CheckPlayerInMinAgroRange();
         }
 
-        public virtual void TriggerAttack()
-        {
-        }
+        public virtual void TriggerAttack() { }
 
         public virtual void FinishAttack()
         {

@@ -6,18 +6,18 @@ namespace Enemies.EnemySpecific.Enemy2
 {
     public class E2_DodgeState : DodgeState
     {
-        private global::Enemies.EnemySpecific.Enemy2.Enemy2 _enemy;
+        private readonly Enemy2 _enemy;
 
         public E2_DodgeState(
             Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName,
+            int animBoolId,
             DodgeStateData stateData,
-            global::Enemies.EnemySpecific.Enemy2.Enemy2 enemy) :
+            Enemy2 enemy) :
             base(
                 entity,
                 stateMachine,
-                animBoolName,
+                animBoolId,
                 stateData)
         {
             _enemy = enemy;

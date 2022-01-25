@@ -11,13 +11,13 @@ namespace Enemies.EnemySpecific.Enemy1
         public E1_ChargeState(
             Entity entity,
             FiniteStateMachine stateMachine,
-            string animBoolName,
+            int animBoolId,
             ChargeStateData stateData,
             Enemy1 enemy) :
             base(
                 entity,
                 stateMachine,
-                animBoolName,
+                animBoolId,
                 stateData)
         {
             _enemy = enemy;
@@ -48,11 +48,11 @@ namespace Enemies.EnemySpecific.Enemy1
             }
             else if (IsChargeTimeOver && !Core.Movement.IsRewinding)
             {
-                if (IsPlayerInMinAgroRange)
+                if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(_enemy.PlayerDetectedState);
                 }
-                else
+                else if(!Core.Movement.IsRewinding)
                 {
                     StateMachine.ChangeState(_enemy.LookForPlayerState);
                 }

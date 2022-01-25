@@ -94982,8 +94982,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226901162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.257, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00000071525574, y: 8.257, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1634496985}
@@ -95008,7 +95008,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 459051293}
   m_Follow: {fileID: 459051293}
   m_Lens:
     FieldOfView: 60
@@ -95335,6 +95335,7 @@ GameObject:
   - component: {fileID: 459051301}
   - component: {fileID: 459051302}
   - component: {fileID: 459051300}
+  - component: {fileID: 459051303}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -95684,6 +95685,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 459051295}
   playerData: {fileID: 11400000, guid: 0ce625870f25c1440b76fb52ed7c9747, type: 2}
+--- !u!114 &459051303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459051292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb99af7f59c041f4aa9771297e679b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapon: {fileID: 615455131}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -95796,7 +95810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.257, z: -10}
+  m_LocalPosition: {x: -0.00000071525574, y: 8.257, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107507428}
@@ -95820,7 +95834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &535643487
 Transform:
   m_ObjectHideFlags: 0
@@ -95916,6 +95930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb99af7f59c041f4aa9771297e679b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapon: {fileID: 0}
 --- !u!1 &547365060
 GameObject:
   m_ObjectHideFlags: 0
@@ -96038,7 +96053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 85e7817e3fb9abf4f84075216fe117e7, type: 2}
-  baseWeaponAnimator: {fileID: 535643488}
+  baseWeaponAnimator: {fileID: 459051298}
   weaponAnimator: {fileID: 1006865815}
 --- !u!1 &643887944
 GameObject:
@@ -96366,7 +96381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &992761574
 Transform:
   m_ObjectHideFlags: 0
@@ -97403,8 +97418,8 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
+  m_DeadZoneWidth: 0.15
+  m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8

@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class E2_MeleeAttackState : MeleeAttackState
 {
-    private Enemy2 _enemy;
+    private readonly Enemy2 _enemy;
 
     public E2_MeleeAttackState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolName,
         Transform attackPosition,
         MeleeAttackData stateData,
         Enemy2 enemy) :

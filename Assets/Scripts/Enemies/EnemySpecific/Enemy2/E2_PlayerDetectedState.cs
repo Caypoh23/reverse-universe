@@ -8,18 +8,18 @@ using UnityEngine;
 
 public class E2_PlayerDetectedState : PlayerDetectedState
 {
-    private Enemy2 _enemy;
+    private readonly Enemy2 _enemy;
 
     public E2_PlayerDetectedState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolId,
         PlayerDetectedData stateData,
         Enemy2 enemy) :
         base(
             entity,
             stateMachine,
-            animBoolName,
+            animBoolId,
             stateData)
     {
         _enemy = enemy;

@@ -8,18 +8,18 @@ using UnityEngine;
 
 public class E2_MoveState : MoveState
 {
-    private Enemy2 _enemy;
+    private readonly Enemy2 _enemy;
 
     public E2_MoveState(
         Entity entity,
         FiniteStateMachine stateMachine,
-        string animBoolName,
+        int animBoolId,
         MoveStateData stateData,
         Enemy2 enemy) :
         base(
             entity,
             stateMachine,
-            animBoolName,
+            animBoolId,
             stateData)
     {
         _enemy = enemy;

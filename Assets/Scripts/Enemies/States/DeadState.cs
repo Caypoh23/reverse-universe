@@ -11,12 +11,12 @@ namespace Enemies.States
         public DeadState(
             Entity entity, 
             FiniteStateMachine stateMachine,
-            string animBoolName, 
+            int animBoolId, 
             DeadStateData stateData) : 
             base(
                 entity, 
                 stateMachine, 
-                animBoolName)
+                animBoolId)
         {
             StateData = stateData;
         }
