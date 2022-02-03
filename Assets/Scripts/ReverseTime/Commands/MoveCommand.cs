@@ -53,12 +53,6 @@ namespace ReverseTime.Commands
                    break;
                 }
             }
-
-            //Debug.Log(_animator.parameters[0].type + " parameter type");
-
-            //_animationName = _playedAnimations.name;
-            //Debug.Log(_animator.GetParameter(3).name + " current animation name" + _animator.GetBool("Move") + "Played animation name : " + _animationName);
-            //Debug.Log(_previousAnimationName + " previous animation name " + _previousAnimationStatus + " its status");
         }
 
         private void DeactivateAnimations()
