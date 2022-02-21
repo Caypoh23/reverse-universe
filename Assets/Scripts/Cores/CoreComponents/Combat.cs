@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Cores.CoreComponents
 {
-    public class Combat : CoreComponent, IDamageable, IKnockbackable
+    public class Combat : CoreComponent, ITakeDamage, IKnockbackable
     {
         [SerializeField] private float maxKnockbackTime = 0.2f;
         private bool _isKnockbackActive;
@@ -17,7 +17,7 @@ namespace Cores.CoreComponents
         public void TakeDamage(float amount)
         {
             Debug.Log(Core.transform.parent.name + " Damaged!");
-            Core.Stats.DecreaseHealth(amount);
+            Core.Stats.TakeDamage(amount);
         }
 
         public void Knockback(Vector2 angle, float strength, int direction)

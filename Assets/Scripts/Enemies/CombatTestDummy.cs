@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public class CombatTestDummy : MonoBehaviour, IDamageable
+    public class CombatTestDummy : MonoBehaviour, ITakeDamage
     {
         [SerializeField] private Animator anim;
         [SerializeField] private GameObject hitParticles;

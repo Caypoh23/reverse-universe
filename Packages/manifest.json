@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.av.smart-hierarchy": "https://github.com/neon-age/Smart-Hierarchy.git",
     "com.av.tags": "https://github.com/neon-age/Tags.git",
     "com.unity.2d.animation": "3.2.14",
     "com.unity.2d.pixel-perfect": "2.1.0",

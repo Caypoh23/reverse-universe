@@ -13,12 +13,12 @@ namespace ReverseTime.Commands
 
         #endregion
 
-        #region Animation 
+        #region Animation
 
         private Animator _animator;
         private string _previousAnimationName;
         private bool _previousAnimationStatus;
-    
+
         #endregion
 
         public MoveCommand(Transform currentPosition, Animator animator)
@@ -34,6 +34,24 @@ namespace ReverseTime.Commands
             GetAnimationParameterName();
         }
 
+        private void GetAnimationParameterName()
+        {
+            foreach (var currentAnimatorParameter in _animator.parameters)
+            {
+                if (
+                    CheckAnimationType(currentAnimatorParameter)
+                    && CurrentAnimatorParameterName(currentAnimatorParameter)
+                )
+                {
+                    _previousAnimationName = currentAnimatorParameter.name;
+                    _previousAnimationStatus = CurrentAnimatorParameterName(
+                        currentAnimatorParameter
+                    );
+                    break;
+                }
+            }
+        }
+
         public void Undo()
         {
             _currentPosition.position = _previousPosition;
@@ -42,28 +60,24 @@ namespace ReverseTime.Commands
             DeactivateAnimations();
         }
 
-        private void GetAnimationParameterName()
-        {
-            foreach(var parameter in _animator.parameters)
-            {
-                if(parameter.type == AnimatorControllerParameterType.Bool && _animator.GetBool(parameter.name))
-                {
-                   _previousAnimationName = parameter.name;
-                   _previousAnimationStatus = _animator.GetBool(parameter.name);
-                   break;
-                }
-            }
-        }
-
         private void DeactivateAnimations()
         {
             foreach (var currentAnimation in _animator.parameters)
             {
-                if (_previousAnimationName != currentAnimation.name && currentAnimation.type == AnimatorControllerParameterType.Bool)
+                if (
+                    _previousAnimationName != currentAnimation.name
+                    && CheckAnimationType(currentAnimation)
+                )
                 {
                     _animator.SetBool(currentAnimation.name, false);
                 }
             }
         }
+
+        private bool CheckAnimationType(AnimatorControllerParameter currentAnimation) =>
+            currentAnimation.type == AnimatorControllerParameterType.Bool;
+
+        private bool CurrentAnimatorParameterName(AnimatorControllerParameter animatorParameter) =>
+            _animator.GetBool(animatorParameter.name);
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace ObjectPool
 {
-    public class ObjectPooler : MonoBehaviour
+    public class ObjectPooler : SingletonClass<ObjectPooler>
     {
         [SerializeField] private List<Pool> pools;
+        
         private Dictionary<Tag, Queue<GameObject>> _poolDictionary;
 
         private void OnEnable()
@@ -28,7 +29,7 @@ namespace ObjectPool
             }
         }
 
-        public void SpawnFromPool(Tag objectTag, Vector3 position, Quaternion rotation)
+        public GameObject SpawnFromPool(Tag objectTag, Vector3 position, Quaternion rotation)
         {
             var objectToSpawn = _poolDictionary[objectTag].Dequeue();
 
@@ -37,6 +38,8 @@ namespace ObjectPool
             objectToSpawn.transform.rotation = rotation;
 
             _poolDictionary[objectTag].Enqueue(objectToSpawn);
+
+            return objectToSpawn;
         }
     }
 }

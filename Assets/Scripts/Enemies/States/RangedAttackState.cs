@@ -1,6 +1,7 @@
 ﻿using Cores.CoreComponents;
 using Enemies.StateMachine;
 using Enemies.States.Data;
+using ObjectPool;
 using Projectiles;
 using UnityEngine;
 
@@ -57,7 +58,8 @@ namespace Enemies.States
         {
             base.TriggerAttack();
 
-            projectile = GameObject.Instantiate(StateData.projectile, AttackPosition.position, AttackPosition.rotation);
+            projectile = ObjectPooler.Instance.SpawnFromPool(StateData.projectileTag, AttackPosition.position, AttackPosition.rotation);
+            //GameObject.Instantiate(StateData.projectile, AttackPosition.position, AttackPosition.rotation);
             projectileScript = projectile.GetComponent<Projectile>();
             projectileScript.FireProjectile(StateData.projectileSpeed, StateData.projectileTravelDistance, StateData.projectileDamage);
         }

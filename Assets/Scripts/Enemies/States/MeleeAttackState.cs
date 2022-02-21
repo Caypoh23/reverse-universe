@@ -58,7 +58,7 @@ namespace Enemies.States
 
             foreach (var collider in detectedObjects)
             {
-                var hitInfo = collider.GetComponent<IDamageable>();
+                var hitInfo = collider.GetComponent<ITakeDamage>();
                 var knockbackable = collider.GetComponent<IKnockbackable>();
 
                 hitInfo?.TakeDamage(StateData.attackDamage);

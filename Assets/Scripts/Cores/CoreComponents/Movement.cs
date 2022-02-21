@@ -56,12 +56,6 @@ namespace Cores.CoreComponents
 
         #region Set Functions
 
-        /*public void SetVelocityZero()
-    {
-        _workspace = Vector2.zero;
-        SetFinalVelocity();
-    }*/
-
         public void SetVelocity(float velocity, Vector2 angle, int direction)
         {
             angle.Normalize();
@@ -97,19 +91,6 @@ namespace Cores.CoreComponents
                
             }
         }
-
-        // private void RewindTime()
-        // {
-        //     if (Input.GetKey(KeyCode.R))
-        //     {
-        //         _isRewinding = true;
-        //         _commandStack.UndoLastCommand();
-        //     }
-        //     else
-        //     {
-        //         _isRewinding = false;
-        //     }
-        // }
 
         public void CheckIfShouldFlip(int xInput)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Interfaces
 {
-    public interface IDamageable
+    public interface ITakeDamage
     {
         void TakeDamage(float amount);
     }

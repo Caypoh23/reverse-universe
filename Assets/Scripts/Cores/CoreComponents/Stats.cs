@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 namespace Cores.CoreComponents
 {
-    public class Stats : CoreComponent
+    public class Stats : CoreComponent, ITakeDamage
     {
         [SerializeField] private float maxHealth;
-        private float _currentHealth;
+        [SerializeField] private GameObject character;
+         private float _currentHealth;
 
         protected override void Awake()
         {
@@ -14,13 +16,14 @@ namespace Cores.CoreComponents
             _currentHealth = maxHealth;
         }
 
-        public void DecreaseHealth(float amount)
+        public void TakeDamage(float amount)
         {
             _currentHealth -= amount;
 
             if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
+                character.SetActive(false);
                 Debug.Log("Health is zero!!");
             }
         }

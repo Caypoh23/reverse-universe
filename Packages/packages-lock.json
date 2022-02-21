@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.av.smart-hierarchy": {
-      "version": "https://github.com/neon-age/Smart-Hierarchy.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "80dd61515c8eba9b5df74d02201aec12548f31eb"
-    },
     "com.av.tags": {
       "version": "https://github.com/neon-age/Tags.git",
       "depth": 0,

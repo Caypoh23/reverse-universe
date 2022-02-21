@@ -10,7 +10,7 @@ namespace Player.Weapons
     {
         protected AggressiveWeaponData AggressiveWeaponData;
 
-        private List<IDamageable> _detectedDamageables = new List<IDamageable>();
+        private List<ITakeDamage> _detectedDamageables = new List<ITakeDamage>();
         private List<IKnockbackable> _detectedKnockbackables = new List<IKnockbackable>();
         protected override void Awake()
         {
@@ -51,7 +51,7 @@ namespace Player.Weapons
 
         public void AddToDetected(Collider2D collision)
         {
-            var damageable = collision.GetComponent<IDamageable>();
+            var damageable = collision.GetComponent<ITakeDamage>();
             var knockbackable = collision.GetComponent<IKnockbackable>();
 
             if (damageable != null)
@@ -67,7 +67,7 @@ namespace Player.Weapons
 
         public void RemoveFromDetected(Collider2D collision)
         {
-            var damageable = collision.GetComponent<IDamageable>();
+            var damageable = collision.GetComponent<ITakeDamage>();
             var knockbackable = collision.GetComponent<IKnockbackable>();
 
             if (damageable != null)

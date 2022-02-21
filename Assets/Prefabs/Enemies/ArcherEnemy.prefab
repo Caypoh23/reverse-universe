@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 5789222270838025654}
   - component: {fileID: 5789222270838025656}
   - component: {fileID: 5789222270838025655}
+  - component: {fileID: -3656810119064681439}
   m_Layer: 9
   m_Name: ArcherEnemy
   m_TagString: Enemy
@@ -285,6 +286,20 @@ MonoBehaviour:
   dodgeStateData: {fileID: 11400000, guid: 2420cf9f261e44b4aba245f91f59e6f6, type: 2}
   meleeAttackPosition: {fileID: 5789222270642062702}
   rangedAttackPosition: {fileID: 5789222271908036549}
+--- !u!114 &-3656810119064681439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789222270838025649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228569bddf6523d4ab9885c54b7a6c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - {fileID: 11400000, guid: e10150b6543854949b63ece039a33a86, type: 2}
 --- !u!1 &5789222270966820512
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
+  character: {fileID: 0}
 --- !u!1 &5789222271696484040
 GameObject:
   m_ObjectHideFlags: 0
