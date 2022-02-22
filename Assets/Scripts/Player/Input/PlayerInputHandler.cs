@@ -62,19 +62,6 @@ namespace Player.Input
             }
         }
 
-        public void OnSecondaryAttackInput(InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                AttackInputs[(int) CombatInputs.Secondary] = true;
-            }
-
-            if (context.canceled)
-            {
-                AttackInputs[(int) CombatInputs.Secondary] = false;
-            }
-        }
-
         public void OnMoveInput(InputAction.CallbackContext context)
         {
             RawMovementInput = context.ReadValue<Vector2>();

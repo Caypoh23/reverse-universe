@@ -38,7 +38,7 @@ namespace Projectiles
             playerStats = GameObject.FindGameObjectWithTag(playerStatsTag.name).GetComponent<Stats>();
         }
 
-        private void OnEnable() => ResetGravity();
+        //private void OnEnable() => ResetGravity();
 
         private void Update()
         {
@@ -85,7 +85,7 @@ namespace Projectiles
                 _hasHitGround = true;
                 _rb.gravityScale = 0.0f;
                 _rb.velocity = Vector2.zero;
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
             }
         }
 
@@ -111,6 +111,7 @@ namespace Projectiles
             _speed = speed;
             _travelDistance = travelDistance;
             _attackDetails.damageAmount = damage;
+            ResetGravity();
         }
 
         private void OnDrawGizmos() => Gizmos.DrawWireSphere(damagePosition.position, damageRadius);

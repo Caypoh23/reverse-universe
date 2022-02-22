@@ -49,11 +49,11 @@ namespace Enemies.EnemySpecific.Enemy2
 
             MoveState = new E2_MoveState(this, StateMachine, MoveParameterName, moveStateData, this);
             IdleState = new E2_IdleState(this, StateMachine, IdleParameterName, idleStateData, this);
-            PlayerDetectedState =
+            PlayerDetectedState = 
                 new E2_PlayerDetectedState(this, StateMachine, PlayerDetectedParameterName, playerDetectedStateData, this);
-            MeleeAttackState = new E2_MeleeAttackState(this, StateMachine, MeleeAttackParameterName, meleeAttackPosition,
-                meleeAttackStateData, this);
-            LookForPlayerState =
+            MeleeAttackState = 
+                new E2_MeleeAttackState(this, StateMachine, MeleeAttackParameterName, meleeAttackPosition,meleeAttackStateData, this);   
+            LookForPlayerState = 
                 new E2_LookForPlayerState(this, StateMachine, LookForPlayerParameterName, lookForPlayerStateData, this);
             StunState =
                 new E2_StunState(this, StateMachine, StunParameterName, stunStateData, this);
