@@ -27,13 +27,13 @@ namespace Player.PlayerStates.SubStates
         {
             base.LogicUpdate();
 
+            if (Core.Movement.IsRewinding)
+                return;
+                
             Core.Movement.CheckIfShouldFlip(XInput);
 
-            if (!Core.Movement.IsRewinding)
-            {
-                Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
-            }
-            
+            Core.Movement.SetVelocityX(PlayerData.movementVelocity * XInput);
+
             if (XInput == 0 && !IsExitingState)
             {
                 StateMachine.ChangeState(PlayerBase.IdleState);

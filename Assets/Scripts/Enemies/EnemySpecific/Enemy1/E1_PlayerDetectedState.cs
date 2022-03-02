@@ -13,12 +13,8 @@ namespace Enemies.EnemySpecific.Enemy1
             FiniteStateMachine stateMachine,
             int animBoolId,
             PlayerDetectedData stateData,
-            Enemy1 enemy) :
-            base(
-                entity,
-                stateMachine,
-                animBoolId,
-                stateData)
+            Enemy1 enemy
+        ) : base(entity, stateMachine, animBoolId, stateData)
         {
             _enemy = enemy;
         }
@@ -37,19 +33,21 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (PerformCloseRangeAction && !Core.Movement.IsRewinding)
+            if(Core.Movement.IsRewinding) return;
+
+            if (PerformCloseRangeAction)
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
-            else if (PerformLongRangeAction && !Core.Movement.IsRewinding)
+            else if (PerformLongRangeAction)
             {
                 StateMachine.ChangeState(_enemy.ChargeState);
             }
-            else if (!IsPlayerInMaxAgroRange && !Core.Movement.IsRewinding)
+            else if (!IsPlayerInMaxAgroRange)
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
             }
-            else if (!IsDetectingLedge && !Core.Movement.IsRewinding)
+            else if (!IsDetectingLedge)
             {
                 Core.Movement.Flip();
                 StateMachine.ChangeState(_enemy.MoveState);

@@ -10,29 +10,26 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
 
-            if (!IsExitingState)
+            if (Core.Movement.IsRewinding)
+                return;
+                
+            if (IsExitingState)
+                return;
+
+            if (XInput != 0)
             {
-                if (XInput != 0 && !Core.Movement.IsRewinding)
-                {
-                    StateMachine.ChangeState(PlayerBase.MoveState);
-                }
-                else if (IsAnimationFinished && !Core.Movement.IsRewinding)
-                {
-                    StateMachine.ChangeState(PlayerBase.IdleState);
-                }
+                StateMachine.ChangeState(PlayerBase.MoveState);
+            }
+            else if (IsAnimationFinished)
+            {
+                StateMachine.ChangeState(PlayerBase.IdleState);
             }
         }
     }

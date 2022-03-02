@@ -15,12 +15,8 @@ public class E2_PlayerDetectedState : PlayerDetectedState
         FiniteStateMachine stateMachine,
         int animBoolId,
         PlayerDetectedData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolId,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolId, stateData)
     {
         _enemy = enemy;
     }
@@ -39,22 +35,24 @@ public class E2_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
+        if(Core.Movement.IsRewinding) return;
+
         if (PerformCloseRangeAction)
         {
-            if (Time.time >= _enemy.DodgeState.StartTime + _enemy.dodgeStateData.dodgeCooldown && !Core.Movement.IsRewinding)
+            if (Time.time >= _enemy.DodgeState.StartTime + _enemy.dodgeStateData.dodgeCooldown)
             {
                 StateMachine.ChangeState(_enemy.DodgeState);
             }
-            else if(!Core.Movement.IsRewinding)
+            else
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
         }
-        else if (PerformLongRangeAction && !Core.Movement.IsRewinding)
+        else if (PerformLongRangeAction)
         {
             StateMachine.ChangeState(_enemy.RangedAttackState);
         }
-        else if (!IsPlayerInMaxAgroRange && !Core.Movement.IsRewinding)
+        else if (!IsPlayerInMaxAgroRange)
         {
             StateMachine.ChangeState(_enemy.LookForPlayerState);
         }

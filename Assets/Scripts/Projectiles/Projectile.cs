@@ -10,6 +10,7 @@ namespace Projectiles
     {
         [SerializeField] private float gravity;
         [SerializeField] private float damageRadius;
+        [SerializeField] private float damageAmount = 10;
 
         [SerializeField] private Rigidbody2D _rb;
 
@@ -19,7 +20,6 @@ namespace Projectiles
         [SerializeField] private Transform damagePosition;
         
         [SerializeField] private Tag playerStatsTag;
-
         
         private WeaponAttackDetails _attackDetails;
 
@@ -37,8 +37,6 @@ namespace Projectiles
             _xStartPos = transform.position.x;
             playerStats = GameObject.FindGameObjectWithTag(playerStatsTag.name).GetComponent<Stats>();
         }
-
-        //private void OnEnable() => ResetGravity();
 
         private void Update()
         {
@@ -73,7 +71,7 @@ namespace Projectiles
         {
             if (damageHit)
             {
-                playerStats?.TakeDamage(10);
+                playerStats?.TakeDamage(damageAmount);
                 gameObject.SetActive(false);
             }
         }
@@ -85,7 +83,6 @@ namespace Projectiles
                 _hasHitGround = true;
                 _rb.gravityScale = 0.0f;
                 _rb.velocity = Vector2.zero;
-                //gameObject.SetActive(false);
             }
         }
 
@@ -105,12 +102,13 @@ namespace Projectiles
 
             _rb.gravityScale = 0.0f;
         }
-
+        
         public void FireProjectile(float speed, float travelDistance, float damage)
         {
             _speed = speed;
             _travelDistance = travelDistance;
             _attackDetails.damageAmount = damage;
+            
             ResetGravity();
         }
 

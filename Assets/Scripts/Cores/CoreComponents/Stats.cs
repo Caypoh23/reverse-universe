@@ -1,4 +1,7 @@
-﻿using Interfaces;
+﻿using System.Collections.Generic;
+using Interfaces;
+using ReverseTime;
+using ReverseTime.Commands;
 using UnityEngine;
 
 namespace Cores.CoreComponents
@@ -6,15 +9,24 @@ namespace Cores.CoreComponents
     public class Stats : CoreComponent, ITakeDamage
     {
         [SerializeField] private float maxHealth;
+
         [SerializeField] private GameObject character;
-         private float _currentHealth;
 
-        protected override void Awake()
+        [SerializeField] private Animator animator;
+
+        [SerializeField] private BoxCollider2D boxCollider;
+
+        private float _currentHealth;
+
+        private readonly int DeathParameterName = Animator.StringToHash("Die");
+
+        public float CurrentHealthAmount
         {
-            base.Awake();
-
-            _currentHealth = maxHealth;
+            get => _currentHealth;
+            set { _currentHealth = value; }
         }
+
+        protected override void Awake() => _currentHealth = maxHealth;
 
         public void TakeDamage(float amount)
         {
@@ -23,19 +35,14 @@ namespace Cores.CoreComponents
             if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
-                character.SetActive(false);
+                //animator.SetBool(DeathParameterName, true);
                 Debug.Log("Health is zero!!");
             }
         }
 
-        public void IncreaseHealth(float amount)
+        public void IncreaseHealth()
         {
-            _currentHealth = Mathf.Clamp
-            (
-                _currentHealth + amount,
-                0,
-                maxHealth
-            );
+            _currentHealth = Mathf.Clamp(_currentHealth + 10, 0, maxHealth);
         }
     }
 }

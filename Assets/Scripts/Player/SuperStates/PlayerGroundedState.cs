@@ -46,22 +46,24 @@ namespace Player.SuperStates
             _jumpInput = PlayerBase.InputHandler.CanJumpInput;
             _dashInput = PlayerBase.InputHandler.CanDashInput;
             _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
+            
+            if (Core.Movement.IsRewinding)
+                return;
 
-
-            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary] && !Core.Movement.IsRewinding)
+            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
             {
                 StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
             }
-            else if (_jumpInput && PlayerBase.JumpState.CanJump() && !Core.Movement.IsRewinding)
+            else if (_jumpInput && PlayerBase.JumpState.CanJump())
             {
                 StateMachine.ChangeState(PlayerBase.JumpState);
             }
-            else if (!_isGrounded && !Core.Movement.IsRewinding)
+            else if (!_isGrounded)
             {
                 PlayerBase.InAirState.StartCoyoteTime();
                 StateMachine.ChangeState(PlayerBase.InAirState);
             }
-            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash() && !Core.Movement.IsRewinding)
+            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash())
             {
                 StateMachine.ChangeState(PlayerBase.DashState);
             }

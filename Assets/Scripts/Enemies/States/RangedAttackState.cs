@@ -62,6 +62,8 @@ namespace Enemies.States
             //GameObject.Instantiate(StateData.projectile, AttackPosition.position, AttackPosition.rotation);
             projectileScript = projectile.GetComponent<Projectile>();
             projectileScript.FireProjectile(StateData.projectileSpeed, StateData.projectileTravelDistance, StateData.projectileDamage);
+
+            if(Core.Movement.IsRewinding) projectile.SetActive(false);
         }
 
         public override void FinishAttack()

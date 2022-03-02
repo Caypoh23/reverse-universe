@@ -32,3 +32,5 @@ MonoBehaviour:
   maxTimeDilationHoldTime: 3
   reverseTimeCooldown: 5
   maxReverseTimeHoldTime: 5
+  landCameraShakeFeedback: {fileID: 840052481083643869, guid: 493b843b31c44594f906d5018f2d15ce,
+    type: 3}

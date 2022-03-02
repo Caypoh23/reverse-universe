@@ -51,24 +51,19 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            
-            if (!Core.Movement.IsRewinding)
-            {
-                Core.Movement.SetVelocityX(0f);
-            }
 
-            if (TurnImmediately && !Core.Movement.IsRewinding)
+            if(Core.Movement.IsRewinding) return;
+
+            Core.Movement.SetVelocityX(0f);
+
+            if (TurnImmediately)
             {
                 Core.Movement.Flip();
                 LastTurnTime = Time.time;
                 AmountOfTurnsDone++;
                 TurnImmediately = false;
             }
-            else if (
-                Time.time >= LastTurnTime + StateData.timeBetweenTurns
-                && !IsAllTurnsDone
-                && !Core.Movement.IsRewinding
-            )
+            else if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && !IsAllTurnsDone)
             {
                 Core.Movement.Flip();
                 LastTurnTime = Time.time;
@@ -80,11 +75,7 @@ namespace Enemies.States
                 IsAllTurnsDone = true;
             }
 
-            if (
-                Time.time >= LastTurnTime + StateData.timeBetweenTurns
-                && IsAllTurnsDone
-                && !Core.Movement.IsRewinding
-            )
+            if (Time.time >= LastTurnTime + StateData.timeBetweenTurns && IsAllTurnsDone)
             {
                 IsAllTurnsTimeDone = true;
             }

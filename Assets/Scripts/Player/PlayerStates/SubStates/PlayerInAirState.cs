@@ -27,14 +27,8 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -60,45 +54,53 @@ namespace Player.PlayerStates.SubStates
 
             CheckJumpMultiplier();
 
-            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary] && !Core.Movement.IsRewinding)
+            if (!Core.Movement.IsRewinding)
             {
-                StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
-            }
-            else if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Secondary] && !Core.Movement.IsRewinding)
-            {
-                StateMachine.ChangeState(PlayerBase.SecondaryAttackState);
-            }
-            else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f && !Core.Movement.IsRewinding)
-            {
-                StateMachine.ChangeState(PlayerBase.LandState);
-            }
-            else if (_jumpInput && PlayerBase.WallSlideState.IsWallSliding && !Core.Movement.IsRewinding)
-            {
-                PlayerBase.InputHandler.UseJumpInput();
-                _isTouchingWall = Core.CollisionSenses.IsCheckingWall;
-                PlayerBase.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
-                StateMachine.ChangeState(PlayerBase.WallJumpState);
-            }
-            else if (_jumpInput && PlayerBase.JumpState.CanJump())
-            {
-                PlayerBase.InputHandler.UseJumpInput();
-                StateMachine.ChangeState(PlayerBase.JumpState);
-            }
-            else if (_isTouchingWall && _xInput == Core.Movement.FacingDirection && PlayerBase.Rb.velocity.y < 0 && !Core.Movement.IsRewinding)
-            {
-                StateMachine.ChangeState(PlayerBase.WallSlideState);
-            }
-            else if (_dashInput && PlayerBase.DashState.CheckIfCanDash() && !_isTouchingWall && !Core.Movement.IsRewinding)
-            {
-                StateMachine.ChangeState(PlayerBase.DashState);
-            }
-            else if(!Core.Movement.IsRewinding)
-            {
-                Core.Movement.CheckIfShouldFlip(_xInput);
-                Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
+                if (PlayerBase.InputHandler.AttackInputs[(int)CombatInputs.Primary])
+                {
+                    StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
+                }
+                else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
+                {
+                    StateMachine.ChangeState(PlayerBase.LandState);
 
-                PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
-                PlayerBase.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));
+                    PlayerBase.LandCameraShakeFeedback?.PlayFeedbacks();
+                }
+                else if (_jumpInput && PlayerBase.WallSlideState.IsWallSliding)
+                {
+                    PlayerBase.InputHandler.UseJumpInput();
+                    _isTouchingWall = Core.CollisionSenses.IsCheckingWall;
+                    PlayerBase.WallJumpState.DetermineWallJumpDirection(_isTouchingWall);
+                    StateMachine.ChangeState(PlayerBase.WallJumpState);
+                }
+                else if (_jumpInput && PlayerBase.JumpState.CanJump())
+                {
+                    PlayerBase.InputHandler.UseJumpInput();
+                    StateMachine.ChangeState(PlayerBase.JumpState);
+                }
+                else if (
+                    _isTouchingWall
+                    && _xInput == Core.Movement.FacingDirection
+                    && PlayerBase.Rb.velocity.y < 0
+                )
+                {
+                    StateMachine.ChangeState(PlayerBase.WallSlideState);
+                }
+                else if (_dashInput && PlayerBase.DashState.CheckIfCanDash() && !_isTouchingWall)
+                {
+                    StateMachine.ChangeState(PlayerBase.DashState);
+                }
+                else
+                {
+                    Core.Movement.CheckIfShouldFlip(_xInput);
+                    Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
+
+                    PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
+                    PlayerBase.Anim.SetFloat(
+                        _xVelocity,
+                        Mathf.Abs(Core.Movement.CurrentVelocity.x)
+                    );
+                }
             }
         }
 
@@ -108,7 +110,9 @@ namespace Player.PlayerStates.SubStates
             {
                 if (_jumpInputStop)
                 {
-                    Core.Movement.SetVelocityY(Core.Movement.CurrentVelocity.y * PlayerData.jumpHeightMultiplier);
+                    Core.Movement.SetVelocityY(
+                        Core.Movement.CurrentVelocity.y * PlayerData.jumpHeightMultiplier
+                    );
                     _isJumping = false;
                 }
                 else if (Core.Movement.CurrentVelocity.y <= 0f)
@@ -135,7 +139,6 @@ namespace Player.PlayerStates.SubStates
         public void StartCoyoteTime() => _coyoteTime = true;
 
         public void SetIsJumping() => _isJumping = true;
-
 
         public override void DoChecks()
         {

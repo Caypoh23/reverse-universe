@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Cores.CoreComponents;
+using Interfaces;
 using UnityEngine;
 
 namespace ReverseTime.Commands
@@ -21,16 +22,25 @@ namespace ReverseTime.Commands
 
         #endregion
 
-        public MoveCommand(Transform currentPosition, Animator animator)
+        
+        # region Player Health
+        private Stats _characterHealthStats;
+        private float _previousHealthAmount;
+        
+        #endregion
+
+        public MoveCommand(Transform currentPosition, Animator animator, Stats characterHealthStats)
         {
             _currentPosition = currentPosition;
             _animator = animator;
+            _characterHealthStats = characterHealthStats;
         }
 
         public void Execute()
         {
             _previousPosition = _currentPosition.position;
             _previousRotation.y = _currentPosition.localRotation.eulerAngles.y;
+            _previousHealthAmount = _characterHealthStats.CurrentHealthAmount;
             GetAnimationParameterName();
         }
 
@@ -56,6 +66,7 @@ namespace ReverseTime.Commands
         {
             _currentPosition.position = _previousPosition;
             _currentPosition.localRotation = Quaternion.Euler(0, _previousRotation.y, 0f);
+            _characterHealthStats.CurrentHealthAmount = _previousHealthAmount;
             _animator.SetBool(_previousAnimationName, true);
             DeactivateAnimations();
         }

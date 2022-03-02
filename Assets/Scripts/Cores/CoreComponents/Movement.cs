@@ -27,6 +27,8 @@ namespace Cores.CoreComponents
 
         private readonly CommandStack _commandStack = new CommandStack();
 
+        private readonly int DirectionParameterName = Animator.StringToHash("Direction");
+
         protected override void Awake()
         {
             base.Awake();
@@ -44,11 +46,11 @@ namespace Cores.CoreComponents
 
             if(rewindTime.IsRewindingTime)
             {
-                animator.SetFloat("Direction", -1);
+                animator.SetFloat(DirectionParameterName, -1);
             }
             else
             {
-                animator.SetFloat("Direction", 1);
+                animator.SetFloat(DirectionParameterName, 1);
             }
 
             ResetFacingDirection();
@@ -87,8 +89,7 @@ namespace Cores.CoreComponents
             {
                 rb.velocity = _workspace;
                 CurrentVelocity = _workspace;
-                _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator));
-               
+                _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator, Core.Stats));
             }
         }
 

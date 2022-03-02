@@ -46,6 +46,8 @@ namespace Player.Weapons
             baseWeaponAnimator.SetBool(_attack, false);
             weaponAnimator.SetBool(_attack, false);
 
+            if(AttackCounter > weaponData.amountOfAttacks) return;
+
             AttackCounter++;
 
             gameObject.SetActive(false);

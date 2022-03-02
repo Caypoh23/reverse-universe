@@ -14,14 +14,8 @@ namespace Player.SuperStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -40,18 +34,25 @@ namespace Player.SuperStates
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             JumpInput = PlayerBase.InputHandler.CanJumpInput;
 
-            if (JumpInput && !Core.Movement.IsRewinding)
+            if (!Core.Movement.IsRewinding)
             {
-                PlayerBase.WallJumpState.DetermineWallJumpDirection(IsTouchingWall);
-                StateMachine.ChangeState(PlayerBase.WallJumpState);
-            }
-            else if (IsGrounded && !Core.Movement.IsRewinding)
-            {
-                StateMachine.ChangeState(PlayerBase.IdleState);
-            }
-            else if (!Core.Movement.IsRewinding && !IsTouchingWall || XInput != Core.Movement.FacingDirection && Core.Movement.CurrentVelocity.y <= 0)
-            {
-                StateMachine.ChangeState(PlayerBase.InAirState);
+                if (JumpInput)
+                {
+                    PlayerBase.WallJumpState.DetermineWallJumpDirection(IsTouchingWall);
+                    StateMachine.ChangeState(PlayerBase.WallJumpState);
+                }
+                else if (IsGrounded)
+                {
+                    StateMachine.ChangeState(PlayerBase.IdleState);
+                }
+                else if (
+                    !IsTouchingWall
+                    || XInput != Core.Movement.FacingDirection
+                        && Core.Movement.CurrentVelocity.y <= 0
+                )
+                {
+                    StateMachine.ChangeState(PlayerBase.InAirState);
+                }
             }
         }
 

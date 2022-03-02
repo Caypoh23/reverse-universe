@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cores.CoreComponents;
 using Interfaces;
+using MoreMountains.Feedbacks;
 using ObjectPool;
 using Player.Data;
 using Player.Input;
@@ -31,6 +32,9 @@ namespace Player.PlayerFiniteStateMachine
 
 
         [SerializeField] private PlayerData playerData;
+
+        public MMFeedbacks LandCameraShakeFeedback {get; private set;} 
+        
 
         #endregion
 
@@ -88,7 +92,8 @@ namespace Player.PlayerFiniteStateMachine
             Rb = GetComponent<Rigidbody2D>();
             ObjectPooler = FindObjectOfType<ObjectPooler>();
             PlayerInventory = GetComponent<PlayerInventory>();
-
+            
+            LandCameraShakeFeedback = FindObjectOfType<MMFeedbacks>();
 
             PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
             StateMachine.Initialize(IdleState);

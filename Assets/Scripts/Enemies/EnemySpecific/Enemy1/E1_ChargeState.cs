@@ -37,22 +37,23 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
+            if(Core.Movement.IsRewinding) return;
 
-            if (PerformCloseRangeAction && !Core.Movement.IsRewinding)
+            if (PerformCloseRangeAction)
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }
-            else if (!IsDetectingLedge || IsDetectingWall && !Core.Movement.IsRewinding)
+            else if (!IsDetectingLedge || IsDetectingWall)
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
             }
-            else if (IsChargeTimeOver && !Core.Movement.IsRewinding)
+            else if (IsChargeTimeOver)
             {
-                if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
+                if (IsPlayerInMinAgroRange)
                 {
                     StateMachine.ChangeState(_enemy.PlayerDetectedState);
                 }
-                else if(!Core.Movement.IsRewinding)
+                else
                 {
                     StateMachine.ChangeState(_enemy.LookForPlayerState);
                 }

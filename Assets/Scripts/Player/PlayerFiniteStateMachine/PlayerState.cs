@@ -8,7 +8,6 @@ namespace Player.PlayerFiniteStateMachine
     {
         protected readonly Core Core;
 
-        // Name should be changed
         // _private
         protected readonly PlayerBase PlayerBase; // animator
         protected readonly PlayerStateMachine StateMachine;
@@ -56,10 +55,6 @@ namespace Player.PlayerFiniteStateMachine
             DoChecks();
         }
 
-        // Check for wall, ground, ledge etc.
-        // Tick
-        // OnUpdate
-        // Rename
         public virtual void DoChecks()
         {
         }

@@ -30,13 +30,34 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - MoreMountains.Tools
+    - MoreMountains.Feedbacks.TextMeshPro
     - Cinemachine
     - Assembly-CSharp
+    - MoreMountains.Feedbacks
+    - MoreMountains.NiceVibrations.Demos
+    - MoreMountains.Feedbacks.MMTools
+    - MoreMountains.NiceVibrations
+    - MoreMountains.Feel.Demos
+    - MoreMountains.NiceVibrations.Haptics
+    - MoreMountains.Feedbacks.Cinemachine
+    - MoreMountains.Tools.Feedbacks
     - Sirenix.OdinInspector.CompatibilityLayer
     - AV.Tags
+    - MoreMountains.Tools.Cinemachine
+    - MoreMountains.Feedbacks.NiceVibrations
+    - MoreMountains.Tools.TextMeshPro
+    - MoreMountains.Feel.Demos.HDRP
+    - MoreMountains.Feel.Demos.URP
+    - MoreMountains.NiceVibrations.Rumble
+    - MoreMountains.NiceVibrations.Rumble.Editor
+    - MoreMountains.Tools.Editor
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - PsdPlugin
+    - MoreMountains.Feedbacks.Editor
+    - MoreMountains.NiceVibrations.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - MoreMountains.Tools.Feedbacks.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

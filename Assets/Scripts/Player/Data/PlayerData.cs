@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MoreMountains.Feedbacks;
+using UnityEngine;
 
 namespace Player.Data
 {
@@ -35,5 +36,6 @@ namespace Player.Data
         [Header("Rewind Time")]
         public float reverseTimeCooldown = 5f;
         public float maxReverseTimeHoldTime = 5f;
+
     }
 }
