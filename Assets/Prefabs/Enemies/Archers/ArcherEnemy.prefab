@@ -271,6 +271,7 @@ MonoBehaviour:
   ledgeCheck: {fileID: 5789222270966820513}
   playerCheck: {fileID: 5789222271158720859}
   groundCheck: {fileID: 5789222271148480405}
+  combatBoxCollider: {fileID: 5789222272168720224}
   moveStateData: {fileID: 11400000, guid: 8f492d6d99f5c3a4ab54c799c62f961c, type: 2}
   idleStateData: {fileID: 11400000, guid: 8778d98bc1dfe784eab18699ac0107aa, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: bcf7b5e4a99a27742a431406b577b923,
@@ -463,8 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d80ae937e361d649a66d7ca0168632a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  character: {fileID: 0}
+  maxHealth: 50
+  character: {fileID: 5789222270838025649}
+  animator: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &5789222271696484040
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5789222271908036548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.14, y: 0, z: 0}
+  m_LocalPosition: {x: 0.14, y: -0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5789222270838025650}

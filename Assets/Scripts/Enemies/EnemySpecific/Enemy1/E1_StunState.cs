@@ -13,12 +13,8 @@ namespace Enemies.EnemySpecific.Enemy1
             FiniteStateMachine stateMachine,
             int animBoolId,
             StunStateData stateData,
-            Enemy1 enemy) :
-            base(
-                entity,
-                stateMachine,
-                animBoolId,
-                stateData)
+            Enemy1 enemy
+        ) : base(entity, stateMachine, animBoolId, stateData)
         {
             _enemy = enemy;
         }
@@ -37,17 +33,23 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (IsStunTimeOver && !Core.Movement.IsRewinding)
+            if (Core.Movement.IsRewinding)
+                return;
+
+            if (Core.Stats.CurrentHealthAmount <= 0)
+                StateMachine.ChangeState(_enemy.DeadState);
+
+            if (IsStunTimeOver)
             {
                 if (PerformCloseRangeAction)
                 {
                     StateMachine.ChangeState(_enemy.MeleeAttackState);
                 }
-                else if (IsPLayerInMinAgroRange && !Core.Movement.IsRewinding)
+                else if (IsPLayerInMinAgroRange)
                 {
                     StateMachine.ChangeState(_enemy.ChargeState);
                 }
-                else if(!Core.Movement.IsRewinding)
+                else
                 {
                     _enemy.LookForPlayerState.SetTurnImmediately(true);
                     StateMachine.ChangeState(_enemy.LookForPlayerState);

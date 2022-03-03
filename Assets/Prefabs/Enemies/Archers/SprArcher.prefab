@@ -271,6 +271,7 @@ MonoBehaviour:
   ledgeCheck: {fileID: 1500660740457481282}
   playerCheck: {fileID: 1500660740663817144}
   groundCheck: {fileID: 1500660740602985846}
+  combatBoxCollider: {fileID: 1500660741675638147}
   moveStateData: {fileID: 11400000, guid: 8f492d6d99f5c3a4ab54c799c62f961c, type: 2}
   idleStateData: {fileID: 11400000, guid: 8778d98bc1dfe784eab18699ac0107aa, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: bcf7b5e4a99a27742a431406b577b923,
@@ -465,6 +466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   character: {fileID: 1500660740309288786}
+  animator: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &1500660741201042475
 GameObject:
   m_ObjectHideFlags: 0

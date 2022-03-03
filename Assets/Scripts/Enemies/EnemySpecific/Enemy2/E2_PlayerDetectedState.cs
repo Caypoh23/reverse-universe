@@ -35,7 +35,13 @@ public class E2_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if(Core.Movement.IsRewinding) return;
+        if (Core.Movement.IsRewinding)
+            return;
+
+        if (Core.Stats.CurrentHealthAmount <= 0)
+        {
+            StateMachine.ChangeState(_enemy.DeadState);
+        }
 
         if (PerformCloseRangeAction)
         {

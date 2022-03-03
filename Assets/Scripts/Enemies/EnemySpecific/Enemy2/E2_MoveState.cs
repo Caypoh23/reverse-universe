@@ -39,12 +39,18 @@ public class E2_MoveState : MoveState
     {
         base.LogicUpdate();
 
+        if(Core.Movement.IsRewinding) return;
 
-        if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
+        
+        if(Core.Stats.CurrentHealthAmount <= 0)
+        {
+            StateMachine.ChangeState(_enemy.DeadState);
+        }
+        else if (IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }
-        else if (!Core.Movement.IsRewinding &&  IsDetectingWall || !IsDetectingLedge)
+        else if (IsDetectingWall || !IsDetectingLedge)
         {
             _enemy.IdleState.SetFlipAfterIdle(true);
             StateMachine.ChangeState(_enemy.IdleState);

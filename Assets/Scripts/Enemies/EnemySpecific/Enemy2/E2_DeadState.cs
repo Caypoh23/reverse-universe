@@ -9,18 +9,14 @@ using UnityEngine;
 public class E2_DeadState : DeadState
 {
     private readonly Enemy2 _enemy;
-    
+
     public E2_DeadState(
         Entity entity,
         FiniteStateMachine stateMachine,
         int animBoolName,
         DeadStateData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolName,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolName, stateData)
     {
         _enemy = enemy;
     }
@@ -38,6 +34,9 @@ public class E2_DeadState : DeadState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (Core.Stats.CurrentHealthAmount > 0)
+            StateMachine.ChangeState(_enemy.IdleState);
     }
 
     public override void PhysicsUpdate()

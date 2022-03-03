@@ -13,12 +13,8 @@ namespace Enemies.EnemySpecific.Enemy2
             FiniteStateMachine stateMachine,
             int animBoolId,
             DodgeStateData stateData,
-            Enemy2 enemy) :
-            base(
-                entity,
-                stateMachine,
-                animBoolId,
-                stateData)
+            Enemy2 enemy
+        ) : base(entity, stateMachine, animBoolId, stateData)
         {
             _enemy = enemy;
         }
@@ -39,7 +35,12 @@ namespace Enemies.EnemySpecific.Enemy2
 
             if (IsDodgeOver && !Core.Movement.IsRewinding)
             {
-                if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)
+                
+                if (Core.Stats.CurrentHealthAmount <= 0)
+                {
+                    StateMachine.ChangeState(_enemy.DeadState);
+                }
+                else if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)
                 {
                     StateMachine.ChangeState(_enemy.MeleeAttackState);
                 }

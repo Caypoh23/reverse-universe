@@ -13,12 +13,8 @@ namespace Enemies.EnemySpecific.Enemy1
             FiniteStateMachine stateMachine,
             int animBoolId,
             DeadStateData stateData,
-            Enemy1 enemy) :
-            base(
-                entity,
-                stateMachine,
-                animBoolId,
-                stateData)
+            Enemy1 enemy
+        ) : base(entity, stateMachine, animBoolId, stateData)
         {
             _enemy = enemy;
         }
@@ -36,6 +32,9 @@ namespace Enemies.EnemySpecific.Enemy1
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            if (Core.Stats.CurrentHealthAmount > 0)
+                StateMachine.ChangeState(_enemy.IdleState);
         }
 
         public override void PhysicsUpdate()

@@ -9,14 +9,11 @@ namespace Enemies.States
         protected readonly DeadStateData StateData;
 
         public DeadState(
-            Entity entity, 
+            Entity entity,
             FiniteStateMachine stateMachine,
-            int animBoolId, 
-            DeadStateData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId)
+            int animBoolId,
+            DeadStateData stateData
+        ) : base(entity, stateMachine, animBoolId)
         {
             StateData = stateData;
         }
@@ -24,36 +21,21 @@ namespace Enemies.States
         public override void Enter()
         {
             base.Enter();
-
-            var position = Entity.transform.position;
-            var rotation = StateData.deathBloodParticle.transform.rotation;
-
-            Object.Instantiate(StateData.deathBloodParticle, position,
-                rotation);
-            Object.Instantiate(StateData.deathBloodParticle, position,
-                rotation);
-
-            Entity.gameObject.SetActive(false);
+            
+            Entity.DeactivateBoxCollider();
         }
 
         public override void Exit()
         {
             base.Exit();
-        }
 
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
+            Entity.ActivateBoxCollider();
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-        }
-
-        public override void DoChecks()
-        {
-            base.DoChecks();
+            Core.Movement.SetVelocityX(0);
         }
     }
 }

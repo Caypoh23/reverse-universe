@@ -15,12 +15,8 @@ public class E2_IdleState : IdleState
         FiniteStateMachine stateMachine,
         int animBoolId,
         IdleStateData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolId,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolId, stateData)
     {
         _enemy = enemy;
     }
@@ -39,12 +35,18 @@ public class E2_IdleState : IdleState
     {
         base.LogicUpdate();
 
+        if (Core.Movement.IsRewinding)
+            return;
 
-        if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
+        if (Core.Stats.CurrentHealthAmount <= 0)
+        {
+            StateMachine.ChangeState(_enemy.DeadState);
+        }
+        else if (IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }
-        else if (IsIdleTimeOver && !Core.Movement.IsRewinding)
+        else if (IsIdleTimeOver)
         {
             StateMachine.ChangeState(_enemy.MoveState);
         }

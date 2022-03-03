@@ -16,13 +16,8 @@ public class E2_MeleeAttackState : MeleeAttackState
         int animBoolName,
         Transform attackPosition,
         MeleeAttackData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolName,
-            attackPosition,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolName, attackPosition, stateData)
     {
         _enemy = enemy;
     }
@@ -41,13 +36,18 @@ public class E2_MeleeAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        if (IsAnimationFinished)
+        if (Core.Stats.CurrentHealthAmount <= 0)
         {
-            if (IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
+            StateMachine.ChangeState(_enemy.DeadState);
+        }
+
+        if (IsAnimationFinished && !Core.Movement.IsRewinding)
+        {
+            if (IsPlayerMinAgroRange)
             {
                 StateMachine.ChangeState(_enemy.PlayerDetectedState);
             }
-            else if (!IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
+            else if (!IsPlayerMinAgroRange)
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
             }

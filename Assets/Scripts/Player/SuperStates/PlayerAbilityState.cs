@@ -37,9 +37,9 @@ namespace Player.SuperStates
         {
             base.LogicUpdate();
 
-            if (IsAbilityDone)
+            if (IsAbilityDone && !Core.Movement.IsRewinding)
             {
-                if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f && !Core.Movement.IsRewinding)
+                if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
                 {
                     StateMachine.ChangeState(PlayerBase.IdleState);
                 }

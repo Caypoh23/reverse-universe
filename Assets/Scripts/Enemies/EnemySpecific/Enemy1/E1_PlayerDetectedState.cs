@@ -35,7 +35,11 @@ namespace Enemies.EnemySpecific.Enemy1
 
             if(Core.Movement.IsRewinding) return;
 
-            if (PerformCloseRangeAction)
+            if (Core.Stats.CurrentHealthAmount <= 0)
+            {
+                StateMachine.ChangeState(_enemy.DeadState);
+            }
+            else if (PerformCloseRangeAction)
             {
                 StateMachine.ChangeState(_enemy.MeleeAttackState);
             }

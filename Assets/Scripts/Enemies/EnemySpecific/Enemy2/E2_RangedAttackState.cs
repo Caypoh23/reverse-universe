@@ -8,20 +8,15 @@ namespace Enemies.EnemySpecific.Enemy2
     public class E2_RangedAttackState : RangedAttackState
     {
         private readonly Enemy2 _enemy;
-        
+
         public E2_RangedAttackState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            int animBoolId, 
-            Transform attackPosition, 
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolId,
+            Transform attackPosition,
             RangedAttackStateData stateData,
-            Enemy2 enemy) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId, 
-                attackPosition, 
-                stateData)
+            Enemy2 enemy
+        ) : base(entity, stateMachine, animBoolId, attackPosition, stateData)
         {
             _enemy = enemy;
         }
@@ -40,13 +35,18 @@ namespace Enemies.EnemySpecific.Enemy2
         {
             base.LogicUpdate();
 
-            if (IsAnimationFinished)
+            if (Core.Stats.CurrentHealthAmount <= 0)
             {
-                if (IsPlayerMinAgroRange && !Core.Movement.IsRewinding)
+                StateMachine.ChangeState(_enemy.DeadState);
+            }
+
+            if (IsAnimationFinished && !Core.Movement.IsRewinding)
+            {
+                if (IsPlayerMinAgroRange)
                 {
                     StateMachine.ChangeState(_enemy.PlayerDetectedState);
                 }
-                else if (!Core.Movement.IsRewinding)
+                else
                 {
                     StateMachine.ChangeState(_enemy.LookForPlayerState);
                 }

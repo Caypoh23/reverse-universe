@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   character: {fileID: 8632352015386137745}
+  animator: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &8632352013916895593
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8632352015386137745}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.12, y: 8.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -602,6 +604,7 @@ MonoBehaviour:
   ledgeCheck: {fileID: 8632352013916895592}
   playerCheck: {fileID: 8632352015072568611}
   groundCheck: {fileID: 8632352014234686143}
+  combatBoxCollider: {fileID: 8632352013396286828}
   idleStateData: {fileID: 11400000, guid: 6567711aaef5c6949be75f553ecb736b, type: 2}
   moveStateData: {fileID: 11400000, guid: 5c29f3ee976283d4585a539f61df9520, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 038e517b0065b8d4184f5a9b7f8e951c, type: 2}

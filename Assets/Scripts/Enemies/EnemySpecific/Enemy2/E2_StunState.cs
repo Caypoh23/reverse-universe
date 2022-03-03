@@ -9,18 +9,14 @@ using UnityEngine;
 public class E2_StunState : StunState
 {
     private readonly Enemy2 _enemy;
-    
+
     public E2_StunState(
         Entity entity,
         FiniteStateMachine stateMachine,
         int animBoolId,
         StunStateData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolId,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolId, stateData)
     {
         _enemy = enemy;
     }
@@ -48,6 +44,11 @@ public class E2_StunState : StunState
             else
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
+            }
+
+            if (Core.Stats.CurrentHealthAmount <= 0)
+            {
+                StateMachine.ChangeState(_enemy.DeadState);
             }
         }
     }

@@ -30,6 +30,8 @@ namespace Enemies.StateMachine
         [SerializeField] private Transform playerCheck;
         [SerializeField] private Transform groundCheck;
 
+        [SerializeField] private BoxCollider2D combatBoxCollider;
+
         private float _currentHealth;
         private float _currentStunResistance;
         private float _lastDamageTime;
@@ -97,6 +99,11 @@ namespace Enemies.StateMachine
         }
 
         #endregion
+
+        public void ActivateBoxCollider() => combatBoxCollider.enabled = true;
+
+        public void DeactivateBoxCollider() => combatBoxCollider.enabled = false;
+        
 
         public virtual void DamageHop(float velocity)
         {

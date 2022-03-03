@@ -15,12 +15,8 @@ public class E2_LookForPlayerState : LookForPlayerState
         FiniteStateMachine stateMachine,
         int animBoolName,
         LookForPlayerData stateData,
-        Enemy2 enemy) :
-        base(
-            entity,
-            stateMachine,
-            animBoolName,
-            stateData)
+        Enemy2 enemy
+    ) : base(entity, stateMachine, animBoolName, stateData)
     {
         _enemy = enemy;
     }
@@ -39,11 +35,18 @@ public class E2_LookForPlayerState : LookForPlayerState
     {
         base.LogicUpdate();
 
-        if (IsPlayerIsInMinAgroRange && !Core.Movement.IsRewinding)
+        if (Core.Movement.IsRewinding)
+            return;
+
+        if (Core.Stats.CurrentHealthAmount <= 0)
+        {
+            StateMachine.ChangeState(_enemy.DeadState);
+        }
+        else if (IsPlayerIsInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }
-        else if (IsAllTurnsTimeDone && !Core.Movement.IsRewinding)
+        else if (IsAllTurnsTimeDone)
         {
             StateMachine.ChangeState(_enemy.MoveState);
         }

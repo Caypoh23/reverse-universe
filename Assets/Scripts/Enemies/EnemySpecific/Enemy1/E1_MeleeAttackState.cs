@@ -15,13 +15,8 @@ namespace Enemies.EnemySpecific.Enemy1
             int animBoolId,
             Transform attackPosition,
             MeleeAttackData stateData,
-            Enemy1 enemy) :
-            base(
-                entity,
-                stateMachine,
-                animBoolId,
-                attackPosition,
-                stateData)
+            Enemy1 enemy
+        ) : base(entity, stateMachine, animBoolId, attackPosition, stateData)
         {
             _enemy = enemy;
         }
@@ -39,6 +34,11 @@ namespace Enemies.EnemySpecific.Enemy1
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            if (Core.Stats.CurrentHealthAmount <= 0)
+            {
+                StateMachine.ChangeState(_enemy.DeadState);
+            }
 
             if (IsAnimationFinished && !Core.Movement.IsRewinding)
             {
