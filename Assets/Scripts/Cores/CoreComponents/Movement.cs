@@ -39,11 +39,53 @@ namespace Cores.CoreComponents
 
         public override void LogicUpdate()
         {
+            base.LogicUpdate();
+
             CurrentVelocity = rb.velocity;
+
+            CheckIfRewindingTime();
+
+            ResetAnimationDirection();
+
+            ResetFacingDirection();
+        }
+
+        private void CheckIfRewindingTime()
+        {
 
             rewindTime.ReverseTime(_commandStack);
             rewindTime.StopRevisingTime();
+        }
+        
+        public void CheckIfShouldFlip(int xInput)
+        {
+            if (xInput != 0 && xInput != FacingDirection)
+            {
+                Flip();
+            }
+        }
 
+        public void Flip()
+        {
+            FacingDirection *= -1;
+            rb.transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+
+        private void ResetFacingDirection()
+        {
+            if (rb.transform.localRotation.eulerAngles.y >= 180f)
+            {
+                FacingDirection = -1;
+            }
+            else
+            {
+                FacingDirection = 1;
+            }
+        }
+
+        private void ResetAnimationDirection()
+        {
+            // changing animation speed 
             if(rewindTime.IsRewindingTime)
             {
                 animator.SetFloat(DirectionParameterName, -1);
@@ -52,9 +94,8 @@ namespace Cores.CoreComponents
             {
                 animator.SetFloat(DirectionParameterName, 1);
             }
-
-            ResetFacingDirection();
         }
+
 
         #region Set Functions
 
@@ -90,32 +131,8 @@ namespace Cores.CoreComponents
                 rb.velocity = _workspace;
                 CurrentVelocity = _workspace;
                 _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator, Core.Stats));
-            }
-        }
-
-        public void CheckIfShouldFlip(int xInput)
-        {
-            if (xInput != 0 && xInput != FacingDirection)
-            {
-                Flip();
-            }
-        }
-
-        public void Flip()
-        {
-            FacingDirection *= -1;
-            rb.transform.Rotate(0.0f, 180.0f, 0.0f);
-        }
-
-        private void ResetFacingDirection()
-        {
-            if (rb.transform.localRotation.eulerAngles.y >= 180f)
-            {
-                FacingDirection = -1;
-            }
-            else
-            {
-                FacingDirection = 1;
+                //_commandStack.StackCount();
+                
             }
         }
 

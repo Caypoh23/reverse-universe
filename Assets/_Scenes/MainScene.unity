@@ -53757,7 +53757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 459051295}
-  playerData: {fileID: 11400000, guid: 0ce625870f25c1440b76fb52ed7c9747, type: 2}
+  maxReverseTimerAmount: 5
+  amountOfReverseTime: 5
 --- !u!1 &151314619
 GameObject:
   m_ObjectHideFlags: 0

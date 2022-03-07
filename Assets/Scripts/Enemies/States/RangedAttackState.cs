@@ -15,16 +15,12 @@ namespace Enemies.States
         protected Projectile projectileScript;
 
         public RangedAttackState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            int animBoolId, 
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolId,
             Transform attackPosition,
-            RangedAttackStateData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId, 
-                attackPosition)
+            RangedAttackStateData stateData
+        ) : base(entity, stateMachine, animBoolId, attackPosition)
         {
             StateData = stateData;
         }
@@ -58,12 +54,20 @@ namespace Enemies.States
         {
             base.TriggerAttack();
 
-            projectile = ObjectPooler.Instance.SpawnFromPool(StateData.projectileTag, AttackPosition.position, AttackPosition.rotation);
-            //GameObject.Instantiate(StateData.projectile, AttackPosition.position, AttackPosition.rotation);
-            projectileScript = projectile.GetComponent<Projectile>();
-            projectileScript.FireProjectile(StateData.projectileSpeed, StateData.projectileTravelDistance, StateData.projectileDamage);
+            if(Core.Movement.IsRewinding) return;
 
-            if(Core.Movement.IsRewinding) projectile.SetActive(false);
+            projectile = ObjectPooler.Instance.SpawnFromPool(
+                StateData.projectileTag,
+                AttackPosition.position,
+                AttackPosition.rotation
+            );
+
+            projectileScript = projectile.GetComponent<Projectile>();
+            projectileScript.FireProjectile(
+                StateData.projectileSpeed,
+                StateData.projectileTravelDistance,
+                StateData.projectileDamage
+            );
         }
 
         public override void FinishAttack()

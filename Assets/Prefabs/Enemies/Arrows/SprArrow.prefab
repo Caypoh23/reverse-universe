@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7624076565676735901}
   - component: {fileID: 7624076565676735898}
   - component: {fileID: 9113041113832813909}
+  - component: {fileID: 4270666274375760250}
   m_Layer: 0
   m_Name: SprArrow
   m_TagString: Untagged
@@ -121,6 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 3
   damageRadius: 0.2
+  damageAmount: 10
+  maxAliveTime: 2
   _rb: {fileID: 7624076565676735901}
   whatIsGround:
     serializedVersion: 2
@@ -130,6 +133,9 @@ MonoBehaviour:
     m_Bits: 2048
   damagePosition: {fileID: 7624076566189014230}
   playerStatsTag: {fileID: 11400000, guid: 05fe506c8a940424baaff5bf0e16a4a2, type: 2}
+  playerWeaponTag: {fileID: 11400000, guid: 0ddff0d99c0626d489d60f02edb5ec49, type: 2}
+  brokenParticles: {fileID: 5356522077229383856, guid: afb38a99fd3a7d8439e883f25235e166,
+    type: 3}
 --- !u!114 &9113041113832813909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +150,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - {fileID: 11400000, guid: f0695dfa47f5afd46b45824334471424, type: 2}
+--- !u!61 &4270666274375760250
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7624076565676735902}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.625, y: 0.1875}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.625, y: 0.1875}
+  m_EdgeRadius: 0
 --- !u!1 &7624076566189014249
 GameObject:
   m_ObjectHideFlags: 0

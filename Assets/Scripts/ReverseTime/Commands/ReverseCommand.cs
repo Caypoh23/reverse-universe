@@ -22,11 +22,11 @@ namespace ReverseTime.Commands
 
         #endregion
 
-        
+
         # region Player Health
         private Stats _characterHealthStats;
         private float _previousHealthAmount;
-        
+
         #endregion
 
         public MoveCommand(Transform currentPosition, Animator animator, Stats characterHealthStats)
@@ -38,10 +38,10 @@ namespace ReverseTime.Commands
 
         public void Execute()
         {
-            _previousPosition = _currentPosition.position;
-            _previousRotation.y = _currentPosition.localRotation.eulerAngles.y;
             _previousHealthAmount = _characterHealthStats.CurrentHealthAmount;
             GetAnimationParameterName();
+            _previousPosition = _currentPosition.position;
+            _previousRotation.y = _currentPosition.localRotation.eulerAngles.y;
         }
 
         private void GetAnimationParameterName()
@@ -64,11 +64,11 @@ namespace ReverseTime.Commands
 
         public void Undo()
         {
+            _characterHealthStats.CurrentHealthAmount = _previousHealthAmount;
+            DeactivateAnimations();
+            _animator.SetBool(_previousAnimationName, true);
             _currentPosition.position = _previousPosition;
             _currentPosition.localRotation = Quaternion.Euler(0, _previousRotation.y, 0f);
-            _characterHealthStats.CurrentHealthAmount = _previousHealthAmount;
-            _animator.SetBool(_previousAnimationName, true);
-            DeactivateAnimations();
         }
 
         private void DeactivateAnimations()

@@ -1,20 +1,25 @@
-﻿using System.Collections.Generic;
-using Interfaces;
-using ReverseTime.Commands;
-using TMPro;
+﻿using Interfaces;
+using UnityEngine;
+using ReverseTime;
 
 namespace ReverseTime
 {
     public class CommandStack
     {
-        private readonly Stack<ICommand> _commandHistory = new Stack<ICommand>();
+        //private readonly Stack<ICommand> _commandHistory = new Stack<ICommand>();
+
+        private const int StackLimitAmount = 1000;
+
+        private readonly LimitedStack<ICommand> _commandHistory = new LimitedStack<ICommand>(
+            StackLimitAmount
+        );
 
         public void ExecuteCommand(ICommand command)
         {
             _commandHistory.Push(command);
             command.Execute();
         }
- 
+
         public void UndoLastCommand()
         {
             if (_commandHistory.Count <= 0)
@@ -23,9 +28,9 @@ namespace ReverseTime
             _commandHistory.Pop().Undo();
         }
 
-        public void ClearCache()
+        public void StackCount()
         {
-            _commandHistory.Clear();
+            Debug.Log(_commandHistory.Count + " count");
         }
     }
 }

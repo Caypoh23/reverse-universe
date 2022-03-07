@@ -8,45 +8,87 @@ namespace Projectiles
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private float gravity;
-        [SerializeField] private float damageRadius;
-        [SerializeField] private float damageAmount = 10;
+        [SerializeField]
+        private float gravity;
+        [SerializeField]
+        private float damageRadius;
+        [SerializeField]
+        private float damageAmount = 10f;
+        [SerializeField]
+        private float maxAliveTime = 2f;
 
-        [SerializeField] private Rigidbody2D _rb;
+        [SerializeField]
+        private Rigidbody2D _rb;
 
-        [SerializeField] private LayerMask whatIsGround;
-        [SerializeField] private LayerMask whatIsPlayer;
+        [SerializeField]
+        private LayerMask whatIsGround;
+        [SerializeField]
+        private LayerMask whatIsPlayer;
 
-        [SerializeField] private Transform damagePosition;
-        
-        [SerializeField] private Tag playerStatsTag;
-        
+        [SerializeField]
+        private Transform damagePosition;
+
+        [SerializeField]
+        private Tag playerStatsTag;
+
+        [SerializeField]
+        private Tag playerWeaponTag;
+
+        [SerializeField]
+        private ParticleSystem brokenParticles;
+
         private WeaponAttackDetails _attackDetails;
 
         private float _speed;
         private float _travelDistance;
         private float _xStartPos;
+        private float _currentAliveTime;
 
         private bool _isGravityOn;
         private bool _hasHitGround;
 
         private Stats playerStats;
 
-        private void Start() 
-        {    
+        private void OnEnable() => _currentAliveTime = maxAliveTime;
+
+        private void Start()
+        {
             _xStartPos = transform.position.x;
-            playerStats = GameObject.FindGameObjectWithTag(playerStatsTag.name).GetComponent<Stats>();
+            playerStats = GameObject
+                .FindGameObjectWithTag(playerStatsTag.name)
+                .GetComponent<Stats>();
         }
 
         private void Update()
         {
             if (!_hasHitGround)
             {
-                if (_isGravityOn)
-                {
-                    var angle = Mathf.Atan2(_rb.velocity.y, _rb.velocity.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                }
+                RotateProjectile();
+            }
+            else
+            {
+                DeactivateProjectileWithDelay();
+            }
+        }
+
+        private void RotateProjectile()
+        {
+            if (_isGravityOn)
+            {
+                var angle = Mathf.Atan2(_rb.velocity.y, _rb.velocity.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+        }
+
+        private void DeactivateProjectileWithDelay()
+        {
+            if (_currentAliveTime >= 0)
+            {
+                _currentAliveTime -= Time.deltaTime;
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
 
@@ -54,15 +96,23 @@ namespace Projectiles
         {
             if (!_hasHitGround)
             {
-                var damageHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsPlayer);
-                var groundHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsGround);
+                var damageHit = Physics2D.OverlapCircle(
+                    damagePosition.position,
+                    damageRadius,
+                    whatIsPlayer
+                );
+                var groundHit = Physics2D.OverlapCircle(
+                    damagePosition.position,
+                    damageRadius,
+                    whatIsGround
+                );
 
                 _rb.velocity = transform.right * _speed;
-               
+
                 CheckDamageHit(damageHit);
-                
+
                 CheckGroundHit(groundHit);
-               
+
                 ActivateGravity();
             }
         }
@@ -102,13 +152,13 @@ namespace Projectiles
 
             _rb.gravityScale = 0.0f;
         }
-        
+
         public void FireProjectile(float speed, float travelDistance, float damage)
         {
             _speed = speed;
             _travelDistance = travelDistance;
             _attackDetails.damageAmount = damage;
-            
+
             ResetGravity();
         }
 
