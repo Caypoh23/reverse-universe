@@ -30,6 +30,7 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - MoreMountains.Feedbacks.URP
     - MoreMountains.Tools
     - MoreMountains.Feedbacks.TextMeshPro
     - Cinemachine

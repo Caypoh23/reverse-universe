@@ -13,7 +13,7 @@ public class Trap : MonoBehaviour
         if (!other.HasTag(playerTag))
             return;
 
-        var damageable = other.GetComponent<ITakeDamage>();
+        var damageable = other.GetComponentInChildren<ITakeDamage>();
         damageable.TakeDamage(damageAmount);
     }
 }
