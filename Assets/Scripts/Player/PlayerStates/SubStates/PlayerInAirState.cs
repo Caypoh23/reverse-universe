@@ -63,7 +63,6 @@ namespace Player.PlayerStates.SubStates
                 else if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
                 {
                     StateMachine.ChangeState(PlayerBase.LandState);
-
                     PlayerBase.LandCameraShakeFeedback?.PlayFeedbacks();
                 }
                 else if (_jumpInput && PlayerBase.WallSlideState.IsWallSliding)

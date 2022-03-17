@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f00602c07eb66e4689f6c54e3a7c4e1, type: 3}
+  m_Name: MinotaurDeadStateData
+  m_EditorClassIdentifier: 
+  deathChunkParticle: {fileID: 5316661432368551799, guid: 5e8c0291d685e334fa855915ca3e9bed,
+    type: 3}
+  deathBloodParticle: {fileID: 6475779998934478914, guid: 6e9a459a64fb8d249b0e25ed0cf0dc49,
+    type: 3}

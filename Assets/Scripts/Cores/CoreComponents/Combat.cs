@@ -35,6 +35,8 @@ namespace Cores.CoreComponents
             {
                 _isKnockbackActive = false;
                 Core.Movement.CanSetVelocity = true;
+                Core.Movement.SetVelocityX(0);
+
             }
         }
     }

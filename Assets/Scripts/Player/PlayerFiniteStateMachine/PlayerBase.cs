@@ -33,9 +33,10 @@ namespace Player.PlayerFiniteStateMachine
 
         [SerializeField] private PlayerData playerData;
 
-        public MMFeedbacks LandCameraShakeFeedback {get; private set;} 
-        
+        [SerializeField] private MMFeedbacks landCameraShakeFeedback;
 
+        public MMFeedbacks LandCameraShakeFeedback => landCameraShakeFeedback;
+        
         #endregion
 
         #region Components
@@ -92,8 +93,6 @@ namespace Player.PlayerFiniteStateMachine
             Rb = GetComponent<Rigidbody2D>();
             ObjectPooler = FindObjectOfType<ObjectPooler>();
             PlayerInventory = GetComponent<PlayerInventory>();
-            
-            LandCameraShakeFeedback = FindObjectOfType<MMFeedbacks>();
 
             PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
             StateMachine.Initialize(IdleState);
@@ -105,10 +104,7 @@ namespace Player.PlayerFiniteStateMachine
             StateMachine.CurrentState.LogicUpdate();
         }
 
-        private void FixedUpdate()
-        {
-            StateMachine.CurrentState.PhysicsUpdate();
-        }
+        private void FixedUpdate() => StateMachine.CurrentState.PhysicsUpdate();
 
         #endregion
 

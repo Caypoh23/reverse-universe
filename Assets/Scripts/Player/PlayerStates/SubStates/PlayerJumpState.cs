@@ -12,12 +12,8 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId)
         {
             _amountOfJumpsLeft = playerData.amountOfJumps;
         }
@@ -43,7 +39,6 @@ namespace Player.PlayerStates.SubStates
         }
 
         public void ResetAmountOfJumpsLeft() => _amountOfJumpsLeft = PlayerData.amountOfJumps;
-
         public void DecreaseAmountOfJumpsLeft() => _amountOfJumpsLeft--;
     }
 }
