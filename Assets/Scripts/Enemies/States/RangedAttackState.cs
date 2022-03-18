@@ -11,8 +11,8 @@ namespace Enemies.States
     {
         protected readonly RangedAttackStateData StateData;
 
-        protected GameObject projectile;
-        protected Projectile projectileScript;
+        protected GameObject Projectile;
+        protected Projectile ProjectileScript;
 
         public RangedAttackState(
             Entity entity,
@@ -56,14 +56,14 @@ namespace Enemies.States
 
             if(Core.Movement.IsRewinding) return;
 
-            projectile = ObjectPooler.Instance.SpawnFromPool(
+            Projectile = ObjectPooler.Instance.SpawnFromPool(
                 StateData.projectileTag,
                 AttackPosition.position,
                 AttackPosition.rotation
             );
 
-            projectileScript = projectile.GetComponent<Projectile>();
-            projectileScript.FireProjectile(
+            ProjectileScript = Projectile.GetComponent<Projectile>();
+            ProjectileScript.FireProjectile(
                 StateData.projectileSpeed,
                 StateData.projectileTravelDistance,
                 StateData.projectileDamage

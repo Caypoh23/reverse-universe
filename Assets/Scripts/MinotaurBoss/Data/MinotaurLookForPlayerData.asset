@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb38e78f87bbf540938b4fab77086c0, type: 3}
   m_Name: MinotaurLookForPlayerData
   m_EditorClassIdentifier: 
-  amountOfTurns: 2
+  amountOfTurns: 1
   timeBetweenTurns: 0.75

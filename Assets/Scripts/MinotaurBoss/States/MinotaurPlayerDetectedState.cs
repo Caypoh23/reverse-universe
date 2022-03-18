@@ -45,17 +45,26 @@ public class MinotaurPlayerDetectedState : PlayerDetectedState
         {
             StateMachine.ChangeState(_minotaur.DeadState);
         }
-        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
+
+        if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.SwingAttackState);
         }
-        else if (_minotaur.GenerateRandomNumber() > 50 && PerformCloseRangeAction)
+        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.PoundAttackState);
+        }
+        if (_minotaur.GenerateRandomNumber() > 50 && PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_minotaur.StompState);
         }
         else if (PerformLongRangeAction)
         {
             StateMachine.ChangeState(_minotaur.ChargeState);
+        }
+        else if (!IsPlayerInMaxAgroRange)
+        {
+            StateMachine.ChangeState(_minotaur.LookForPlayerState);
         }
         else if (!IsDetectingLedge)
         {

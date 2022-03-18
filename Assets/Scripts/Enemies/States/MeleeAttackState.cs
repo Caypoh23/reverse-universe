@@ -9,17 +9,15 @@ namespace Enemies.States
     {
         protected readonly MeleeAttackData StateData;
 
+        protected readonly MinotaurStompStateData MinotaurStateData;
+
         public MeleeAttackState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
+            Entity entity,
+            FiniteStateMachine stateMachine,
             int animBoolId,
-            Transform attackPosition, 
-            MeleeAttackData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId, 
-                attackPosition)
+            Transform attackPosition,
+            MeleeAttackData stateData
+        ) : base(entity, stateMachine, animBoolId, attackPosition)
         {
             StateData = stateData;
         }
@@ -53,8 +51,11 @@ namespace Enemies.States
         {
             base.TriggerAttack();
 
-            var detectedObjects =
-                Physics2D.OverlapCircleAll(AttackPosition.position, StateData.attackRadius, StateData.whatIsPlayer);
+            var detectedObjects = Physics2D.OverlapCircleAll(
+                AttackPosition.position,
+                StateData.attackRadius,
+                StateData.whatIsPlayer
+            );
 
             foreach (var collider in detectedObjects)
             {
@@ -63,8 +64,11 @@ namespace Enemies.States
 
                 hitInfo?.TakeDamage(StateData.attackDamage);
 
-                knockbackable?.Knockback(StateData.knockbackAngle, StateData.knockbackStrength,
-                    Core.Movement.FacingDirection);
+                knockbackable?.Knockback(
+                    StateData.knockbackAngle,
+                    StateData.knockbackStrength,
+                    Core.Movement.FacingDirection
+                );
             }
         }
 

@@ -11,10 +11,12 @@ public class Minotaur : Entity
     public MinotaurMoveState MoveState { get; private set; }
     public MinotaurChargeState ChargeState { get; private set; }
     public MinotaurPoundAttackState PoundAttackState { get; private set; }
-
     public MinotaurSwingAttackState SwingAttackState { get; private set; }
 
+    public MinotaurStompState StompState { get; private set; }
+
     public MinotaurPlayerDetectedState PlayerDetectedState { get; private set; }
+    public MinotaurLookForPlayer LookForPlayerState { get; private set; }
     public MinotaurDeadState DeadState { get; private set; }
 
     public MinotaurIntroState IntroState { get; private set; }
@@ -35,12 +37,23 @@ public class Minotaur : Entity
     private DeadStateData deadStateData;
     [SerializeField]
     private PlayerDetectedData playerDetectedStateData;
+    [SerializeField]
+    private LookForPlayerData lookForPlayerStateData;
 
     [SerializeField]
     private BossIntroStateData bossIntroStateData;
 
     [SerializeField]
+    private StunStateData stunStateData;
+
+    [SerializeField]
+    private MinotaurStompStateData stompStateData;
+
+    [SerializeField]
     private Transform meleeAttackPosition;
+
+    [SerializeField]
+    private Transform earthBumpSpawnPosition;
 
     [SerializeField]
     private GameObject bigExplosion;
@@ -50,6 +63,8 @@ public class Minotaur : Entity
 
     public MMFeedbacks LandFeedback => landFeedback;
 
+    public Transform EarthBumpSpawnPosition => earthBumpSpawnPosition;
+
     #region Animation parameter names
 
     private readonly int IdleParameterName = Animator.StringToHash("Idle");
@@ -57,6 +72,7 @@ public class Minotaur : Entity
     private readonly int PlayerDetectedParameterName = Animator.StringToHash("PlayerDetected");
     private readonly int MeleeAttackParameterName = Animator.StringToHash("MeleeAttack");
     private readonly int SwingParameterName = Animator.StringToHash("SwingAttack");
+    private readonly int StompParameterName = Animator.StringToHash("Stomp");
     private readonly int LookForPlayerParameterName = Animator.StringToHash("LookForPlayer");
     private readonly int StunParameterName = Animator.StringToHash("Stun");
     private readonly int DeadParameterName = Animator.StringToHash("Dead");
@@ -115,6 +131,14 @@ public class Minotaur : Entity
             swingAttackStateData,
             this
         );
+        StompState = new MinotaurStompState(
+            this,
+            StateMachine,
+            StompParameterName,
+            meleeAttackPosition,
+            stompStateData,
+            this
+        );
         DeadState = new MinotaurDeadState(
             this,
             StateMachine,
@@ -129,6 +153,13 @@ public class Minotaur : Entity
             bossIntroStateData,
             this
         );
+        LookForPlayerState = new MinotaurLookForPlayer(
+            this,
+            StateMachine,
+            LookForPlayerParameterName,
+            lookForPlayerStateData,
+            this
+        );
     }
 
     private void Start()
@@ -136,7 +167,7 @@ public class Minotaur : Entity
         StateMachine.Initialize(IntroState);
     }
 
-    public int GenerateRandomNumber() => _randomAttackNumber = Random.Range(0, 100);
+    public int GenerateRandomNumber() => _randomAttackNumber = Random.Range(0, 75);
 
     public void ActivateExplosion() => bigExplosion.SetActive(true);
 

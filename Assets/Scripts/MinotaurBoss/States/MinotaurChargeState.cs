@@ -46,18 +46,22 @@ public class MinotaurChargeState : ChargeState
         {
             StateMachine.ChangeState(_minotaur.DeadState);
         }
-        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
+        else if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.PoundAttackState);
         }
-        else if (_minotaur.GenerateRandomNumber() > 50 && PerformCloseRangeAction)
+        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.SwingAttackState);
         }
-        // else if(Core.CollisionSenses.IsCheckingWall || !Core.CollisionSenses.IsCheckingLedge)
-        // {
-        //     StateMachine.ChangeState(_minotaur.IdleState);
-        // }
+        if (_minotaur.GenerateRandomNumber() > 50 &&PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_minotaur.StompState);
+        }
+        else if(Core.CollisionSenses.IsCheckingWall || !Core.CollisionSenses.IsCheckingLedge)
+        {
+            StateMachine.ChangeState(_minotaur.IdleState);
+        }
         else if (IsChargeTimeOver && IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_minotaur.PlayerDetectedState);
