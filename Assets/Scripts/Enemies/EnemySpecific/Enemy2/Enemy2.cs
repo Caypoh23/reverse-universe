@@ -16,18 +16,28 @@ namespace Enemies.EnemySpecific.Enemy2
         public E2_DodgeState DodgeState { get; private set; }
         public E2_RangedAttackState RangedAttackState { get; private set; }
 
-        [SerializeField] private MoveStateData moveStateData;
-        [SerializeField] private IdleStateData idleStateData;
-        [SerializeField] private PlayerDetectedData playerDetectedStateData;
-        [SerializeField] private MeleeAttackData meleeAttackStateData;
-        [SerializeField] private LookForPlayerData lookForPlayerStateData;
-        [SerializeField] private StunStateData stunStateData;
-        [SerializeField] private DeadStateData deadStateData;
-        [SerializeField] private RangedAttackStateData rangedAttackStateData;
+        [SerializeField]
+        private MoveStateData moveStateData;
+        [SerializeField]
+        private IdleStateData idleStateData;
+        [SerializeField]
+        private PlayerDetectedData playerDetectedStateData;
+        [SerializeField]
+        private MeleeAttackData meleeAttackStateData;
+        [SerializeField]
+        private LookForPlayerData lookForPlayerStateData;
+        [SerializeField]
+        private StunStateData stunStateData;
+        [SerializeField]
+        private DeadStateData deadStateData;
+        [SerializeField]
+        private RangedAttackStateData rangedAttackStateData;
         public DodgeStateData dodgeStateData;
 
-        [SerializeField] private Transform meleeAttackPosition;
-        [SerializeField] private Transform rangedAttackPosition;
+        [SerializeField]
+        private Transform meleeAttackPosition;
+        [SerializeField]
+        private Transform rangedAttackPosition;
 
         #region Animation parameter names
 
@@ -42,27 +52,76 @@ namespace Enemies.EnemySpecific.Enemy2
         private readonly int RangedAttackParameterName = Animator.StringToHash("RangedAttack");
 
         #endregion
-        
+
         public override void Awake()
         {
             base.Awake();
 
-            MoveState = new E2_MoveState(this, StateMachine, MoveParameterName, moveStateData, this);
-            IdleState = new E2_IdleState(this, StateMachine, IdleParameterName, idleStateData, this);
-            PlayerDetectedState = 
-                new E2_PlayerDetectedState(this, StateMachine, PlayerDetectedParameterName, playerDetectedStateData, this);
-            MeleeAttackState = 
-                new E2_MeleeAttackState(this, StateMachine, MeleeAttackParameterName, meleeAttackPosition,meleeAttackStateData, this);   
-            LookForPlayerState = 
-                new E2_LookForPlayerState(this, StateMachine, LookForPlayerParameterName, lookForPlayerStateData, this);
-            StunState =
-                new E2_StunState(this, StateMachine, StunParameterName, stunStateData, this);
-            DeadState =
-                new E2_DeadState(this, StateMachine, DeadParameterName, deadStateData, this);
-            DodgeState =
-                new E2_DodgeState(this, StateMachine, DodgeParameterName, dodgeStateData, this);
-            RangedAttackState =
-                new E2_RangedAttackState(this, StateMachine, RangedAttackParameterName, rangedAttackPosition, rangedAttackStateData, this);
+            MoveState = new E2_MoveState(
+                this,
+                StateMachine,
+                MoveParameterName,
+                moveStateData,
+                this
+            );
+            IdleState = new E2_IdleState(
+                this,
+                StateMachine,
+                IdleParameterName,
+                idleStateData,
+                this
+            );
+            PlayerDetectedState = new E2_PlayerDetectedState(
+                this,
+                StateMachine,
+                PlayerDetectedParameterName,
+                playerDetectedStateData,
+                this
+            );
+            MeleeAttackState = new E2_MeleeAttackState(
+                this,
+                StateMachine,
+                MeleeAttackParameterName,
+                meleeAttackPosition,
+                meleeAttackStateData,
+                this
+            );
+            LookForPlayerState = new E2_LookForPlayerState(
+                this,
+                StateMachine,
+                LookForPlayerParameterName,
+                lookForPlayerStateData,
+                this
+            );
+            StunState = new E2_StunState(
+                this,
+                StateMachine,
+                StunParameterName,
+                stunStateData,
+                this
+            );
+            DeadState = new E2_DeadState(
+                this,
+                StateMachine,
+                DeadParameterName,
+                deadStateData,
+                this
+            );
+            DodgeState = new E2_DodgeState(
+                this,
+                StateMachine,
+                DodgeParameterName,
+                dodgeStateData,
+                this
+            );
+            RangedAttackState = new E2_RangedAttackState(
+                this,
+                StateMachine,
+                RangedAttackParameterName,
+                rangedAttackPosition,
+                rangedAttackStateData,
+                this
+            );
         }
 
         private void Start()
@@ -70,6 +129,30 @@ namespace Enemies.EnemySpecific.Enemy2
             StateMachine.Initialize(IdleState);
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            ResetState();
+
+            CheckIfDead();
+        }
+
+        private void ResetState()
+        {
+            if (Core.Movement.RewindingTimeIsFinished)
+            {
+                StateMachine.ChangeState(IdleState);
+            }
+        }
+
+        private void CheckIfDead()
+        {
+            if (Core.Stats.CurrentHealthAmount <= 0)
+            {
+                StateMachine.ChangeState(DeadState);
+            }
+        }
 
         public override void DamageHop(float velocity)
         {

@@ -2,7 +2,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Cores.CoreComponents;
 using Interfaces;
 using UnityEngine;
-public class EarthBump : MonoBehaviour
+public class AttackStateDamageDealer : MonoBehaviour
 {
     [SerializeField]
     private Tag playerStatsTag;

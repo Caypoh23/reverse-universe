@@ -24,6 +24,8 @@ namespace Cores.CoreComponents
         private Vector2 _workspace;
 
         public bool IsRewinding => rewindTime.IsRewindingTime;
+        
+        public bool RewindingTimeIsFinished => rewindTime.RewindingTimeIsFinished;
 
         private readonly CommandStack _commandStack = new CommandStack();
 
@@ -52,11 +54,10 @@ namespace Cores.CoreComponents
 
         private void CheckIfRewindingTime()
         {
-
             rewindTime.ReverseTime(_commandStack);
             rewindTime.StopRevisingTime();
         }
-        
+
         public void CheckIfShouldFlip(int xInput)
         {
             if (xInput != 0 && xInput != FacingDirection)
@@ -85,8 +86,8 @@ namespace Cores.CoreComponents
 
         private void ResetAnimationDirection()
         {
-            // changing animation speed 
-            if(rewindTime.IsRewindingTime)
+            // changing animation speed
+            if (rewindTime.IsRewindingTime)
             {
                 animator.SetFloat(DirectionParameterName, -1);
             }
@@ -95,7 +96,6 @@ namespace Cores.CoreComponents
                 animator.SetFloat(DirectionParameterName, 1);
             }
         }
-
 
         #region Set Functions
 
@@ -132,10 +132,9 @@ namespace Cores.CoreComponents
                 CurrentVelocity = _workspace;
                 _commandStack.ExecuteCommand(new MoveCommand(rb.transform, animator, Core.Stats));
                 //_commandStack.StackCount();
-                
+
             }
         }
-
         #endregion
     }
 }

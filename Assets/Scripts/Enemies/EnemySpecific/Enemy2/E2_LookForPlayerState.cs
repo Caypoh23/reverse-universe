@@ -35,14 +35,7 @@ public class E2_LookForPlayerState : LookForPlayerState
     {
         base.LogicUpdate();
 
-        if (Core.Movement.IsRewinding)
-            return;
-
-        if (Core.Stats.CurrentHealthAmount <= 0)
-        {
-            StateMachine.ChangeState(_enemy.DeadState);
-        }
-        else if (IsPlayerIsInMinAgroRange)
+        if (IsPlayerIsInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4853bf14525fd194bb3e57b4e7789aab, type: 3}
   m_Name: MinotaurStunData
   m_EditorClassIdentifier: 
-  stunTime: 3
+  stunTime: 2
   stunKnockbackTime: 0.2
   stunKnockbackSpeed: 20
   stunKnockbackAngle: {x: 1, y: 2}

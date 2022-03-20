@@ -8,13 +8,17 @@ namespace Cores.CoreComponents
 {
     public class Stats : CoreComponent, ITakeDamage
     {
-        [SerializeField] private float maxHealth;
+        [SerializeField]
+        private float maxHealth;
 
-        [SerializeField] private GameObject character;
+        [SerializeField]
+        private GameObject character;
 
-        [SerializeField] private Animator animator;
+        [SerializeField]
+        private Animator animator;
 
-        [SerializeField] private BoxCollider2D boxCollider;
+        [SerializeField]
+        private BoxCollider2D boxCollider;
 
         private float _currentHealth;
 
@@ -24,6 +28,12 @@ namespace Cores.CoreComponents
         {
             get => _currentHealth;
             set { _currentHealth = value; }
+        }
+        
+        public float MaxHealth
+        {
+            get => maxHealth;
+            private set { maxHealth = value; }
         }
 
         protected override void Awake() => _currentHealth = maxHealth;

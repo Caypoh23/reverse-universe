@@ -17,9 +17,6 @@ namespace Player.PlayerStates.SubStates
         {
             base.LogicUpdate();
 
-            if (Core.Movement.IsRewinding)
-                return;
-                
             if (IsExitingState)
                 return;
 

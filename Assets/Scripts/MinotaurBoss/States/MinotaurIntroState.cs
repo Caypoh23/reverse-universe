@@ -51,16 +51,12 @@ public class MinotaurIntroState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (!Core.Movement.IsRewinding)
-        {
-            Core.Movement.SetVelocityY(Mathf.Lerp(-1, -20, 3));
-        }
+        
+        Core.Movement.SetVelocityY(Mathf.Lerp(-1, -20, 3));
 
         if (Core.CollisionSenses.IsGrounded)
         {
-            
-            _minotaur.LandFeedback?.PlayFeedbacks();
+            _minotaur.LandFeedback.PlayFeedbacks();
 
             if (Time.time >= StartTime + IntroTime)
             {

@@ -33,6 +33,7 @@ public class MinotaurDeadState : DeadState
     public override void Exit()
     {
         base.Exit();
+        //_minotaur.gameObject.SetActive(false);
     }
 
     public override void LogicUpdate()

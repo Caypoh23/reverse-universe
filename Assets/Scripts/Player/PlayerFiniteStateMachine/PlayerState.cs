@@ -19,8 +19,12 @@ namespace Player.PlayerFiniteStateMachine
 
         private readonly int _animBoolId;
 
-        public PlayerState(PlayerBase playerBase, PlayerStateMachine stateMachine,
-            PlayerData playerData, int animBoolId)
+        public PlayerState(
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
+            PlayerData playerData,
+            int animBoolId
+        )
         {
             PlayerBase = playerBase;
             StateMachine = stateMachine;
@@ -47,6 +51,8 @@ namespace Player.PlayerFiniteStateMachine
         // Update
         public virtual void LogicUpdate()
         {
+            if (Core.Movement.IsRewinding)
+                return;
         }
 
         // Fixed Update
@@ -55,13 +61,9 @@ namespace Player.PlayerFiniteStateMachine
             DoChecks();
         }
 
-        public virtual void DoChecks()
-        {
-        }
+        public virtual void DoChecks() { }
 
-        public virtual void AnimationTrigger()
-        {
-        }
+        public virtual void AnimationTrigger() { }
 
         public virtual void AnimationFinishedTrigger() => IsAnimationFinished = true;
     }

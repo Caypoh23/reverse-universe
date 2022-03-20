@@ -28,25 +28,62 @@ public class MinotaurChargeState : ChargeState
     public override void Enter()
     {
         base.Enter();
+        _minotaur.ActivateChargeCollider();
     }
 
     public override void Exit()
     {
         base.Exit();
+        _minotaur.DeactivateChargeCollider();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (Core.Movement.IsRewinding)
-            return;
+        CheckIfCanStun();
 
-        if (Core.Stats.CurrentHealthAmount <= 0)
+        CheckLedge();
+
+        OnChargeTimeOver();
+
+        CheckFirstAttackPhase();
+
+        CheckSecondAttackPhase();
+    }
+
+    private void CheckIfCanStun()
+    {
+        if (Core.CollisionSenses.IsCheckingWall)
         {
-            StateMachine.ChangeState(_minotaur.DeadState);
+            _minotaur.LandFeedback?.PlayFeedbacks();
+            StateMachine.ChangeState(_minotaur.StunState);
         }
-        else if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
+    }
+
+    private void CheckLedge()
+    {
+        if (!Core.CollisionSenses.IsCheckingLedge)
+        {
+            StateMachine.ChangeState(_minotaur.IdleState);
+        }
+    }
+
+    private void OnChargeTimeOver()
+    {
+        if (IsChargeTimeOver && (IsInTouchingRange || IsPlayerInMinAgroRange))
+        {
+            StateMachine.ChangeState(_minotaur.PlayerDetectedState);
+        }
+        else if (IsChargeTimeOver)
+        {
+            StateMachine.ChangeState(_minotaur.IdleState);
+        }
+    }
+
+    private void CheckFirstAttackPhase()
+    {
+        if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.PoundAttackState);
         }
@@ -54,17 +91,16 @@ public class MinotaurChargeState : ChargeState
         {
             StateMachine.ChangeState(_minotaur.SwingAttackState);
         }
-        if (_minotaur.GenerateRandomNumber() > 50 &&PerformCloseRangeAction)
+    }
+
+    private void CheckSecondAttackPhase()
+    {
+        if (!_minotaur.IsInSecondPhase())
+            return;
+
+        if (_minotaur.GenerateRandomNumber() <= 75 && PerformCloseRangeAction)
         {
             StateMachine.ChangeState(_minotaur.StompState);
-        }
-        else if(Core.CollisionSenses.IsCheckingWall || !Core.CollisionSenses.IsCheckingLedge)
-        {
-            StateMachine.ChangeState(_minotaur.IdleState);
-        }
-        else if (IsChargeTimeOver && IsPlayerInMinAgroRange)
-        {
-            StateMachine.ChangeState(_minotaur.PlayerDetectedState);
         }
     }
 

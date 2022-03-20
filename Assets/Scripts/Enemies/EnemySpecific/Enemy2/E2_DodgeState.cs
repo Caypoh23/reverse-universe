@@ -33,14 +33,9 @@ namespace Enemies.EnemySpecific.Enemy2
         {
             base.LogicUpdate();
 
-            if (IsDodgeOver && !Core.Movement.IsRewinding)
+            if (IsDodgeOver)
             {
-                
-                if (Core.Stats.CurrentHealthAmount <= 0)
-                {
-                    StateMachine.ChangeState(_enemy.DeadState);
-                }
-                else if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)
+                if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)
                 {
                     StateMachine.ChangeState(_enemy.MeleeAttackState);
                 }

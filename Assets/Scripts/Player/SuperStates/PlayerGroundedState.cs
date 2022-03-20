@@ -29,6 +29,7 @@ namespace Player.SuperStates
         public override void Enter()
         {
             base.Enter();
+            Core.Movement.SetVelocityX(0);
             PlayerBase.JumpState.ResetAmountOfJumpsLeft();
             PlayerBase.DashState.ResetCanDash();
         }
@@ -47,9 +48,6 @@ namespace Player.SuperStates
             _dashInput = PlayerBase.InputHandler.CanDashInput;
             _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
             
-            if (Core.Movement.IsRewinding)
-                return;
-
             if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
             {
                 StateMachine.ChangeState(PlayerBase.PrimaryAttackState);

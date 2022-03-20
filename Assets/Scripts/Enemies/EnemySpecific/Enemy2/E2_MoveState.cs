@@ -39,14 +39,7 @@ public class E2_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if(Core.Movement.IsRewinding) return;
-
-        
-        if(Core.Stats.CurrentHealthAmount <= 0)
-        {
-            StateMachine.ChangeState(_enemy.DeadState);
-        }
-        else if (IsPlayerInMinAgroRange)
+        if (IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);
         }

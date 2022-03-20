@@ -26,6 +26,8 @@ namespace ReverseTime
 
         public bool IsRewindingTime => _isRewindingTime;
 
+        public bool RewindingTimeIsFinished { get; private set; }
+
         private void Awake() => _currentAmountOfReverseTime = amountOfReverseTime;
 
         private void Update()
@@ -44,7 +46,10 @@ namespace ReverseTime
         private void ResetReverseTimer()
         {
             if (!_isRewindingTime && _currentReverseTimerAmount < maxReverseTimerAmount)
+            {
                 _currentReverseTimerAmount += Time.deltaTime;
+                RewindingTimeIsFinished = false;
+            }
         }
 
         public void ReverseTime(CommandStack commandStack)
@@ -64,6 +69,7 @@ namespace ReverseTime
             {
                 if (inputHandler.CanReverseTimeInputStop || _currentReverseTimerAmount < 0)
                 {
+                    RewindingTimeIsFinished = true;
                     inputHandler.UseTimeReverseInput();
                     _isRewindingTime = false;
                     _currentAmountOfReverseTime--;

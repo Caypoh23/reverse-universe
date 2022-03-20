@@ -15,6 +15,8 @@ public class Minotaur : Entity
 
     public MinotaurStompState StompState { get; private set; }
 
+    public MinotaurStunState StunState { get; set; }
+
     public MinotaurPlayerDetectedState PlayerDetectedState { get; private set; }
     public MinotaurLookForPlayer LookForPlayerState { get; private set; }
     public MinotaurDeadState DeadState { get; private set; }
@@ -61,6 +63,9 @@ public class Minotaur : Entity
     [SerializeField]
     private MMFeedbacks landFeedback;
 
+    [SerializeField]
+    private BoxCollider2D chargeCollider;
+
     public MMFeedbacks LandFeedback => landFeedback;
 
     public Transform EarthBumpSpawnPosition => earthBumpSpawnPosition;
@@ -82,6 +87,8 @@ public class Minotaur : Entity
     #endregion
 
     private int _randomAttackNumber;
+
+    private float _secondPhaseHealthPercentage => Core.Stats.MaxHealth * 0.3f;
 
     public override void Awake()
     {
@@ -160,6 +167,13 @@ public class Minotaur : Entity
             lookForPlayerStateData,
             this
         );
+        StunState = new MinotaurStunState(
+            this,
+            StateMachine,
+            StunParameterName,
+            stunStateData,
+            this
+        );
     }
 
     private void Start()
@@ -167,11 +181,50 @@ public class Minotaur : Entity
         StateMachine.Initialize(IntroState);
     }
 
-    public int GenerateRandomNumber() => _randomAttackNumber = Random.Range(0, 75);
+    public override void Update()
+    {
+        base.Update();
+
+        ResetState();
+
+        CheckIfDead();
+    }
+
+    private void ResetState()
+    {
+        if (Core.Movement.RewindingTimeIsFinished)
+        {
+            StateMachine.ChangeState(IdleState);
+        }
+    }
+
+    private void CheckIfDead()
+    {
+        if (Core.Stats.CurrentHealthAmount <= 0)
+        {
+            StateMachine.ChangeState(DeadState);
+        }
+    }
+
+    public bool IsInSecondPhase()
+    {
+        if (Core.Stats.CurrentHealthAmount <= _secondPhaseHealthPercentage)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public int GenerateRandomNumber() => _randomAttackNumber = Random.Range(0, 100);
 
     public void ActivateExplosion() => bigExplosion.SetActive(true);
 
     public void DeactivateExplosion() => bigExplosion.SetActive(false);
+
+    public void ActivateChargeCollider() => chargeCollider.enabled = true;
+
+    public void DeactivateChargeCollider() => chargeCollider.enabled = false;
 
     public override void OnDrawGizmos()
     {

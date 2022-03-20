@@ -76,7 +76,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9024823988240281053}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.83, y: 9.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -247,13 +247,14 @@ MonoBehaviour:
   ledgeCheck: {fileID: 9024823989455765540}
   playerCheck: {fileID: 9024823988530748527}
   groundCheck: {fileID: 9024823989370727411}
+  combatBoxCollider: {fileID: 9024823989940692000}
   idleStateData: {fileID: 11400000, guid: 6567711aaef5c6949be75f553ecb736b, type: 2}
   moveStateData: {fileID: 11400000, guid: 5c29f3ee976283d4585a539f61df9520, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 038e517b0065b8d4184f5a9b7f8e951c, type: 2}
   chargeStateData: {fileID: 11400000, guid: 283371190ed05e14c862a2868bae85b4, type: 2}
   lookForPlayerStateData: {fileID: 11400000, guid: bd5a6e48a1b24a547acd47c366e4d9cb,
     type: 2}
-  meleeAttackStateData: {fileID: 11400000, guid: 576ca7427f731ce4b923d7d7708183cb,
+  meleeAttackStateData: {fileID: 11400000, guid: 8369e324d10042342ad02e91c6c61353,
     type: 2}
   stunStateData: {fileID: 11400000, guid: 7503164391b95fb44a4d9b9878c0e4cf, type: 2}
   deadStateData: {fileID: 11400000, guid: 2d38dd192e2e5a141881a126ca8166d6, type: 2}
@@ -366,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9024823988546014169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.71, y: -0.33, z: 0}
+  m_LocalPosition: {x: 1.19, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9024823988240281052}
@@ -507,6 +508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   character: {fileID: 9024823988240281053}
+  animator: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &9024823989455765541
 GameObject:
   m_ObjectHideFlags: 0

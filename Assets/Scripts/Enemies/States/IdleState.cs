@@ -11,6 +11,7 @@ namespace Enemies.States
         protected bool FlipAfterIdle;
         protected bool IsIdleTimeOver;
         protected bool IsPlayerInMinAgroRange;
+        protected bool IsInTouchingRange;
 
         protected float IdleTime;
 
@@ -52,10 +53,7 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (!Core.Movement.IsRewinding)
-            {
-                Core.Movement.SetVelocityX(0f);
-            }
+            Core.Movement.SetVelocityX(0f);
 
             if (Time.time >= StartTime + IdleTime)
             {
@@ -73,6 +71,7 @@ namespace Enemies.States
             base.DoChecks();
 
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
 
         public void SetFlipAfterIdle(bool flip) => FlipAfterIdle = flip;

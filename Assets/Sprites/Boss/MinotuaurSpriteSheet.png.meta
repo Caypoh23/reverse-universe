@@ -227,6 +227,9 @@ TextureImporter:
   - first:
       213: 21300148
     second: MinotuaurSpriteSheet_84
+  - first:
+      213: 539626048007978459
+    second: empty
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1946,10 +1949,31 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: empty
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 0
+        width: 240
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdd301718032d7700800000000000000
+      internalID: 539626048007978459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a3faf158f28be1a42a0b08e3501adf26
     internalID: 0
     vertices: []
     indices: 

@@ -35,20 +35,15 @@ public class E2_StunState : StunState
     {
         base.LogicUpdate();
 
-        if (IsStunTimeOver && !Core.Movement.IsRewinding)
+        if (IsStunTimeOver)
         {
-            if (IsPLayerInMinAgroRange)
+            if (IsPlayerInMinAgroRange)
             {
                 StateMachine.ChangeState(_enemy.PlayerDetectedState);
             }
             else
             {
                 StateMachine.ChangeState(_enemy.LookForPlayerState);
-            }
-
-            if (Core.Stats.CurrentHealthAmount <= 0)
-            {
-                StateMachine.ChangeState(_enemy.DeadState);
             }
         }
     }

@@ -14,7 +14,7 @@ public class MinotaurStompState : AttackState
 
     protected GameObject EarthBump;
 
-    protected EarthBump EarthBumpScript;
+    protected AttackStateDamageDealer EarthBumpScript;
 
     public MinotaurStompState(
         Entity entity,
@@ -55,18 +55,10 @@ public class MinotaurStompState : AttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (Core.Movement.IsRewinding)
-            return;
-
-        if (Core.Stats.CurrentHealthAmount <= 0)
+        
+        if (IsAnimationFinished)
         {
-            StateMachine.ChangeState(Minotaur.DeadState);
-        }
-
-        if (IsAnimationFinished && !Core.Movement.IsRewinding)
-        {
-            if (IsPlayerMinAgroRange)
+            if (IsPlayerMinAgroRange || IsInTouchingRange)
             {
                 StateMachine.ChangeState(Minotaur.PlayerDetectedState);
             }

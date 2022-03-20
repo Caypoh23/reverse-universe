@@ -38,27 +38,11 @@ public class MinotaurPlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (Core.Movement.IsRewinding)
-            return;
+        CheckFirstAttackPhase();
 
-        if (Core.Stats.CurrentHealthAmount <= 0)
-        {
-            StateMachine.ChangeState(_minotaur.DeadState);
-        }
+        CheckSecondAttackPhase();
 
-        if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
-        {
-            StateMachine.ChangeState(_minotaur.SwingAttackState);
-        }
-        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
-        {
-            StateMachine.ChangeState(_minotaur.PoundAttackState);
-        }
-        if (_minotaur.GenerateRandomNumber() > 50 && PerformCloseRangeAction)
-        {
-            StateMachine.ChangeState(_minotaur.StompState);
-        }
-        else if (PerformLongRangeAction)
+        if (IsInTouchingRange || PerformLongRangeAction)
         {
             StateMachine.ChangeState(_minotaur.ChargeState);
         }
@@ -70,6 +54,41 @@ public class MinotaurPlayerDetectedState : PlayerDetectedState
         {
             Core.Movement.Flip();
             StateMachine.ChangeState(_minotaur.MoveState);
+        }
+
+        Debug.Log(_minotaur.GenerateRandomNumber());
+    }
+
+    private void CheckFirstAttackPhase()
+    {
+        if (_minotaur.GenerateRandomNumber() <= 25 && PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_minotaur.SwingAttackState);
+        }
+        else if (_minotaur.GenerateRandomNumber() <= 50 && PerformCloseRangeAction)
+        {
+            StateMachine.ChangeState(_minotaur.PoundAttackState);
+        }
+    }
+
+    private void CheckSecondAttackPhase()
+    {
+        if (!_minotaur.IsInSecondPhase())
+            return;
+
+        if (
+            (_minotaur.GenerateRandomNumber() > 50 && _minotaur.GenerateRandomNumber() <= 75)
+            && PerformCloseRangeAction
+        )
+        {
+            StateMachine.ChangeState(_minotaur.StompState);
+        }
+        else if (
+            _minotaur.GenerateRandomNumber() > 75
+            && (PerformLongRangeAction || PerformCloseRangeAction)
+        )
+        {
+            StateMachine.ChangeState(_minotaur.ChargeState);
         }
     }
 

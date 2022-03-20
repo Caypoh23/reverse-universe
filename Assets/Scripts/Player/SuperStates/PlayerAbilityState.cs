@@ -37,7 +37,7 @@ namespace Player.SuperStates
         {
             base.LogicUpdate();
 
-            if (IsAbilityDone && !Core.Movement.IsRewinding)
+            if (IsAbilityDone)
             {
                 if (_isGrounded && Core.Movement.CurrentVelocity.y < 0.01f)
                 {

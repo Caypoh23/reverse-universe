@@ -33,19 +33,13 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (Core.Movement.IsRewinding)
-                return;
-
-            if (Core.Stats.CurrentHealthAmount <= 0)
-                StateMachine.ChangeState(_enemy.DeadState);
-
             if (IsStunTimeOver)
             {
                 if (PerformCloseRangeAction)
                 {
                     StateMachine.ChangeState(_enemy.MeleeAttackState);
                 }
-                else if (IsPLayerInMinAgroRange)
+                else if (IsPlayerInMinAgroRange)
                 {
                     StateMachine.ChangeState(_enemy.ChargeState);
                 }

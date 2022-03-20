@@ -35,12 +35,7 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            if (Core.Stats.CurrentHealthAmount <= 0)
-            {
-                StateMachine.ChangeState(_enemy.DeadState);
-            }
-
-            if (IsAnimationFinished && !Core.Movement.IsRewinding)
+            if (IsAnimationFinished)
             {
                 if (IsPlayerMinAgroRange)
                 {

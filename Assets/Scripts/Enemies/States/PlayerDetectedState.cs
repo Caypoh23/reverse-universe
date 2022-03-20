@@ -14,6 +14,8 @@ namespace Enemies.States
         protected bool PerformCloseRangeAction;
         protected bool IsDetectingLedge;
 
+        protected bool IsInTouchingRange;
+
         public PlayerDetectedState(
             Entity entity,
             FiniteStateMachine stateMachine,
@@ -44,14 +46,11 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (!Core.Movement.IsRewinding)
-            {
-                Core.Movement.SetVelocityX(0f);
+            Core.Movement.SetVelocityX(0f);
 
-                if (Time.time >= StartTime + StateData.longRangeActionTime)
-                {
-                    PerformLongRangeAction = true;
-                }
+            if (Time.time >= StartTime + StateData.longRangeActionTime)
+            {
+                PerformLongRangeAction = true;
             }
         }
 
@@ -69,6 +68,8 @@ namespace Enemies.States
             IsDetectingLedge = Core.CollisionSenses.IsCheckingLedge;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
     }
 }

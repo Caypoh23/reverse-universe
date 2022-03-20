@@ -14,6 +14,9 @@ namespace Enemies.States
         protected bool IsChargeTimeOver;
         protected bool PerformCloseRangeAction;
 
+        protected bool IsInTouchingRange;
+
+
         public ChargeState(
             Entity entity,
             FiniteStateMachine stateMachine,
@@ -67,6 +70,9 @@ namespace Enemies.States
             IsDetectingWall = Core.CollisionSenses.IsCheckingWall;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
+            
         }
     }
 }

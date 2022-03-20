@@ -9,6 +9,7 @@ namespace Enemies.States
 
         protected bool IsAnimationFinished;
         protected bool IsPlayerMinAgroRange;
+        protected bool IsInTouchingRange;
 
         public AttackState(
             Entity entity,
@@ -41,10 +42,7 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (!Core.Movement.IsRewinding)
-            {
-                Core.Movement.SetVelocityX(0f);
-            }
+            Core.Movement.SetVelocityX(0f);
         }
 
         public override void PhysicsUpdate()
@@ -57,6 +55,7 @@ namespace Enemies.States
             base.DoChecks();
 
             IsPlayerMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
 
         public virtual void TriggerAttack() { }

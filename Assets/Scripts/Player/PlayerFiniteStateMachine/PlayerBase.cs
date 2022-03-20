@@ -30,13 +30,14 @@ namespace Player.PlayerFiniteStateMachine
         public PlayerAttackState PrimaryAttackState { get; private set; }
         public PlayerAttackState SecondaryAttackState { get; private set; }
 
+        [SerializeField]
+        private PlayerData playerData;
 
-        [SerializeField] private PlayerData playerData;
-
-        [SerializeField] private MMFeedbacks landCameraShakeFeedback;
+        [SerializeField]
+        private MMFeedbacks landCameraShakeFeedback;
 
         public MMFeedbacks LandCameraShakeFeedback => landCameraShakeFeedback;
-        
+
         #endregion
 
         #region Components
@@ -79,11 +80,31 @@ namespace Player.PlayerFiniteStateMachine
             JumpState = new PlayerJumpState(this, StateMachine, playerData, InAirParameterName);
             InAirState = new PlayerInAirState(this, StateMachine, playerData, InAirParameterName);
             LandState = new PlayerLandState(this, StateMachine, playerData, LandParameterName);
-            WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, WallSlideParameterName);
-            WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, InAirParameterName);
+            WallSlideState = new PlayerWallSlideState(
+                this,
+                StateMachine,
+                playerData,
+                WallSlideParameterName
+            );
+            WallJumpState = new PlayerWallJumpState(
+                this,
+                StateMachine,
+                playerData,
+                InAirParameterName
+            );
             DashState = new PlayerDashState(this, StateMachine, playerData, CanDashParameterName);
-            PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, AttackParameterName);
-            SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, AttackParameterName);
+            PrimaryAttackState = new PlayerAttackState(
+                this,
+                StateMachine,
+                playerData,
+                AttackParameterName
+            );
+            SecondaryAttackState = new PlayerAttackState(
+                this,
+                StateMachine,
+                playerData,
+                AttackParameterName
+            );
         }
 
         private void Start()
@@ -94,13 +115,19 @@ namespace Player.PlayerFiniteStateMachine
             ObjectPooler = FindObjectOfType<ObjectPooler>();
             PlayerInventory = GetComponent<PlayerInventory>();
 
-            PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int) CombatInputs.Primary]);
+            PrimaryAttackState.SetWeapon(PlayerInventory.weapons[(int)CombatInputs.Primary]);
             StateMachine.Initialize(IdleState);
         }
 
         private void Update()
         {
             Core.LogicUpdate();
+
+            if (Core.Movement.RewindingTimeIsFinished)
+            {
+                StateMachine.ChangeState(IdleState);
+            }
+            
             StateMachine.CurrentState.LogicUpdate();
         }
 
@@ -112,8 +139,8 @@ namespace Player.PlayerFiniteStateMachine
 
         private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
-        private void AnimationFinishedTrigger() => StateMachine.CurrentState.AnimationFinishedTrigger();
-
+        private void AnimationFinishedTrigger() =>
+            StateMachine.CurrentState.AnimationFinishedTrigger();
         #endregion
     }
 }

@@ -30,27 +30,21 @@ public class MinotaurStunState : StunState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (Core.Movement.IsRewinding)
-            return;
-
-        if (Core.Stats.CurrentHealthAmount <= 0)
-            StateMachine.ChangeState(_minotaur.DeadState);
-
+        
         if (IsStunTimeOver)
         {
             if (PerformCloseRangeAction)
             {
                 StateMachine.ChangeState(_minotaur.PoundAttackState);
             }
-            else if (IsPLayerInMinAgroRange)
+            else if (IsInTouchingRange || IsPlayerInMinAgroRange)
             {
                 StateMachine.ChangeState(_minotaur.ChargeState);
             }
             else
             {
                 _minotaur.LookForPlayerState.SetTurnImmediately(true);
-                StateMachine.ChangeState(_minotaur.LookForPlayerState);
+                StateMachine.ChangeState(_minotaur.IdleState);
             }
         }
     }

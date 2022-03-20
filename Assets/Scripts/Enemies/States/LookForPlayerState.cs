@@ -13,6 +13,9 @@ namespace Enemies.States
         protected bool IsAllTurnsTimeDone;
         protected bool TurnImmediately;
 
+        
+        protected bool IsInTouchingRange;
+
         protected float LastTurnTime;
 
         protected int AmountOfTurnsDone;
@@ -51,9 +54,7 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-
-            if(Core.Movement.IsRewinding) return;
-
+            
             Core.Movement.SetVelocityX(0f);
 
             if (TurnImmediately)
@@ -91,6 +92,8 @@ namespace Enemies.States
             base.DoChecks();
 
             IsPlayerIsInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
 
         public void SetTurnImmediately(bool flip)

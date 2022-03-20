@@ -10,16 +10,14 @@ namespace Enemies.States
         protected bool IsDetectingWall;
         protected bool IsDetectingLedge;
         protected bool IsPlayerInMinAgroRange;
+        protected bool IsInTouchingRange;
 
         public MoveState(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            int animBoolId, 
-            MoveStateData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId)
+            Entity entity,
+            FiniteStateMachine stateMachine,
+            int animBoolId,
+            MoveStateData stateData
+        ) : base(entity, stateMachine, animBoolId)
         {
             StateData = stateData;
         }
@@ -27,7 +25,7 @@ namespace Enemies.States
         public override void Enter()
         {
             base.Enter();
-            if(!Core.Movement.IsRewinding)
+            if (!Core.Movement.IsRewinding)
                 Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
         }
 
@@ -39,6 +37,7 @@ namespace Enemies.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            
             if(!Core.Movement.IsRewinding)
                 Core.Movement.SetVelocityX(StateData.movementSpeed * Core.Movement.FacingDirection);
         }
@@ -56,6 +55,8 @@ namespace Enemies.States
             IsDetectingWall = Core.CollisionSenses.IsCheckingWall;
 
             IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
     }
 }

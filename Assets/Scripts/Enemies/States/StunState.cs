@@ -12,17 +12,16 @@ namespace Enemies.States
         protected bool IsGrounded;
         protected bool IsMovementStopped;
         protected bool PerformCloseRangeAction;
-        protected bool IsPLayerInMinAgroRange;
+        protected bool IsPlayerInMinAgroRange;
+
+        protected bool IsInTouchingRange;
 
         public StunState(
-            Entity entity, 
+            Entity entity,
             FiniteStateMachine stateMachine,
-            int animBoolId, 
-            StunStateData stateData) : 
-            base(
-                entity, 
-                stateMachine, 
-                animBoolId)
+            int animBoolId,
+            StunStateData stateData
+        ) : base(entity, stateMachine, animBoolId)
         {
             StateData = stateData;
         }
@@ -33,8 +32,11 @@ namespace Enemies.States
 
             IsStunTimeOver = false;
             IsMovementStopped = false;
-            Core.Movement.SetVelocity(StateData.stunKnockbackSpeed, StateData.stunKnockbackAngle,
-                Entity.LastDamageDirection);
+            Core.Movement.SetVelocity(
+                StateData.stunKnockbackSpeed,
+                StateData.stunKnockbackAngle,
+                Entity.LastDamageDirection
+            );
         }
 
         public override void Exit()
@@ -48,12 +50,16 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (Time.time >= StartTime + StateData.stunTime && !Core.Movement.IsRewinding)
+            if (Time.time >= StartTime + StateData.stunTime)
             {
                 IsStunTimeOver = true;
             }
 
-            if (IsGrounded && Time.time >= StartTime + StateData.stunKnockbackTime && !IsMovementStopped && !Core.Movement.IsRewinding)
+            if (
+                IsGrounded
+                && Time.time >= StartTime + StateData.stunKnockbackTime
+                && !IsMovementStopped
+            )
             {
                 IsMovementStopped = true;
                 Core.Movement.SetVelocityX(0f);
@@ -72,7 +78,9 @@ namespace Enemies.States
             IsGrounded = Core.CollisionSenses.IsGrounded;
 
             PerformCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
-            IsPLayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+            IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+
+            IsInTouchingRange = Entity.CheckPlayerInTouchingRangeAction();
         }
     }
 }

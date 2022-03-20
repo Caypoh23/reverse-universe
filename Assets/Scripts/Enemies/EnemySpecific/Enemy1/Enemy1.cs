@@ -15,17 +15,25 @@ namespace Enemies.EnemySpecific.Enemy1
         public E1_StunState StunState { get; private set; }
         public E1_DeadState DeadState { get; private set; }
 
-        [SerializeField] private IdleStateData idleStateData;
-        [SerializeField] private MoveStateData moveStateData;
-        [SerializeField] private PlayerDetectedData playerDetectedData;
-        [SerializeField] private ChargeStateData chargeStateData;
-        [SerializeField] private LookForPlayerData lookForPlayerStateData;
-        [SerializeField] private MeleeAttackData meleeAttackStateData;
-        [SerializeField] private StunStateData stunStateData;
-        [SerializeField] private DeadStateData deadStateData;
+        [SerializeField]
+        private IdleStateData idleStateData;
+        [SerializeField]
+        private MoveStateData moveStateData;
+        [SerializeField]
+        private PlayerDetectedData playerDetectedData;
+        [SerializeField]
+        private ChargeStateData chargeStateData;
+        [SerializeField]
+        private LookForPlayerData lookForPlayerStateData;
+        [SerializeField]
+        private MeleeAttackData meleeAttackStateData;
+        [SerializeField]
+        private StunStateData stunStateData;
+        [SerializeField]
+        private DeadStateData deadStateData;
 
-
-        [SerializeField] private Transform meleeAttackPosition;
+        [SerializeField]
+        private Transform meleeAttackPosition;
 
         #region Animation parameter names
 
@@ -44,23 +52,93 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.Awake();
 
-            MoveState = new E1_MoveState(this, StateMachine, MoveParameterName, moveStateData, this);
-            IdleState = new E1_IdleState(this, StateMachine, IdleParameterName, idleStateData, this);
-            PlayerDetectedState =
-                new E1_PlayerDetectedState(this, StateMachine, PlayerDetectedParameterName, playerDetectedData, this);
-            ChargeState = new E1_ChargeState(this, StateMachine, ChargeParameterName, chargeStateData, this);
-            LookForPlayerState =
-                new E1_LookForPlayerState(this, StateMachine, LookForPlayerParameterName, lookForPlayerStateData, this);
-            MeleeAttackState =
-                new E1_MeleeAttackState(this, StateMachine, MeleeAttackParameterName, meleeAttackPosition, meleeAttackStateData,
-                    this);
-            StunState = new E1_StunState(this, StateMachine, StunParameterName, stunStateData, this);
-            DeadState = new E1_DeadState(this, StateMachine, DeadParameterName, deadStateData, this);
+            MoveState = new E1_MoveState(
+                this,
+                StateMachine,
+                MoveParameterName,
+                moveStateData,
+                this
+            );
+            IdleState = new E1_IdleState(
+                this,
+                StateMachine,
+                IdleParameterName,
+                idleStateData,
+                this
+            );
+            PlayerDetectedState = new E1_PlayerDetectedState(
+                this,
+                StateMachine,
+                PlayerDetectedParameterName,
+                playerDetectedData,
+                this
+            );
+            ChargeState = new E1_ChargeState(
+                this,
+                StateMachine,
+                ChargeParameterName,
+                chargeStateData,
+                this
+            );
+            LookForPlayerState = new E1_LookForPlayerState(
+                this,
+                StateMachine,
+                LookForPlayerParameterName,
+                lookForPlayerStateData,
+                this
+            );
+            MeleeAttackState = new E1_MeleeAttackState(
+                this,
+                StateMachine,
+                MeleeAttackParameterName,
+                meleeAttackPosition,
+                meleeAttackStateData,
+                this
+            );
+            StunState = new E1_StunState(
+                this,
+                StateMachine,
+                StunParameterName,
+                stunStateData,
+                this
+            );
+            DeadState = new E1_DeadState(
+                this,
+                StateMachine,
+                DeadParameterName,
+                deadStateData,
+                this
+            );
         }
 
         private void Start()
         {
             StateMachine.Initialize(IdleState);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            ResetState();
+
+            CheckIfDead();
+        }
+
+        private void ResetState()
+        {
+            if (Core.Movement.RewindingTimeIsFinished)
+            {
+                StateMachine.ChangeState(IdleState);
+            }
+        }
+
+        private void CheckIfDead()
+        {
+            if (Core.Stats.CurrentHealthAmount <= 0)
+            {
+                StateMachine.ChangeState(DeadState);
+            }
         }
 
         public override void OnDrawGizmos()

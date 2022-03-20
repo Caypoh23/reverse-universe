@@ -7,15 +7,12 @@ namespace Enemies.StateMachine
         protected readonly FiniteStateMachine StateMachine;
         protected readonly Entity Entity;
         protected readonly Core Core;
-
+        
         public float StartTime { get; protected set; }
 
         private readonly int _animBoolName;
 
-        public State(
-            Entity entity, 
-            FiniteStateMachine stateMachine, 
-            int animBoolName)
+        public State(Entity entity, FiniteStateMachine stateMachine, int animBoolName)
         {
             Entity = entity;
             StateMachine = stateMachine;
@@ -39,6 +36,8 @@ namespace Enemies.StateMachine
 
         public virtual void LogicUpdate()
         {
+            if (Core.Movement.IsRewinding)
+                return;
         }
 
         public virtual void PhysicsUpdate()
@@ -46,11 +45,8 @@ namespace Enemies.StateMachine
             DoChecks();
         }
 
-        public virtual void DoChecks()
-        {
-        }
-
+        public virtual void DoChecks() { }
         #endregion
-        
+
     }
 }

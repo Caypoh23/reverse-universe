@@ -98,6 +98,13 @@ namespace Enemies.StateMachine
                 entityData.whatIsPlayer);
         }
 
+        // if player is touching the enemy or is too close to perform attack
+        public virtual bool CheckPlayerInTouchingRangeAction()
+        {
+            return Physics2D.Raycast(gameObject.transform.position, transform.right, entityData.touchingRangeActionDistance,
+                entityData.whatIsPlayer);
+        }
+
         #endregion
 
         public void ActivateBoxCollider() => combatBoxCollider.enabled = true;

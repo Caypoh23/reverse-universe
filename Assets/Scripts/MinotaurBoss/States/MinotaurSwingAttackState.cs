@@ -44,15 +44,10 @@ public class MinotaurSwingAttackState : MeleeAttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (Core.Stats.CurrentHealthAmount <= 0)
+        
+        if (IsAnimationFinished)
         {
-            StateMachine.ChangeState(_minotaur.DeadState);
-        }
-
-        if (IsAnimationFinished && !Core.Movement.IsRewinding)
-        {
-            if (IsPlayerMinAgroRange)
+            if (IsPlayerMinAgroRange || IsInTouchingRange)
             {
                 StateMachine.ChangeState(_minotaur.PlayerDetectedState);
             }

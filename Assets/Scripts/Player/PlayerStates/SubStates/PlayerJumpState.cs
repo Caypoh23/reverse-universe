@@ -30,7 +30,7 @@ namespace Player.PlayerStates.SubStates
 
         public bool CanJump()
         {
-            if (_amountOfJumpsLeft > 0 && !Core.Movement.IsRewinding)
+            if (_amountOfJumpsLeft > 0)
             {
                 return true;
             }

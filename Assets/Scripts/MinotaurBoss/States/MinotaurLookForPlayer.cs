@@ -31,14 +31,7 @@ public class MinotaurLookForPlayer : LookForPlayerState
     {
         base.LogicUpdate();
 
-        if (Core.Movement.IsRewinding)
-            return;
-
-        if (Core.Stats.CurrentHealthAmount <= 0)
-        {
-            StateMachine.ChangeState(_minotaur.DeadState);
-        }
-        if (IsPlayerIsInMinAgroRange)
+        if (IsPlayerIsInMinAgroRange || IsInTouchingRange)
         {
             StateMachine.ChangeState(_minotaur.PlayerDetectedState);
         }

@@ -20,6 +20,7 @@ namespace Enemies.States.Data
         public float maxAgroDistance = 4f;
 
         public float closeRangeActionDistance = 1f;
+        public float touchingRangeActionDistance = 1f;
 
         public GameObject hitParticle;
 

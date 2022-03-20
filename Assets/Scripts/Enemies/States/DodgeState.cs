@@ -44,7 +44,7 @@ namespace Enemies.States
         {
             base.LogicUpdate();
 
-            if (Time.time >= StartTime + StateData.dodgeTime && IsGrounded && !Core.Movement.IsRewinding)
+            if (Time.time >= StartTime + StateData.dodgeTime && IsGrounded)
             {
                 IsDodgeOver = true;
             }

@@ -34,25 +34,21 @@ namespace Player.SuperStates
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             JumpInput = PlayerBase.InputHandler.CanJumpInput;
 
-            if (!Core.Movement.IsRewinding)
+            if (JumpInput)
             {
-                if (JumpInput)
-                {
-                    PlayerBase.WallJumpState.DetermineWallJumpDirection(IsTouchingWall);
-                    StateMachine.ChangeState(PlayerBase.WallJumpState);
-                }
-                else if (IsGrounded)
-                {
-                    StateMachine.ChangeState(PlayerBase.IdleState);
-                }
-                else if (
-                    !IsTouchingWall
-                    || XInput != Core.Movement.FacingDirection
-                        && Core.Movement.CurrentVelocity.y <= 0
-                )
-                {
-                    StateMachine.ChangeState(PlayerBase.InAirState);
-                }
+                PlayerBase.WallJumpState.DetermineWallJumpDirection(IsTouchingWall);
+                StateMachine.ChangeState(PlayerBase.WallJumpState);
+            }
+            else if (IsGrounded)
+            {
+                StateMachine.ChangeState(PlayerBase.IdleState);
+            }
+            else if (
+                !IsTouchingWall
+                || XInput != Core.Movement.FacingDirection && Core.Movement.CurrentVelocity.y <= 0
+            )
+            {
+                StateMachine.ChangeState(PlayerBase.InAirState);
             }
         }
 
