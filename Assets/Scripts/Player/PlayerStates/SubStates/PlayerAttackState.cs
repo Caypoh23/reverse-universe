@@ -19,14 +19,8 @@ namespace Player.PlayerStates.SubStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -47,6 +41,11 @@ namespace Player.PlayerStates.SubStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
 
             _xInput = PlayerBase.InputHandler.NormalizedInputX;
 
@@ -81,7 +80,6 @@ namespace Player.PlayerStates.SubStates
             _shouldCheckFlip = value;
         }
 
-
         #region Animation Triggers
 
         public override void AnimationFinishedTrigger()
@@ -90,7 +88,7 @@ namespace Player.PlayerStates.SubStates
 
             IsAbilityDone = true;
         }
-
+        
         #endregion
     }
 }

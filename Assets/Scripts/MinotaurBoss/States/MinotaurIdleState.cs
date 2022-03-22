@@ -38,6 +38,9 @@ public class MinotaurIdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        
+        Entity.TimeIsRewinding();
         
         if (IsPlayerInMinAgroRange || IsInTouchingRange)
         {

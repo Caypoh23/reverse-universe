@@ -12,13 +12,9 @@ namespace Cores.CoreComponents
         private float maxHealth;
 
         [SerializeField]
-        private GameObject character;
-
+        private Tag playerTag;
         [SerializeField]
-        private Animator animator;
-
-        [SerializeField]
-        private BoxCollider2D boxCollider;
+        private HealthBar healthBar;
 
         private float _currentHealth;
 
@@ -29,7 +25,7 @@ namespace Cores.CoreComponents
             get => _currentHealth;
             set { _currentHealth = value; }
         }
-        
+
         public float MaxHealth
         {
             get => maxHealth;
@@ -41,6 +37,11 @@ namespace Cores.CoreComponents
         public void TakeDamage(float amount)
         {
             _currentHealth -= amount;
+
+            if (gameObject.HasTag(playerTag))
+            {
+                healthBar.UpdateHealth();
+            }
 
             if (_currentHealth <= 0)
             {

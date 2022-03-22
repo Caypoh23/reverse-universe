@@ -34,7 +34,7 @@ namespace Player.Weapons
 
         private void CheckMeleeAttack()
         {
-            if (AttackCounter <= 0 || AttackCounter < 3)
+            if (AttackCounter <= 0 || AttackCounter >= 3)
                 AttackCounter = 0;
 
             var details = AggressiveWeaponData.AttackDetails[AttackCounter];

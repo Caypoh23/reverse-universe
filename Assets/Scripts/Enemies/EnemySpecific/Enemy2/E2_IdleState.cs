@@ -35,6 +35,8 @@ public class E2_IdleState : IdleState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         if (IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);

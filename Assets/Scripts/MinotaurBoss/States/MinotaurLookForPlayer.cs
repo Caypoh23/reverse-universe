@@ -30,6 +30,8 @@ public class MinotaurLookForPlayer : LookForPlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        Entity.TimeIsRewinding();
 
         if (IsPlayerIsInMinAgroRange || IsInTouchingRange)
         {

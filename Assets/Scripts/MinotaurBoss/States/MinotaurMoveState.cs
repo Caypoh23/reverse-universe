@@ -38,6 +38,8 @@ public class MinotaurMoveState : MoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        Entity.TimeIsRewinding();
         
         if (IsPlayerInMinAgroRange || IsInTouchingRange)
         {

@@ -194,9 +194,24 @@ public class Minotaur : Entity
     {
         if (Core.Movement.RewindingTimeIsFinished)
         {
+            ResetAnimations();
             StateMachine.ChangeState(IdleState);
         }
     }
+
+    private void ResetAnimations()
+    {
+        foreach (var currentAnimation in Anim.parameters)
+        {
+            if (CheckAnimationType(currentAnimation))
+            {
+                Anim.SetBool(currentAnimation.name, false);
+            }
+        }
+    }
+
+    private bool CheckAnimationType(AnimatorControllerParameter currentAnimation) =>
+        currentAnimation.type == AnimatorControllerParameterType.Bool;
 
     private void CheckIfDead()
     {

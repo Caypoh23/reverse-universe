@@ -41,6 +41,8 @@ public class MinotaurChargeState : ChargeState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         CheckIfCanStun();
 
         CheckLedge();

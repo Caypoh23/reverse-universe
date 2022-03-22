@@ -45,6 +45,8 @@ public class MinotaurPoundAttackState : MeleeAttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        Entity.TimeIsRewinding();
         
         if (IsAnimationFinished)
         {

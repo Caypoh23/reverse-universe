@@ -63,3 +63,6 @@ TagManager:
   - name: Foreground Decoration
     uniqueID: 3951105479
     locked: 0
+  - name: UI
+    uniqueID: 2799799731
+    locked: 0

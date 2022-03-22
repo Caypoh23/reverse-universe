@@ -104,6 +104,12 @@ namespace Enemies.StateMachine
             return Physics2D.Raycast(gameObject.transform.position, transform.right, entityData.touchingRangeActionDistance,
                 entityData.whatIsPlayer);
         }
+        
+        public virtual void TimeIsRewinding()
+        {
+            if (Core.Movement.IsRewinding)
+                return;
+        }
 
         #endregion
 

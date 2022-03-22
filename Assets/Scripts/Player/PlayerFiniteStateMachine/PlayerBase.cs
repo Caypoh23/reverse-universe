@@ -123,13 +123,33 @@ namespace Player.PlayerFiniteStateMachine
         {
             Core.LogicUpdate();
 
-            if (Core.Movement.RewindingTimeIsFinished)
-            {
-                StateMachine.ChangeState(IdleState);
-            }
-            
+            ResetState();
+
             StateMachine.CurrentState.LogicUpdate();
         }
+
+        private void ResetState()
+        {
+            if (Core.Movement.RewindingTimeIsFinished)
+            {
+                ResetAnimations();
+                StateMachine.ChangeState(IdleState);
+            }
+        }
+
+        private void ResetAnimations()
+        {
+            foreach (var currentAnimation in Anim.parameters)
+            {
+                if (CheckAnimationType(currentAnimation))
+                {
+                    Anim.SetBool(currentAnimation.name, false);
+                }
+            }
+        }
+
+        private bool CheckAnimationType(AnimatorControllerParameter currentAnimation) =>
+            currentAnimation.type == AnimatorControllerParameterType.Bool;
 
         private void FixedUpdate() => StateMachine.CurrentState.PhysicsUpdate();
 

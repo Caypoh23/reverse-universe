@@ -35,6 +35,8 @@ public class E2_LookForPlayerState : LookForPlayerState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         if (IsPlayerIsInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);

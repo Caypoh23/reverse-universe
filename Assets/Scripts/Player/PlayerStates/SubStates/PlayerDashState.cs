@@ -49,6 +49,11 @@ namespace Player.PlayerStates.SubStates
         {
             base.LogicUpdate();
 
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
+
             if (!IsExitingState)
             {
                 PlayerBase.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));

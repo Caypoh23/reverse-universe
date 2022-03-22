@@ -35,6 +35,8 @@ public class E2_DeadState : DeadState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         if (Core.Stats.CurrentHealthAmount > 0)
             StateMachine.ChangeState(_enemy.IdleState);
     }

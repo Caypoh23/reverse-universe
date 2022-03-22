@@ -26,6 +26,12 @@ namespace Player.PlayerStates.SubStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            
+
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
                 
             Core.Movement.CheckIfShouldFlip(XInput);
 

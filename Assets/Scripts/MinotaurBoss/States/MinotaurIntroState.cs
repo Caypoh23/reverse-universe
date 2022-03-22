@@ -51,6 +51,9 @@ public class MinotaurIntroState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        
+        Entity.TimeIsRewinding();
         
         Core.Movement.SetVelocityY(Mathf.Lerp(-1, -20, 3));
 

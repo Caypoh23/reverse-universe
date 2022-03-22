@@ -38,6 +38,8 @@ public class MinotaurPlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         CheckFirstAttackPhase();
 
         CheckSecondAttackPhase();
@@ -55,8 +57,6 @@ public class MinotaurPlayerDetectedState : PlayerDetectedState
             Core.Movement.Flip();
             StateMachine.ChangeState(_minotaur.MoveState);
         }
-
-        Debug.Log(_minotaur.GenerateRandomNumber());
     }
 
     private void CheckFirstAttackPhase()

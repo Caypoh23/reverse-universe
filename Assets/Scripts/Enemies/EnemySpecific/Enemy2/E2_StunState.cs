@@ -35,6 +35,8 @@ public class E2_StunState : StunState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         if (IsStunTimeOver)
         {
             if (IsPlayerInMinAgroRange)

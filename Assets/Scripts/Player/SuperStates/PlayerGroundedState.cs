@@ -17,14 +17,8 @@ namespace Player.SuperStates
             PlayerBase playerBase,
             PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) :
-            base(
-                playerBase,
-                stateMachine,
-                playerData,
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -43,12 +37,17 @@ namespace Player.SuperStates
         {
             base.LogicUpdate();
 
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
+
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             _jumpInput = PlayerBase.InputHandler.CanJumpInput;
             _dashInput = PlayerBase.InputHandler.CanDashInput;
             _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
-            
-            if (PlayerBase.InputHandler.AttackInputs[(int) CombatInputs.Primary])
+
+            if (PlayerBase.InputHandler.AttackInputs[(int)CombatInputs.Primary])
             {
                 StateMachine.ChangeState(PlayerBase.PrimaryAttackState);
             }

@@ -8,11 +8,11 @@
       "hash": "20a03a6aa3d5681db3babc958043a32b8ec2add1"
     },
     "com.unity.2d.animation": {
-      "version": "3.2.14",
+      "version": "3.2.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "2.1.0",
+        "com.unity.2d.common": "2.1.2",
         "com.unity.mathematics": "1.1.0",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
@@ -21,7 +21,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.common": {
-      "version": "2.1.0",
+      "version": "2.1.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {

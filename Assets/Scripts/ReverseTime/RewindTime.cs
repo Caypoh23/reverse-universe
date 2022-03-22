@@ -18,6 +18,16 @@ namespace ReverseTime
         [SerializeField]
         private int amountOfReverseTime = 3;
 
+        [SerializeField]
+        private TimerSlider timerSlider;
+        [SerializeField]
+        private Material GlowMaterial;
+
+        [SerializeField]
+        private RewindTimeCounterUI rewindTimeCounterUI;
+
+        private const string GlowMaterialName = "_Glow";
+
         private float _currentReverseTimerAmount;
         private int _currentAmountOfReverseTime;
 
@@ -28,28 +38,64 @@ namespace ReverseTime
 
         public bool RewindingTimeIsFinished { get; private set; }
 
-        private void Awake() => _currentAmountOfReverseTime = amountOfReverseTime;
+        public float _CurrentAmountOfReverseTime => _currentAmountOfReverseTime;
+
+        private float _rewindTimeCooldown = 0.1f;
+
+        private void Awake()
+        {
+            _currentAmountOfReverseTime = amountOfReverseTime;
+            ChangeGlowIntensity(0);
+        }
 
         private void Update()
         {
             StartReverseTimer();
             ResetReverseTimer();
             StopRevisingTime();
+
+            Debug.Log(
+                RewindingTimeIsFinished + " rewinding finished -------------------------------"
+            );
         }
 
         private void StartReverseTimer()
         {
             if (_currentReverseTimerAmount >= 0 && _isRewindingTime)
+            {
                 _currentReverseTimerAmount -= Time.deltaTime;
+                timerSlider.UpdateTimerSlider(this, _currentReverseTimerAmount);
+                ChangeGlowIntensity(30);
+            }
         }
 
         private void ResetReverseTimer()
         {
+            if (RewindingTimeIsFinished && _rewindTimeCooldown >= 0)
+            {
+                _rewindTimeCooldown -= Time.deltaTime;
+            }
+            else if (_rewindTimeCooldown <= 0)
+            {
+                RewindingTimeIsFinished = false;
+                _rewindTimeCooldown = 0.1f;
+            }
+
             if (!_isRewindingTime && _currentReverseTimerAmount < maxReverseTimerAmount)
             {
                 _currentReverseTimerAmount += Time.deltaTime;
-                RewindingTimeIsFinished = false;
+                timerSlider.UpdateTimerSlider(this, _currentReverseTimerAmount);
+                ChangeGlowIntensity(30);
             }
+            else if (_currentReverseTimerAmount >= maxReverseTimerAmount)
+            {
+                ChangeGlowIntensity(0);
+            }
+        }
+
+        private void ChangeGlowIntensity(float value)
+        {
+            GlowMaterial.SetFloat(GlowMaterialName, value);
         }
 
         public void ReverseTime(CommandStack commandStack)
@@ -73,6 +119,7 @@ namespace ReverseTime
                     inputHandler.UseTimeReverseInput();
                     _isRewindingTime = false;
                     _currentAmountOfReverseTime--;
+                    rewindTimeCounterUI.PlayDeactivateAnimation(_currentAmountOfReverseTime);
                     Debug.Log("Released rewind");
                 }
             }

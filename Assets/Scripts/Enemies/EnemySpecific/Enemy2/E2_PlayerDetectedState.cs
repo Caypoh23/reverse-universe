@@ -34,6 +34,8 @@ public class E2_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        Entity.TimeIsRewinding();
         
         if (PerformCloseRangeAction)
         {

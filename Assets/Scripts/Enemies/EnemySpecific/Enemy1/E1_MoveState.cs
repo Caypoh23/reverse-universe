@@ -32,6 +32,8 @@ namespace Enemies.EnemySpecific.Enemy1
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            Entity.TimeIsRewinding();
             
             if (IsPlayerInMinAgroRange)
             {

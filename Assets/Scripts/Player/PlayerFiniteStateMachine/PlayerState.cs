@@ -49,11 +49,7 @@ namespace Player.PlayerFiniteStateMachine
         }
 
         // Update
-        public virtual void LogicUpdate()
-        {
-            if (Core.Movement.IsRewinding)
-                return;
-        }
+        public virtual void LogicUpdate() { }
 
         // Fixed Update
         public virtual void PhysicsUpdate()

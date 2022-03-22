@@ -31,6 +31,11 @@ namespace Player.SuperStates
         {
             base.LogicUpdate();
 
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
+
             XInput = PlayerBase.InputHandler.NormalizedInputX;
             JumpInput = PlayerBase.InputHandler.CanJumpInput;
 

@@ -33,6 +33,8 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
+            Entity.TimeIsRewinding();
+
             if (IsStunTimeOver)
             {
                 if (PerformCloseRangeAction)

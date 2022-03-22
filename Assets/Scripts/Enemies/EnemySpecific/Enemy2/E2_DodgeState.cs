@@ -33,6 +33,8 @@ namespace Enemies.EnemySpecific.Enemy2
         {
             base.LogicUpdate();
 
+            Entity.TimeIsRewinding();
+
             if (IsDodgeOver)
             {
                 if (IsPlayerInMaxAgroRange && PerformCloseRangeAction)

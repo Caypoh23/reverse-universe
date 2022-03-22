@@ -47,7 +47,7 @@ namespace Projectiles
         private bool _isGravityOn;
         private bool _hasHitGround;
 
-        private Stats playerStats;
+        private Combat playerStats;
 
         private void OnEnable() => _currentAliveTime = maxAliveTime;
 
@@ -56,7 +56,7 @@ namespace Projectiles
             _xStartPos = transform.position.x;
             playerStats = GameObject
                 .FindGameObjectWithTag(playerStatsTag.name)
-                .GetComponent<Stats>();
+                .GetComponent<Combat>();
         }
 
         private void Update()

@@ -38,6 +38,11 @@ namespace Player.PlayerStates.SubStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
 
             PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
             PlayerBase.Anim.SetFloat(_xVelocity, Mathf.Abs(Core.Movement.CurrentVelocity.x));

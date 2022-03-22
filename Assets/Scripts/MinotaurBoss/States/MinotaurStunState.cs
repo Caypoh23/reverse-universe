@@ -30,6 +30,8 @@ public class MinotaurStunState : StunState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        Entity.TimeIsRewinding();
         
         if (IsStunTimeOver)
         {

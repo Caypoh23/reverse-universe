@@ -105,7 +105,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 60595cbfedb010e4280500eb828a3aaa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -506,10 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d80ae937e361d649a66d7ca0168632a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
-  character: {fileID: 9024823988240281053}
-  animator: {fileID: 0}
-  boxCollider: {fileID: 0}
+  maxHealth: 100
+  playerTag: {fileID: 11400000, guid: d34dd6ab3b3186742a217bad6828f9c5, type: 2}
 --- !u!1 &9024823989455765541
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxKnockbackTime: 0.2
+  hitMaterial: {fileID: 2100000, guid: 60595cbfedb010e4280500eb828a3aaa, type: 2}
 --- !u!61 &9024823989940692000
 BoxCollider2D:
   m_ObjectHideFlags: 0

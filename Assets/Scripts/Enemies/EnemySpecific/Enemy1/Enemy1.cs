@@ -120,6 +120,8 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.Update();
 
+            TimeIsRewinding();
+
             ResetState();
 
             CheckIfDead();
@@ -129,9 +131,24 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             if (Core.Movement.RewindingTimeIsFinished)
             {
+                ResetAnimations();
                 StateMachine.ChangeState(IdleState);
             }
         }
+
+        private void ResetAnimations()
+        {
+            foreach (var currentAnimation in Anim.parameters)
+            {
+                if (CheckAnimationType(currentAnimation))
+                {
+                    Anim.SetBool(currentAnimation.name, false);
+                }
+            }
+        }
+
+        private bool CheckAnimationType(AnimatorControllerParameter currentAnimation) =>
+            currentAnimation.type == AnimatorControllerParameterType.Bool;
 
         private void CheckIfDead()
         {

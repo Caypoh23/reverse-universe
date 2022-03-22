@@ -35,6 +35,11 @@ namespace Player.PlayerStates.SubStates
         {
             base.LogicUpdate();
 
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
+
             if (XInput != 0 && !IsExitingState)
             {
                 StateMachine.ChangeState(PlayerBase.MoveState);

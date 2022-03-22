@@ -33,6 +33,7 @@ MonoBehaviour:
     - MoreMountains.Feedbacks.URP
     - MoreMountains.Tools
     - MoreMountains.Feedbacks.TextMeshPro
+    - AllIn1SpriteShaderAssembly
     - Cinemachine
     - Assembly-CSharp
     - MoreMountains.Feedbacks

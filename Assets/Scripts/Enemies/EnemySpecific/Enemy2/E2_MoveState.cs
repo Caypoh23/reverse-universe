@@ -39,6 +39,8 @@ public class E2_MoveState : MoveState
     {
         base.LogicUpdate();
 
+        Entity.TimeIsRewinding();
+
         if (IsPlayerInMinAgroRange)
         {
             StateMachine.ChangeState(_enemy.PlayerDetectedState);

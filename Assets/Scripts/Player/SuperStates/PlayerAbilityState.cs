@@ -9,17 +9,11 @@ namespace Player.SuperStates
         private bool _isGrounded;
 
         public PlayerAbilityState(
-            PlayerBase playerBase, 
-            PlayerStateMachine stateMachine, 
+            PlayerBase playerBase,
+            PlayerStateMachine stateMachine,
             PlayerData playerData,
-            int animBoolId) : 
-            base(
-                playerBase, 
-                stateMachine, 
-                playerData, 
-                animBoolId)
-        {
-        }
+            int animBoolId
+        ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
         public override void Enter()
         {
@@ -36,6 +30,16 @@ namespace Player.SuperStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+
+            if (Core.Movement.IsRewinding)
+            {
+                return;
+            }
+
+            if (Core.Movement.RewindingTimeIsFinished)
+            {
+                IsAbilityDone = true;
+            }
 
             if (IsAbilityDone)
             {
