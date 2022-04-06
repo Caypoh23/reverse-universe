@@ -13,6 +13,13 @@ namespace Player.PlayerStates.SubStates
             int animBoolId
         ) : base(playerBase, stateMachine, playerData, animBoolId) { }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            PlayerBase.LandFeedback?.PlayFeedbacks();
+        }
+
         public override void LogicUpdate()
         {
             base.LogicUpdate();

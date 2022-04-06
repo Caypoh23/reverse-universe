@@ -34,9 +34,14 @@ namespace Player.PlayerFiniteStateMachine
         private PlayerData playerData;
 
         [SerializeField]
-        private MMFeedbacks landCameraShakeFeedback;
+        private MMFeedbacks landFeedback;
 
-        public MMFeedbacks LandCameraShakeFeedback => landCameraShakeFeedback;
+        [SerializeField]
+        private MMFeedbacks runFeedback;
+
+        public MMFeedbacks LandFeedback => landFeedback;
+
+        public MMFeedbacks RunFeedback => runFeedback;
 
         #endregion
 

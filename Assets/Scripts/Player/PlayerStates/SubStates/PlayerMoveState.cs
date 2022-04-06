@@ -32,6 +32,8 @@ namespace Player.PlayerStates.SubStates
             {
                 return;
             }
+
+            PlayerBase.RunFeedback?.PlayFeedbacks();
                 
             Core.Movement.CheckIfShouldFlip(XInput);
 

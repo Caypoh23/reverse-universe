@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Interfaces;
+using JetBrains.Annotations;
+using MoreMountains.Feedbacks;
 using ReverseTime;
 using ReverseTime.Commands;
 using UnityEngine;
@@ -15,6 +18,10 @@ namespace Cores.CoreComponents
         private Tag playerTag;
         [SerializeField]
         private HealthBar healthBar;
+
+        [CanBeNull]
+        [SerializeField]
+        private MMFeedbacks flashFeedback;
 
         private float _currentHealth;
 
@@ -41,6 +48,7 @@ namespace Cores.CoreComponents
             if (gameObject.HasTag(playerTag))
             {
                 healthBar.UpdateHealth();
+                flashFeedback?.PlayFeedbacks();
             }
 
             if (_currentHealth <= 0)
