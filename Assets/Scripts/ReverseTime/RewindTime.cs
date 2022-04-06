@@ -20,13 +20,9 @@ namespace ReverseTime
 
         [SerializeField]
         private TimerSlider timerSlider;
-        [SerializeField]
-        private Material GlowMaterial;
 
         [SerializeField]
         private RewindTimeCounterUI rewindTimeCounterUI;
-
-        private const string GlowMaterialName = "_Glow";
 
         private float _currentReverseTimerAmount;
         private int _currentAmountOfReverseTime;
@@ -45,7 +41,6 @@ namespace ReverseTime
         private void Awake()
         {
             _currentAmountOfReverseTime = amountOfReverseTime;
-            ChangeGlowIntensity(0);
         }
 
         private void Update()
@@ -64,8 +59,7 @@ namespace ReverseTime
             if (_currentReverseTimerAmount >= 0 && _isRewindingTime)
             {
                 _currentReverseTimerAmount -= Time.deltaTime;
-                timerSlider.UpdateTimerSlider(this, _currentReverseTimerAmount);
-                ChangeGlowIntensity(30);
+                timerSlider.UpdateTimerSlider(_currentReverseTimerAmount);
             }
         }
 
@@ -84,18 +78,8 @@ namespace ReverseTime
             if (!_isRewindingTime && _currentReverseTimerAmount < maxReverseTimerAmount)
             {
                 _currentReverseTimerAmount += Time.deltaTime;
-                timerSlider.UpdateTimerSlider(this, _currentReverseTimerAmount);
-                ChangeGlowIntensity(30);
+                timerSlider.UpdateTimerSlider(_currentReverseTimerAmount);
             }
-            else if (_currentReverseTimerAmount >= maxReverseTimerAmount)
-            {
-                ChangeGlowIntensity(0);
-            }
-        }
-
-        private void ChangeGlowIntensity(float value)
-        {
-            GlowMaterial.SetFloat(GlowMaterialName, value);
         }
 
         public void ReverseTime(CommandStack commandStack)

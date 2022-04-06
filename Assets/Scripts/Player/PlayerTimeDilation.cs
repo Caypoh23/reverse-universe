@@ -8,17 +8,16 @@ namespace Player
 {
     public class PlayerTimeDilation : MonoBehaviour
     {
-        [SerializeField] private PlayerInputHandler inputHandler;
-        [SerializeField] private PlayerData playerData;
+        [SerializeField]
+        private PlayerInputHandler inputHandler;
+        [SerializeField]
+        private PlayerData playerData;
 
         private float _startTime;
 
         private bool _isHolding;
 
-        private void Awake()
-        {
-            _startTime = Time.time;
-        }
+        private void Awake() => _startTime = Time.time;
 
         public void Update()
         {
@@ -45,8 +44,7 @@ namespace Player
         {
             if (_isHolding)
             {
-                if (inputHandler.CanDelayTimeInputStop ||
-                    Time.unscaledTime >= _startTime + playerData.maxTimeDilationHoldTime)
+                if (Time.unscaledTime >= _startTime + playerData.maxTimeDilationHoldTime)
                 {
                     _isHolding = false;
                     Time.timeScale = 1f;
