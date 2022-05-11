@@ -48,10 +48,6 @@ namespace ReverseTime
             StartReverseTimer();
             ResetReverseTimer();
             StopRevisingTime();
-
-            Debug.Log(
-                RewindingTimeIsFinished + " rewinding finished -------------------------------"
-            );
         }
 
         private void StartReverseTimer()
@@ -86,7 +82,7 @@ namespace ReverseTime
         {
             if (inputHandler.CanReverseTimeInput && _currentAmountOfReverseTime > 0)
             {
-                Debug.Log(inputHandler.CanReverseTimeInput + " Pressed rewind");
+                //Debug.Log(inputHandler.CanReverseTimeInput + " Pressed rewind");
 
                 _isRewindingTime = true;
                 commandStack.UndoLastCommand();
@@ -104,7 +100,7 @@ namespace ReverseTime
                     _isRewindingTime = false;
                     _currentAmountOfReverseTime--;
                     rewindTimeCounterUI.PlayDeactivateAnimation(_currentAmountOfReverseTime);
-                    Debug.Log("Released rewind");
+                    //Debug.Log("Released rewind");
                 }
             }
         }

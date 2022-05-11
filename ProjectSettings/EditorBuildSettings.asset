@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/MenuScene.unity
+    guid: 0687081b908eb7f4ab026d541df1199c
+  - enabled: 1
+    path: Assets/_Scenes/GameScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/_Scenes/OakWoods.unity
+    guid: 946f4eee13dc2ba499a272d624b08d14
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b7f9f66ae8346c94882b1c67407c6e8f,
       type: 2}

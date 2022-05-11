@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4910565484031532021
@@ -121,6 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 3
   damageRadius: 0.2
+  damageAmount: 10
+  maxAliveTime: 2
   _rb: {fileID: 4910565484031532021}
   whatIsGround:
     serializedVersion: 2
@@ -130,6 +132,8 @@ MonoBehaviour:
     m_Bits: 2048
   damagePosition: {fileID: 4910565484541745854}
   playerStatsTag: {fileID: 11400000, guid: 05fe506c8a940424baaff5bf0e16a4a2, type: 2}
+  playerWeaponTag: {fileID: 0}
+  brokenParticles: {fileID: 0}
 --- !u!114 &6022433003110404925
 MonoBehaviour:
   m_ObjectHideFlags: 0

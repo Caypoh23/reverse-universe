@@ -53,15 +53,15 @@ public class DataService : SingletonClass<DataService>
     #region Load Functions
 
     private float LoadSoundSettings() =>
-        !ES3.KeyExists(SoundSettingsString) ? ES3.Load<float>(SoundSettingsString) : 0;
+        ES3.KeyExists(SoundSettingsString) ? ES3.Load<float>(SoundSettingsString) : 0;
 
     private float LoadMusicSettings() =>
-        !ES3.KeyExists(MusicSettingsString) ? ES3.Load<float>(MusicSettingsString) : 0;
+        ES3.KeyExists(MusicSettingsString) ? ES3.Load<float>(MusicSettingsString) : 0;
 
     private float LoadPlayerHealthAmount() =>
         ES3.KeyExists(PlayerHealthString) ? ES3.Load<float>(PlayerHealthString) : 100;
 
     private Vector3 LoadPlayerPosition() =>
-        ES3.KeyExists(PlayerPositionString) ? ES3.Load<Vector3>(PlayerPositionString) : Vector3.one;
+        ES3.KeyExists(PlayerPositionString) ? ES3.Load<Vector3>(PlayerPositionString) : new Vector3(-6.33f, 73.6f, 0f);
     #endregion
 }

@@ -52,6 +52,8 @@ namespace Player.PlayerStates.SubStates
             _dashInput = PlayerBase.InputHandler.CanDashInput;
             _timeDilationInput = PlayerBase.InputHandler.CanDelayTimeInput;
 
+
+
             CheckJumpMultiplier();
 
             if (!Core.Movement.IsRewinding)
@@ -92,7 +94,7 @@ namespace Player.PlayerStates.SubStates
                 {
                     Core.Movement.CheckIfShouldFlip(_xInput);
                     Core.Movement.SetVelocityX(PlayerData.movementVelocity * _xInput);
-
+                    
                     PlayerBase.Anim.SetFloat(_yVelocity, Core.Movement.CurrentVelocity.y);
                     PlayerBase.Anim.SetFloat(
                         _xVelocity,

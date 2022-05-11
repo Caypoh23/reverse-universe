@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -131,17 +130,17 @@ namespace Player.Input
             }
         }
 
-        public void OnDashDirectionInput(InputAction.CallbackContext context)
-        {
-            RawDashDirectionInput = context.ReadValue<Vector2>();
+        // public void OnDashDirectionInput(InputAction.CallbackContext context)
+        // {
+        //     RawDashDirectionInput = context.ReadValue<Vector2>();
 
-            if (playerInput.currentControlScheme == "Keyboard")
-            {
-                RawDashDirectionInput = mainCamera.ScreenToWorldPoint((Vector3) RawDashDirectionInput) - transform.position;
-            }
+        //     if (playerInput.currentControlScheme == "Keyboard")
+        //     {
+        //         RawDashDirectionInput = mainCamera.ScreenToWorldPoint((Vector3) RawDashDirectionInput) - transform.position;
+        //     }
 
-            DashDirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
-        }
+        //     DashDirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
+        // }
 
         public void UseJumpInput() => CanJumpInput = false;
         public void UseDashInput() => CanDashInput = false;

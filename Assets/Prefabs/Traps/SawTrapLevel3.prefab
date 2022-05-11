@@ -143,4 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: {fileID: 11400000, guid: d34dd6ab3b3186742a217bad6828f9c5, type: 2}
-  damageAmount: 5
+  knockbackAngle: {x: 1, y: 1}
+  knockbackStrength: 10
+  damageAmount: 10

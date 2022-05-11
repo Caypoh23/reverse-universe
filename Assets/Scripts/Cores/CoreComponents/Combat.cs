@@ -39,7 +39,7 @@ namespace Cores.CoreComponents
 
         public void TakeDamage(float amount)
         {
-            Debug.Log(Core.transform.parent.name + " Damaged!");
+            //Debug.Log(Core.transform.parent.name + " Damaged!");
             Core.Stats.TakeDamage(amount);
             ActivateHitMaterial();
         }
