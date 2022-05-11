@@ -33,9 +33,8 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            Entity.TimeIsRewinding();
             
-            if (IsPlayerInMinAgroRange)
+            if (IsPlayerInMinAgroRange && !Core.Movement.IsRewinding)
             {
                 StateMachine.ChangeState(_enemy.PlayerDetectedState);
             }

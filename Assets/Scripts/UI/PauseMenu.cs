@@ -18,8 +18,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     private GameObject audioPanel;
 
+    [SerializeField] private bool isMainMenu;
+
     private void Update()
     {
+        if(isMainMenu)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Escape) && !pauseMenuBackground.gameObject.activeInHierarchy)
         {
             ActivatePauseMenu();

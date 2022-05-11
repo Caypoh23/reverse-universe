@@ -6,6 +6,8 @@ using Player.Data;
 using Player.Input;
 using ReverseTime.Commands;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 namespace ReverseTime
 {
@@ -24,6 +26,8 @@ namespace ReverseTime
         [SerializeField]
         private RewindTimeCounterUI rewindTimeCounterUI;
 
+        [SerializeField] private Image rewindTimeEffect;
+
         private float _currentReverseTimerAmount;
         private int _currentAmountOfReverseTime;
 
@@ -37,6 +41,8 @@ namespace ReverseTime
         public float _CurrentAmountOfReverseTime => _currentAmountOfReverseTime;
 
         private float _rewindTimeCooldown = 0.1f;
+
+        private bool _canActivateEffect = true;
 
         private void Awake()
         {
@@ -77,13 +83,15 @@ namespace ReverseTime
                 timerSlider.UpdateTimerSlider(_currentReverseTimerAmount);
             }
         }
+        
 
         public void ReverseTime(CommandStack commandStack)
         {
             if (inputHandler.CanReverseTimeInput && _currentAmountOfReverseTime > 0)
             {
                 //Debug.Log(inputHandler.CanReverseTimeInput + " Pressed rewind");
-
+                
+                ActivateRewindTimeEffect();
                 _isRewindingTime = true;
                 commandStack.UndoLastCommand();
             }
@@ -95,6 +103,7 @@ namespace ReverseTime
             {
                 if (inputHandler.CanReverseTimeInputStop || _currentReverseTimerAmount < 0)
                 {
+                    DeactivateRewindTimeEffect();
                     RewindingTimeIsFinished = true;
                     inputHandler.UseTimeReverseInput();
                     _isRewindingTime = false;
@@ -103,6 +112,21 @@ namespace ReverseTime
                     //Debug.Log("Released rewind");
                 }
             }
+        }
+
+        private void ActivateRewindTimeEffect()
+        {
+            if(_canActivateEffect)
+            {
+                rewindTimeEffect.DOFade(.2f, .5f);
+                _canActivateEffect = false;
+            }
+        }
+
+        private void DeactivateRewindTimeEffect()
+        {
+            rewindTimeEffect.DOFade(0f, .5f);
+            _canActivateEffect = true;
         }
     }
 }

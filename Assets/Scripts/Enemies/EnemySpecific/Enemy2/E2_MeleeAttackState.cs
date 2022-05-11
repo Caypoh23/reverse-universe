@@ -36,9 +36,8 @@ public class E2_MeleeAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        Entity.TimeIsRewinding();
 
-        if (IsAnimationFinished)
+        if (IsAnimationFinished && !Core.Movement.IsRewinding)
         {
             if (IsPlayerMinAgroRange)
             {

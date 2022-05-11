@@ -46,9 +46,8 @@ public class MinotaurPoundAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        Entity.TimeIsRewinding();
         
-        if (IsAnimationFinished)
+        if (IsAnimationFinished && !Core.Movement.IsRewinding)
         {
             if (IsPlayerMinAgroRange || IsInTouchingRange)
             {

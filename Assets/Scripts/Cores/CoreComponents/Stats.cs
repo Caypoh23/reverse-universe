@@ -23,7 +23,7 @@ namespace Cores.CoreComponents
         [SerializeField]
         private MMFeedbacks flashFeedback;
 
-        private float _currentHealth;
+        private float _currentHealth = 1;
 
         private readonly int DeathParameterName = Animator.StringToHash("Die");
 
@@ -59,9 +59,19 @@ namespace Cores.CoreComponents
             }
         }
 
-        public void IncreaseHealth()
+        public float IncreaseHealth()
         {
-            _currentHealth = Mathf.Clamp(_currentHealth + 10, 0, maxHealth);
+            if(healthBar != null)
+            {
+                healthBar.UpdateHealth();
+            }
+            return Mathf.Clamp(_currentHealth + 10, 0, maxHealth);
+        }
+
+        public void RestoreFullHealth() 
+        {
+            _currentHealth = maxHealth;
+            healthBar.UpdateHealth();
         }
     }
 }

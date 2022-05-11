@@ -38,7 +38,6 @@ namespace ReverseTime.Commands
 
         public void Execute()
         {
-            _previousHealthAmount = _characterHealthStats.CurrentHealthAmount;
             GetAnimationParameterName();
             _previousPosition = _currentPosition.position;
             _previousRotation.y = _currentPosition.localRotation.eulerAngles.y;
@@ -64,7 +63,7 @@ namespace ReverseTime.Commands
 
         public void Undo()
         {
-            _characterHealthStats.CurrentHealthAmount = _previousHealthAmount;
+            _characterHealthStats.CurrentHealthAmount = _characterHealthStats.IncreaseHealth();
             DeactivateAnimations();
             _animator.SetBool(_previousAnimationName, true);
             _currentPosition.position = _previousPosition;

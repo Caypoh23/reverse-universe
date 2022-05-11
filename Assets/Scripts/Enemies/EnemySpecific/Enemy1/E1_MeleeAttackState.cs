@@ -35,9 +35,8 @@ namespace Enemies.EnemySpecific.Enemy1
         {
             base.LogicUpdate();
 
-            Entity.TimeIsRewinding();
 
-            if (IsAnimationFinished)
+            if (IsAnimationFinished && !Core.Movement.IsRewinding)
             {
                 if (IsPlayerMinAgroRange)
                 {

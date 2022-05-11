@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-using System.Runtime.InteropServices;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,11 +12,5 @@ public class PlayerSpawner : MonoBehaviour
     {
         _dataService = DataService.Instance;
         playerPosition.position = _dataService.PlayerPosition;
-        _dataService.SavePlayerPosition(playerPosition.position);
-    }
-
-    public void SavePlayerPosition()
-    {
-        _dataService.SavePlayerPosition(playerPosition.position);
     }
 }

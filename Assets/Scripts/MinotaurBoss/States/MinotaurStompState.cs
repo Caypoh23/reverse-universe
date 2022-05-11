@@ -56,9 +56,8 @@ public class MinotaurStompState : AttackState
     {
         base.LogicUpdate();
 
-        Entity.TimeIsRewinding();
 
-        if (IsAnimationFinished)
+        if (IsAnimationFinished && !Core.Movement.IsRewinding)
         {
             if (IsPlayerMinAgroRange || IsInTouchingRange)
             {

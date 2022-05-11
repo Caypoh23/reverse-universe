@@ -8,12 +8,31 @@ public class PlayerSceneSwitcher : MonoBehaviour
     [SerializeField] private SceneLoader sceneLoader;
     [SerializeField] private Image image;
 
+
+    private float _fadeDuration = 1.5f;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.HasTag(playerTag))
         {
-            // image.DoFade(1f, 2f);
-            sceneLoader.LoadOakWoodsScene();
+            LoadOakWoodsScene();
         }
+    }
+
+    private void Start()
+    {
+        FadeOut();
+    }
+
+    private void FadeOut() => image?.DOFade(0f, _fadeDuration);
+    
+
+    private void LoadOakWoodsScene()
+    {
+        image.DOFade(1f, _fadeDuration)
+            .OnComplete(() => 
+            { 
+                sceneLoader.LoadOakWoodsScene();
+            });
     }
 }
